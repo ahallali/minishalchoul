@@ -1,0 +1,6 @@
+echo
+exit
+pwd
+cd
+export
+unset
