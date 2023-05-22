@@ -6,7 +6,7 @@
 #    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/05/21 20:29:30 by ahallali         ###   ########.fr        #
+#    Updated: 2023/05/22 02:06:41 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/in
 LDFLAGS = -lreadline  -lhistory
 SRCS = minishell.c\
 		bulltins.c\
-		outils.c
+		outils.c\
+		env.c
 OBJECTS = $(SRCS:.c=.o)
 INCLUD = minishell.h
 

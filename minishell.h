@@ -14,12 +14,18 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 // void parse(char *line);
-int ft_strlen(char *str);
+typedef struct s_node
+{
+    char *value;
+    char *variable;
+    void *next;
+} t_node;
 
-char **ft_split(char  *s, char c);
+int ft_strlen(char *str);
+void ft_env(char **env);
+char **ft_split(char *s, char c);
 void echo(char **str);
 char *ft_substr(char *s, unsigned int start, size_t len);
-
-int var_quote;
+void print_list(t_node *head);
 
 #endif

@@ -1,6 +1,6 @@
-echo
+echo -n 
 exit
 pwd
-cd
+cd d
 export
 unset
