@@ -6,13 +6,13 @@
 #    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/05/22 02:06:41 by ahallali         ###   ########.fr        #
+#    Updated: 2023/05/22 23:38:29 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/include 
 LDFLAGS = -lreadline  -lhistory
 SRCS = minishell.c\
 		bulltins.c\

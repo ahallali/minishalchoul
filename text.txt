@@ -1,6 +1,7 @@
 echo -n 
 exit
 pwd
-cd d
+cd
 export
 unset
+env done

@@ -13,6 +13,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 // void parse(char *line);
 typedef struct s_node
 {
@@ -27,5 +28,6 @@ char **ft_split(char *s, char c);
 void echo(char **str);
 char *ft_substr(char *s, unsigned int start, size_t len);
 void print_list(t_node *head);
-
+void ft_pwd();
+int ft_cd();
 #endif
