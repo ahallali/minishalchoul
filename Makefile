@@ -3,19 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
+#    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/05/22 23:38:29 by ahallali         ###   ########.fr        #
+#    Updated: 2023/05/26 01:17:23 by ichaiq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/include 
-LDFLAGS = -lreadline  -lhistory
+CFLAGS = -Wall -Wextra -Werror  -I /Users/ichaiq/goinfre/.brew/opt/readline/include 
+LDFLAGS = -lreadline  
+LIB = libft/libft.a
 SRCS = minishell.c\
 		bulltins.c\
+		parser_utils.c\
 		outils.c\
 		env.c
 OBJECTS = $(SRCS:.c=.o)
@@ -25,19 +27,27 @@ INCLUD = minishell.h
 
 all: $(NAME)
 
-%.o: %.c $(INCLUD)
+$(LIB):
+	make bonus -C libft 
+	make clean
+
+%.o: %.c $(INCLUD) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -L /Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
+$(NAME): $(OBJECTS) $(LIB)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ichaiq/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
 
 clean:
 	rm -rf $(OBJECTS)
+	make clean -C libft/
+
 	@echo "Cleaning objects"
 
 fclean: clean
 	rm -rf $(NAME)
+	make fclean -C libft/
+
 	@echo "Cleaning objects and executable"
 
 re: fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/05/23 17:24:49 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/05/26 01:23:01 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int main (int ac,char **av,char** env)
             line =readline("minishell>>");
         if (line && *line)
             add_history(line);//
+            
+        parse_prompt("ls -l | grep cat > outfile");
+        
         if (strcmp(line, "exit")==0)
         {
             free (line);
@@ -45,7 +48,7 @@ int main (int ac,char **av,char** env)
             if (t[1] && *t[1])
                 ft_cd(t[1]);
             else
-              chdir(getenv("HOME"));
+                chdir(getenv("HOME"));
         }
         else if (strcmp(t[0],"env" )==0)
             ft_env(env);// in this function we put the env data in a linked list then we print it  
