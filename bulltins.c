@@ -6,26 +6,45 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/05/21 20:48:18 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:26:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void check_n_arg(char *str)
+void print_list(t_node* head) {
+    t_node* tmp = head;
+    while (tmp != NULL) {
+        printf("%s=%s\n", tmp->variable, tmp->value);
+        tmp = tmp->next;
+    }
+}
+int check_n_arg(char *str)
 {
-  int i = 1;
-  
+  int i = 2;
   while (str[i])
   {
     if (str[i] != 'n')
-      {
-      // printf("-%c ",str[i]);
-    // else{
-    }
+        return (1);
     i++;
   }
+  return (0);
 }
+int ft_strwc(char *str)
+{
+  int i = 0;
+    while (str[i])
+    {
+        if (str[i] != '\"' && str[i]!= '\'')
+        {
+          printf("%c", str[i]);
+        }
+        i++;
+    }
+  return (0);
+}
+
+
 void echo (char **str)
 {
   int i = 1;
@@ -37,7 +56,11 @@ void echo (char **str)
     if (str[i][j] == '-')
     {
       j++;
-      check_n_arg(str[1]);
+      if (!check_n_arg(str[i]))
+        {
+        i++;
+        printf("%s ",str[i]);
+        }
       // if (str[i][j] == '\'' || str[i][j] == '\"')
       // {
       //   j++;
@@ -45,8 +68,35 @@ void echo (char **str)
       //   printf(" ");
       // }
     }
-    else
-      printf("%s\n",str[i]);
+    // else
+    //   if (str[i][j] == '\"' || str[i][j] == '\'')
+    //   {      
+    //   i++;
+    //   printf("%s ",str[i]);
+    //   }
     i++;
   }
 }
+// PWD BUILTINS
+
+void ft_pwd()
+{
+char *path;
+// puts("lalalal");
+path = getcwd(NULL,0);
+printf("%s\n", path);
+free(path);
+}
+
+ // CD BUILTINS
+
+int ft_cd(char *str)
+{
+  if(chdir(str)==0)
+    return (0);
+  else
+  {
+    perror(str);
+    return(1);
+  }
+} 

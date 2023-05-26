@@ -13,13 +13,23 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
+# include "libft/libft.h"
 // void parse(char *line);
-int ft_strlen(char *str);
-
-char **ft_split(char  *s, char c);
+typedef struct s_node
+{
+    char *value;
+    char *variable;
+    void *next;
+} t_node;
+char *ft_strtok(char *str, const char *delimiters) ;
+// int ft_strlen(char *str);
+void ft_env(char **env);
+// char **ft_split(char *s, char c);
 void echo(char **str);
-char *ft_substr(char *s, unsigned int start, size_t len);
-
-int var_quote;
-
+// char *ft_substr(char *s, unsigned int start, size_t len);
+void print_list(t_node *head);
+void ft_pwd();
+int ft_cd();
+void parse_prompt(char *p);
 #endif
