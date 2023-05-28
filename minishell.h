@@ -15,6 +15,7 @@
 # include <readline/history.h>
 # include <errno.h>
 # include "libft/libft.h"
+# include "parser.h"
 // void parse(char *line);
 typedef struct s_node
 {
@@ -22,7 +23,7 @@ typedef struct s_node
     char *variable;
     void *next;
 } t_node;
-char *ft_strtok(char *str, const char *delimiters) ;
+char *ft_strtok(char *str, const char *delimiters, char *skip) ;
 // int ft_strlen(char *str);
 void ft_env(char **env);
 // char **ft_split(char *s, char c);
@@ -31,5 +32,7 @@ void echo(char **str);
 void print_list(t_node *head);
 void ft_pwd();
 int ft_cd();
-void parse_prompt(char *p);
+// void parse_prompt(char *p);
+
+
 #endif

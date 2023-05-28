@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "minishell.h": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "parser.h": "c"
     }
 }

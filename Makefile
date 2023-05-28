@@ -6,20 +6,22 @@
 #    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/05/26 01:17:23 by ichaiq           ###   ########.fr        #
+#    Updated: 2023/05/28 03:31:18 by ichaiq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  -I /Users/ichaiq/goinfre/.brew/opt/readline/include 
+CFLAGS = -Wall -Wextra -Werror  -I /Users/ichaiq/goinfre/.brew/opt/readline/include  -fsanitize=address
+
 LDFLAGS = -lreadline  
 LIB = libft/libft.a
 SRCS = minishell.c\
 		bulltins.c\
 		parser_utils.c\
 		outils.c\
-		env.c
+		env.c\
+		parser_utils2.c
 OBJECTS = $(SRCS:.c=.o)
 INCLUD = minishell.h
 

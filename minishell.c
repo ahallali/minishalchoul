@@ -6,10 +6,12 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/05/26 01:23:01 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/05/28 04:58:56 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//
+ 
 #include"minishell.h"
 
 int main (int ac,char **av,char** env)
@@ -18,6 +20,7 @@ int main (int ac,char **av,char** env)
     (void)av;
     char *line = NULL;
     char **t;
+    t_parse_utils *p_prompt;
     
     ///CREATE PROMPT AND  ADD HISTORY
     while (1)
@@ -28,14 +31,20 @@ int main (int ac,char **av,char** env)
             line =readline("minishell>>");
         if (line && *line)
             add_history(line);//
-            
-        parse_prompt("ls -l | grep cat > outfile");
         
-        if (strcmp(line, "exit")==0)
-        {
-            free (line);
-            break;
-        }
+        p_prompt = ft_calloc(1, sizeof(t_parse_utils));
+        // char *p_clean = ft_strtrim(" echo \"hel | lo\" ", " ");
+        // char *p_clean = ft_strtrim(" ls|grep x", " ");
+        char *p_clean = ft_strtrim(line, " ");
+        p_prompt->prompt = ft_strdup(p_clean);
+        
+        parse_prompt(p_prompt->prompt , p_prompt);
+        
+        // if (strcmp(line, "exit")==0)
+        // {
+        //     free (line);
+        //     break;
+        // }
         t =ft_split(line,' ');
         if (!t)
         {
