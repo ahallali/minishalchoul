@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/05/28 10:02:14 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/05/29 00:13:57 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_OUTPUT;
         lex->command_name = last_lex->command_name;
+        // printf("str is : %s\n",str);
+
         if ((ft_strlen(str) == 2 && (str[1] == '>')))
         {
             str[1] = '\0';
@@ -87,10 +89,13 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_INPUT;
         lex->command_name = last_lex->command_name;
+        
+        
         if ((ft_strlen(str) == 2 && (str[1] == '<' )))
         {
             str[1] = '\0';
             lex->fd = ft_atoi(str);
+
         }
         ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
         printf("REDIRECTION_INPUT %d in lexer\n",lex->fd);

@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/05/28 04:46:44 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/05/29 00:20:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,38 @@ t_token_info *next_word(char *str, char *delimiter)
     i = 0;
     while (str[i] != '\0')
     {
-        c = ft_strchr(delimiter, str[i]);
-        if (c)
+        // c = ft_strchr(delimiter, str[i]);
+        if ((c = ft_strchr("<>", str[i]) ) != 0)
+        {
+            printf("test : %s\n", &str[i]);
+            
+            info->word = ft_substr(str, 0, i);
+            while (str[i + 1] == *c && !ft_strchr("<>",*c))
+                i++;
+            // printf("str[i] %c\n",str[i]);
+            // printf("str[i + 1] %c\n",str[i + 1]);
+            if (str[i] == str[i + 1])
+                info->limiter = ft_substr(str, i, 2);
+            else if (ft_isdigit(str[i-1]))
+            {
+                // while (ft_isdigit(str[--i]))
+                //     ;
+                
+                info->limiter = ft_substr(str, i, 2);
+                info->word = ft_substr(str+1, 0, i);
+            }
+            else {
+                info->limiter = &str[i];
+                info->word = ft_substr(str+1, 0, i);
+                // info->word = ft_substr(str, 0, i);
+            }
+            info->next_start = &str[i +1 ];
+            return info;
+        }
+        if ((c = ft_strchr(delimiter, str[i]) ))
         {
             info->word = ft_substr(str, 0, i);
-            while (str[i + 1] == *c)
+            while (str[i + 1] == *c && !ft_strchr("<>",*c))
                 i++;
             info->limiter = &str[i];
             info->next_start = &str[i +1 ];
@@ -125,17 +152,18 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
         // if (tok->word)
         // printf("tok word : %s\n", tok->word);
         // if (tok->limiter)
-        // printf("tok lim : %c\n", *(tok->limiter));
+        // printf("tok lim : %s\n", tok->limiter);
         // if (tok->next_start)
         // printf("tok nxt : %s\n", tok->next_start);
         // printf("--------------------\n");
+        if (tok->limiter && ( (ft_strchr("|<>",*(tok->limiter)))))
+            insert_to_lexer(tok->limiter, utils);
+        // else if ()
         if (!ft_strchr(" |",*tok->word))
             insert_to_lexer(tok->word, utils);
-        if (tok->limiter && ( ft_strchr("|<>",*(tok->limiter))))
-        {
-            if (*(tok->limiter) )
-            insert_to_lexer(tok->limiter, utils);
-        }
+        // {
+            // if (*(tok->limiter) )
+        // }
         if (tok->next_start && (*tok->next_start == '"' || *tok->next_start == '\''))
             parse_quotes(tok, utils);
         tok = next_word(tok->next_start, " |<>");
