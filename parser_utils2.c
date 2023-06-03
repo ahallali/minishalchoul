@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/03 02:11:10 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/03 03:04:56 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ t_token_info *next_word(char *str, char *delimiter)
     while (str[i] != '\0')
     {
         // c = ft_strchr(delimiter, str[i]);
+        
+        // REDIRECTIONS
         if ((c = ft_strchr("<>", str[i]) ) != 0)
         {
-            printf("test : %s\n", &str[i]);
+            // printf("test : %s\n", &str[i]);
             
             info->word = ft_substr(str, 0, i);
             while (str[i + 1] == *c && !ft_strchr("<>",*c))
@@ -55,12 +57,14 @@ t_token_info *next_word(char *str, char *delimiter)
             info->next_start = &str[i +1 ];
             return info;
         }
+        
+        // TOKEN DELIMITER
         if ((c = ft_strchr(delimiter, str[i]) ))
         {
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
-            while (str[i + 1] == *c && !ft_strchr("<>", *c))
-                i++;
+            if (str[i + 1] == *delimiter)
+                return (perror("Syntax error : unexpected token found"),NULL);
             info->limiter = &str[i];
             info->next_start = &str[i + 1];
             return info;
