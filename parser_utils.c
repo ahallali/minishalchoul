@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/03 02:10:57 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/03 05:25:10 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char* ft_strtok(char* str, const char* delimiters, char *skip) {
 
     if (*lastToken == '\0')  
         return NULL;
-    while (*token != '\0') {
+    while (*token != '\0') 
+    {
         if (ft_str_contains(skip, *token))
             sFound = 1;
         const char* delimiter = delimiters;
@@ -57,7 +58,7 @@ char* ft_strtok(char* str, const char* delimiters, char *skip) {
 
 int parse_quote(char *prompt, t_parse_utils *p_prompt)
 {
-    char *tmp = ft_strtok(prompt," ",NULL);
+    char *tmp = ft_strtok(prompt, " ", NULL);
     char *cmd;
     t_lex *lex;
     (void)p_prompt;
@@ -69,7 +70,7 @@ int parse_quote(char *prompt, t_parse_utils *p_prompt)
         cmd = ft_strtrim(tmp, " ");
         
         
-        tmp = ft_strtok(NULL," ",NULL);
+        tmp = ft_strtok(NULL, " ", NULL);
     
     }
     return 0;
@@ -105,13 +106,13 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
     while (tok)
     {
 
-        // if (tok->word)
-        // printf("tok word : %s\n", tok->word);
-        // if (tok->limiter)
-        // printf("tok lim : %s\n", tok->limiter);
-        // if (tok->next_start)
-        // printf("tok nxt : %s\n", tok->next_start);
-        // printf("--------------------\n");
+        if (tok->word)
+            printf("tok word : %s\n", tok->word);
+        if (tok->limiter)
+            printf("tok lim : %s\n", tok->limiter);
+        if (tok->next_start)
+            printf("tok nxt : %s\n", tok->next_start);
+        printf("--------------------\n");
 
         if (!ft_strchr(" |",*tok->word))
             insert_to_lexer(tok->word, utils);
@@ -122,7 +123,7 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
         if (tok->next_start && (*tok->next_start == '"' || *tok->next_start == '\''))
             parse_quotes(tok, utils);
             
-        tok = next_word(tok->next_start, " |<>");
+        tok = next_word(tok->next_start, "|<> ");
     }
     
 

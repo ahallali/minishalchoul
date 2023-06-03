@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/03 03:04:56 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/03 05:58:35 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ t_token_info *next_word(char *str, char *delimiter)
         // c = ft_strchr(delimiter, str[i]);
         
         // REDIRECTIONS
-        if ((c = ft_strchr("<>", str[i]) ) != 0)
+        if ((c = ft_strchr(IO_PARSE, str[i]) ) != 0)
         {
-            // printf("test : %s\n", &str[i]);
+            printf("test : %s\n", &str[i]);
             
             info->word = ft_substr(str, 0, i);
+            if ((ft_strnchr(IO_PARSE, str[i + 1], 1) && ft_strnchr(IO_PARSE, str[i + 2], 1)
+                )|| (str[i] == IO_PARSE[1] && str[i + 1] == IO_PARSE[0]))
+                return (perror("Syntax error : unexpected token found1"),NULL);
             while (str[i + 1] == *c && !ft_strchr("<>",*c))
                 i++;
             // printf("str[i] %c\n",str[i]);
@@ -47,24 +50,27 @@ t_token_info *next_word(char *str, char *delimiter)
                 //     ;
                 
                 info->limiter = ft_substr(str, i, 2);
-                info->word = ft_substr(str+1, 0, i);
+                info->word = ft_substr(str + 1, 0, i);
             }
             else {
                 info->limiter = &str[i];
-                info->word = ft_substr(str+1, 0, i);
+                info->word = ft_substr(str, 0, i);
                 // info->word = ft_substr(str, 0, i);
             }
-            info->next_start = &str[i +1 ];
+            info->next_start = &str[i + 1];
             return info;
         }
-        
         // TOKEN DELIMITER
         if ((c = ft_strchr(delimiter, str[i]) ))
         {
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
-            if (str[i + 1] == *delimiter)
-                return (perror("Syntax error : unexpected token found"),NULL);
+            // if (str[i] == *delimiter && str[i + 1] == *delimiter)
+            printf("str[i] : %c\n",str[i]);
+            printf("str[i + 1] : %c\n",str[i + 1]);
+            printf("delimiter : %c\n",*delimiter);
+            if (ft_strnchr(DELIMS_PARSE, str[i],2) && ft_strnchr(DELIMS_PARSE, str[i + 1],1))
+                return (perror("Syntax error : unexpected token found2"),NULL);
             info->limiter = &str[i];
             info->next_start = &str[i + 1];
             return info;
