@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/05/28 10:16:36 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/03 02:10:59 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,5 @@ typedef struct s_parse_utils
 void parse_prompt(char *prompt ,t_parse_utils *utils);
 int parse_quote(char *prompt, t_parse_utils *p_prompt);
 int insert_to_lexer(char *str, t_parse_utils *u);
+void parse_quotes(t_token_info *tok, t_parse_utils *utils);
+t_token_info *next_word(char *str, char *delimiter);
