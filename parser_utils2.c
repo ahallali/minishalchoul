@@ -6,30 +6,85 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/05/29 00:13:57 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/03 05:58:35 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int parse_quote(char *prompt, t_parse_utils *p_prompt)
+
+t_token_info *next_word(char *str, char *delimiter)
 {
-    char *tmp = ft_strtok(prompt," ",NULL);
-    char *cmd;
-    t_lex *lex;
-    (void)p_prompt;
-    lex = ft_calloc(1, sizeof(t_lex));
-    while (tmp != NULL)
+    t_token_info *info;
+    int i;
+    int flag;
+    char *c;
+
+    flag = 0;
+    if (!str)
+        return (NULL);
+    info = ft_calloc(1, sizeof(t_token_info));
+    i = 0;
+    while (str[i] != '\0')
     {
+        // c = ft_strchr(delimiter, str[i]);
         
-        // printf("parser : %s\n",tmp );
-        cmd = ft_strtrim(tmp, " ");
-        
-        
-        tmp = ft_strtok(NULL," ",NULL);
-    
+        // REDIRECTIONS
+        if ((c = ft_strchr(IO_PARSE, str[i]) ) != 0)
+        {
+            printf("test : %s\n", &str[i]);
+            
+            info->word = ft_substr(str, 0, i);
+            if ((ft_strnchr(IO_PARSE, str[i + 1], 1) && ft_strnchr(IO_PARSE, str[i + 2], 1)
+                )|| (str[i] == IO_PARSE[1] && str[i + 1] == IO_PARSE[0]))
+                return (perror("Syntax error : unexpected token found1"),NULL);
+            while (str[i + 1] == *c && !ft_strchr("<>",*c))
+                i++;
+            // printf("str[i] %c\n",str[i]);
+            // printf("str[i + 1] %c\n",str[i + 1]);
+            if (str[i] == str[i + 1])
+                info->limiter = ft_substr(str, i, 2);
+            else if (ft_isdigit(str[i-1]))
+            {
+                // while (ft_isdigit(str[--i]))
+                //     ;
+                
+                info->limiter = ft_substr(str, i, 2);
+                info->word = ft_substr(str + 1, 0, i);
+            }
+            else {
+                info->limiter = &str[i];
+                info->word = ft_substr(str, 0, i);
+                // info->word = ft_substr(str, 0, i);
+            }
+            info->next_start = &str[i + 1];
+            return info;
+        }
+        // TOKEN DELIMITER
+        if ((c = ft_strchr(delimiter, str[i]) ))
+        {
+            // puts("delimiter found\n");
+            info->word = ft_substr(str, 0, i);
+            // if (str[i] == *delimiter && str[i + 1] == *delimiter)
+            printf("str[i] : %c\n",str[i]);
+            printf("str[i + 1] : %c\n",str[i + 1]);
+            printf("delimiter : %c\n",*delimiter);
+            if (ft_strnchr(DELIMS_PARSE, str[i],2) && ft_strnchr(DELIMS_PARSE, str[i + 1],1))
+                return (perror("Syntax error : unexpected token found2"),NULL);
+            info->limiter = &str[i];
+            info->next_start = &str[i + 1];
+            return info;
+        }
+        i++;
+        if (!str[i])
+        {
+            info->word = str;
+            info->limiter = NULL;
+            info->next_start =NULL;
+            return info;
+        }
     }
-    return 0;
+    return NULL;
 }
 
 int insert_to_lexer(char *str, t_parse_utils *u)
