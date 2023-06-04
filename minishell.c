@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/03 18:50:24 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:16:10 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@ int main (int ac,char **av,char** env)
     (void)av;
     char *line = NULL;
     char **t;
+    t_minishell *minishell;
     // t_parse_utils *p_prompt;
-    t_node *head = NULL;
-    t_node *new = NULL;
+    // t_node *hea = NULL;
 
+    minishell = malloc (sizeof (t_minishell));
+    minishell->env=NULL;
+    if (!minishell)
+        return (0);
     if (*env)
-    {  
-    head = ft_env(env);
-    }
-    else 
-    {
+    minishell->env = ft_env(env);
+    // else 
     // printf("EMPTY ENV \n");// to update
-    }
+    update_env(minishell->env,"OLDPWD",NULL);
     while (1)
     {
         line = readline("minishell>>");
@@ -60,15 +61,16 @@ int main (int ac,char **av,char** env)
             printf("error");
             return (0);
         }
-        update_env(head,"OLDPWD",NULL);
-        new=head;
+            
+        
+        // print_list(new);
     //CD && PWD && ENV BUILTIN DONE 
         if (strcmp(t[0],"cd")==0)
-             ft_cd(new, t);
+             ft_cd( minishell, t);
         else if (strcmp(t[0],"env")==0)
-            print_list(new);
+            print_list( minishell->env);
         else if (strcmp(t[0], "pwd") == 0)
-            ft_pwd(new,"PWD");
+            ft_pwd( minishell->env,"PWD");
         // else if (ft_strncmp(t[0], "export",6) == 0)
         //     ft_export(new,t[1]);
         // else if (ft_strncmp(t[0], "unset",6) == 0)

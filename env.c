@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 02:06:09 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/03 18:51:43 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:10:51 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void  insert_node(t_node **head,char *value,char *variable)
 t_node * ft_env(char **env)
 {
   t_node *head = NULL;
-  // printf("here");
   while (*env)
   {
     char* tmp =strchr(*env,'=');

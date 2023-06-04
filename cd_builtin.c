@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/03 18:52:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:18:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_node * gt(char *str,t_node * head)
   oldpwd = getcwd(NULL, 0);
   if (chdir(str) == 0)
   {
-	update_env(new,"OLDPWD",oldpwd);
+	update_env(head,"OLDPWD",oldpwd);
 	t =  getcwd(NULL,0);
-	new =update_env(new,"PWD",t);
+	new=update_env(head,"PWD",t);
 	// print_list(new);
 	return (new);
   }
@@ -44,7 +44,7 @@ t_node * update_env(t_node *head ,char *var,char * data)
 			t->value = data;
 		t=t->next;
 	}
-	return (t);
+	return (head);
 }
 // t_node *envi(char ** str)
 // {
@@ -96,17 +96,19 @@ char * path_finder(t_node *head ,char *var)
 {
   t_node * t;
   t = head;
+  if (!head)
+	return (NULL);
   while (t->next)
   {
 	if (!strcmp(t->variable, var))
 		return (t->value);
 	t = t->next;
   }
-  puts("test");
+//   puts("test");
   return (NULL);
 }
 
-t_node*  ft_cd (t_node* head,char ** t)
+t_node*  ft_cd (t_minishell *head,char ** t)
 {
   t_node *new=NULL;
   char *tmp=NULL;
@@ -114,39 +116,41 @@ t_node*  ft_cd (t_node* head,char ** t)
   {
 	if (t[1][0]== '~')
 	{
-	  if (path_finder(head,"HOME"))
-		tmp = path_finder(head,"HOME");
+	  if (path_finder(head->env,"HOME"))
+		tmp = path_finder(head->env,"HOME");
 	  chdir(tmp);
-	  update_env(head,"OLDPWD",path_finder(head,"PWD"));
-	  new=update_env(head,"PWD",tmp);
+	  head->env = update_env(head->env,"OLDPWD",path_finder(head->env,"PWD"));
+	  head->env =update_env(head->env,"PWD",tmp);
 	}
 	if (t[1][0] == '-')
 	{
-		printf("%s",path_finder(head,"OLDPWD"));
-	  if (path_finder(head,"OLDPWD")!= NULL)
-	  {
-		tmp = path_finder(head,"OLDPWD");    
-	  chdir(tmp);
-	  update_env(head,"OLDPWD",path_finder(head,"PWD"));
-	  new=update_env(head,"PWD",tmp);
-	  ft_pwd(new,"OLDPWD");
-	  }
-	  else
+		printf("%s",path_finder(head->env,"OLDPWD"));
+		if (path_finder(head->env,"OLDPWD")!= NULL)
+		{
+			tmp = path_finder(head->env,"OLDPWD");    
+			chdir(tmp);
+			head->env = update_env(head->env,"OLDPWD","chi 9alwa");
+			head->env = update_env(head->env,"PWD","9alwa khra");
+			// ft_pwd(head->env,"OLDPWD");
+		}
+	  	else
+			print_list(new);
 		perror("OLDPWD NOT SET");
+ 	}
+	else
+		new = gt(t[1], head->env);
 	}
  	else if (!t[1] || !*t[1])
 	{
-	if (path_finder(head,"HOME"))
-		tmp = path_finder(head,"HOME");
-	if (chdir(tmp) == 0)
-	{	
-		update_env(head,"OLDPWD",path_finder(head,"PWD"));
-	new=update_env(head,"PWD",tmp);
+		if (path_finder(head->env,"HOME"))
+			tmp = path_finder(head->env,"HOME");
+		if (chdir(tmp) == 0)
+		{	
+			update_env(head->env,"OLDPWD",path_finder(head->env,"PWD"));
+			new=	update_env(head->env,"PWD",tmp);
+		
+ 		 }
 	}
-	else
-	new = gt(t[1], head);
- 	}
-  }
 
   return (new);
 }

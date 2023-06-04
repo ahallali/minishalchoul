@@ -13,8 +13,8 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <errno.h>
 # include "libft/libft.h"
+# include <errno.h>
 // # include "parser.h"
 // void parse(char *line);
 typedef struct s_node
@@ -24,6 +24,10 @@ typedef struct s_node
 	struct s_node *next;
 }   t_node;
 
+typedef struct s_minishell
+{
+	t_node * env;
+}t_minishell;
 
 t_node *
 ft_list_remove_if(t_node **head, char *data, int (*cmp)());
@@ -36,7 +40,7 @@ void ft_pwd(t_node *head,char *s);
 t_node * gt(char *str, t_node *head);
 t_node *update_env(t_node *head, char *var, char *data);
 char *path_finder(t_node *head, char *var);
-t_node *ft_cd(t_node *head, char **t);
+t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
 t_node *ft_export(t_node *head, char *s);
 
