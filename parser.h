@@ -14,13 +14,14 @@
 
 typedef enum e_lex_type
 {
-    PIPE,
-    QUOTE,
-    CMD,
-    ARG,
+    PIPE = 0,
+    CMD = 1,
+    ARG = 2,
+    QUOTE=3,
+    DQUOTE=4,
     // FILE,
-    REDIRECTION_INPUT,    
-    REDIRECTION_OUTPUT,    
+    REDIRECTION_INPUT=5,    
+    REDIRECTION_OUTPUT=6,    
 } lex_type;
 
 typedef struct s_lex
@@ -28,8 +29,9 @@ typedef struct s_lex
     char *command_name;
     char *variable;
     char *filename;
+    int  flag;
     int  fd;
-    void *next;
+    // void * hbnext;
     lex_type type;
 } t_lex;
 
@@ -44,11 +46,24 @@ typedef struct s_parse_utils
 {
     t_lex   *lexer;
     t_list  *list_cmds;
+    t_list  *list_exec;
     int     wait_squote;
     int     wait_dquote;
     char    *prompt;
     char    *tmp_prompt;
 } t_parse_utils;
+
+
+typedef struct s_exec_utils
+{
+    char    *cmd;
+    t_list  *args;
+    int     inputFd;
+    int     outputFd;
+}           t_exec_utils;
+
+void print_lex(void *lex);
+void get_exec(t_parse_utils *u);
 
 void parse_prompt(char *prompt ,t_parse_utils *utils);
 int parse_quote(char *prompt, t_parse_utils *p_prompt);

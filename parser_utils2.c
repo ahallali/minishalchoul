@@ -69,6 +69,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_OUTPUT;
         lex->command_name = last_lex->command_name;
+        lex->flag = O_WRONLY;
         // printf("str is : %s\n",str);
 
         if ((ft_strlen(str) == 2 && (str[1] == '>')))
@@ -89,6 +90,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_INPUT;
         lex->command_name = last_lex->command_name;
+        lex->flag = O_RDONLY;
         
         
         if ((ft_strlen(str) == 2 && (str[1] == '<' )))
