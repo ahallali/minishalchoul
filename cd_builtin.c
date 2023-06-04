@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/04 20:18:56 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:30:54 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,6 @@ t_node*  ft_cd (t_minishell *head,char ** t)
 	  head->env = update_env(head->env,"OLDPWD",path_finder(head->env,"PWD"));
 	  head->env =update_env(head->env,"PWD",tmp);
 	}
-	if (t[1][0] == '-')
-	{
-		printf("%s",path_finder(head->env,"OLDPWD"));
-		if (path_finder(head->env,"OLDPWD")!= NULL)
-		{
-			tmp = path_finder(head->env,"OLDPWD");    
-			chdir(tmp);
-			head->env = update_env(head->env,"OLDPWD","chi 9alwa");
-			head->env = update_env(head->env,"PWD","9alwa khra");
-			// ft_pwd(head->env,"OLDPWD");
-		}
-	  	else
-			print_list(new);
-		perror("OLDPWD NOT SET");
- 	}
 	else
 		new = gt(t[1], head->env);
 	}

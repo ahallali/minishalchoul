@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahallali <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/06/04 19:16:53 by ahallali         ###   ########.fr        #
+#    Updated: 2023/06/04 23:17:10 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,14 @@ INCLUD = minishell.h
 
 all: $(NAME)
 
-$(LIB):
-	make bonus -C libft 
-	make clean
-
 %.o: %.c $(INCLUD) $(lib)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS) $(LIB)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ichaiq/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
+$(LIB):
+	make bonus -C libft 
 
 clean:
 	rm -rf $(OBJECTS)
