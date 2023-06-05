@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/03 05:25:10 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/04 23:13:21 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
     while (tok)
     {
 
-        if (tok->word)
-            printf("tok word : %s\n", tok->word);
-        if (tok->limiter)
-            printf("tok lim : %s\n", tok->limiter);
-        if (tok->next_start)
-            printf("tok nxt : %s\n", tok->next_start);
+        // if (tok->word)
+        //     printf("tok word : %s\n", tok->word);
+        // if (tok->limiter)
+        //     printf("tok lim : %s\n", tok->limiter);
+        // if (tok->next_start)
+        //     printf("tok nxt : %s\n", tok->next_start);
         printf("--------------------\n");
 
         if (!ft_strchr(" |",*tok->word))
@@ -125,8 +125,9 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
             
         tok = next_word(tok->next_start, "|<> ");
     }
+    // ft_lstiter(utils->list_cmds, print_lex);
+    // get_exec(utils);
     
-
     
 }
 

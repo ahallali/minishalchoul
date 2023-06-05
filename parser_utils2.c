@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/03 05:58:35 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/03 21:33:27 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ t_token_info *next_word(char *str, char *delimiter)
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
             // if (str[i] == *delimiter && str[i + 1] == *delimiter)
-            printf("str[i] : %c\n",str[i]);
-            printf("str[i + 1] : %c\n",str[i + 1]);
-            printf("delimiter : %c\n",*delimiter);
+            // printf("str[i] : %c\n",str[i]);
+            // printf("str[i + 1] : %c\n",str[i + 1]);
+            // printf("delimiter : %c\n",*delimiter);
             if (ft_strnchr(DELIMS_PARSE, str[i],2) && ft_strnchr(DELIMS_PARSE, str[i + 1],1))
                 return (perror("Syntax error : unexpected token found2"),NULL);
             info->limiter = &str[i];
@@ -97,6 +97,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
     // t_list *last_node;
     
     // node = u->list_cmds;
+    // printf("str : %s\n",str);
     node = ft_lstlast(u->list_cmds);
     if (!node )
     {
@@ -117,7 +118,8 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         return (1);
 
     }
-    else if (*str == '>' || (ft_strlen(str) == 2 && (str[1] == '>')))
+    else if ((*str == '>' || (ft_strlen(str) == 2 && (str[1] == '>')))
+        && last_lex->type != REDIRECTION_OUTPUT)
     {
         ///     ***IMPORTANT***
         //   create a new fd in case there are multiple outfiles
@@ -160,16 +162,16 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
         
     }
-    else if (last_lex->type == PIPE)
+    else if (last_lex->type == REDIRECTION_OUTPUT && !last_lex->filename)
     {
-        lex->type = CMD;
-        lex->command_name = str;
-        node = ft_lstnew(lex);
-        ft_lstadd_back(&u->list_cmds, node);
-        printf("CMD '%s' in lexer\n",str);
+
+        last_lex->filename = str;
+        lex->variable = str;
+        // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
+        printf("modified first REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
         return (1);
     }
-    else if (last_lex->type == CMD || last_lex->type == ARG)
+    else if (last_lex->type != PIPE)
     {
         lex->type = ARG;
         // lex->last
@@ -180,17 +182,42 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         return (1);
 
     }
-    else if ((last_lex->type == REDIRECTION_OUTPUT || last_lex->type == REDIRECTION_INPUT )
-         && !(last_lex->fd == -1 && !last_lex->filename))
+    // else if (last_lex->type == CMD || last_lex->type == ARG)
+    // {
+    //     lex->type = ARG;
+    //     // lex->last
+    //     lex->variable = str;
+    //     lex->command_name = last_lex->command_name;
+    //     ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
+    //     printf("ARGS '%s' in lexer\n",str);
+    //     return (1);
+
+    // }
+    else if (last_lex->type == PIPE || last_lex->type != ARG)
     {
-
-        last_lex->filename = str;
-        lex->variable = str;
-        // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("modified REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
+        lex->type = CMD;
+        lex->command_name = str;
+        node = ft_lstnew(lex);
+        ft_lstadd_back(&u->list_cmds, node);
+        printf("CMD '%s' in lexer\n",str);
         return (1);
-
     }
+    // else if (G)
+    // {
+
+    // }
+    
+
+    // else if ((last_lex->type == REDIRECTION_OUTPUT || last_lex->type == REDIRECTION_INPUT )
+    //      && !(last_lex->fd == -1 && !last_lex->filename))
+    // {
+
+    //     last_lex->filename = str;
+    //     lex->variable = str;
+    //     // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
+    //     printf("modified REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
+    //     return (1);
+    // }
     
     // if (last_lex->type == CMD)
     //     printf("last is cmd \n");
