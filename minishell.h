@@ -43,7 +43,7 @@ char *path_finder(t_node *head, char *var);
 t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
 t_node *ft_export(t_node *head, char *s);
-
+t_node *ft_unset(t_node *head, char *var);
 // void parse_prompt(char *p);
 
 #endif

@@ -4,6 +4,8 @@
         "*.excalidraw": "json",
         "*.excalidrawlib": "json",
         "libft.h": "c",
-        "history.h": "c"
+        "history.h": "c",
+        "minishell.h": "c",
+        "readline.h": "c"
     }
 }

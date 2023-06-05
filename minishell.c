@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/04 20:16:10 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/05 01:21:12 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main (int ac,char **av,char** env)
     if (!minishell)
         return (0);
     if (*env)
-    minishell->env = ft_env(env);
+        minishell->env = ft_env(env);
     // else 
     // printf("EMPTY ENV \n");// to update
     update_env(minishell->env,"OLDPWD",NULL);
@@ -36,7 +36,8 @@ int main (int ac,char **av,char** env)
     {
         line = readline("minishell>>");
         if (!line)
-            exit(0);
+            ft_putstr_fd("exit\n",STDIN_FILENO);
+            // exit(0);
         while (!line || !*line)
             line =readline("minishell>>");
         if (line && *line)
@@ -50,11 +51,11 @@ int main (int ac,char **av,char** env)
         
         // parse_prompt(p_prompt->prompt , p_prompt);
         
-        // if (strcmp(line, "exit")==0)
-        // {
-        //     free (line);
-        //     break;
-        // }
+        if (strcmp(line, "exit")==0)
+        {
+            free (line);
+            break;
+        }
         t =ft_split(line,' ');
         if (!t)
         {
@@ -73,8 +74,12 @@ int main (int ac,char **av,char** env)
             ft_pwd( minishell->env,"PWD");
         // else if (ft_strncmp(t[0], "export",6) == 0)
         //     ft_export(new,t[1]);
-        // else if (ft_strncmp(t[0], "unset",6) == 0)
-        //     ft_unset(new,t[1]);
+        else if (ft_strncmp(t[0], "unset",5) == 0)
+            ft_unset(minishell->env,t[1]);
+          // else if (strcmp(t[0], "echo") == 0)
+        //     ft_echo (new,t[1]);
+        // else if (strcmp(t[0], "exit") == 0)
+        //     ft_exit (new,t[1]);
     }
     
 }

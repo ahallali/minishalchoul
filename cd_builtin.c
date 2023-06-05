@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/05 00:30:54 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/05 01:18:17 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,28 @@ void print_list(t_node* head) {
 		printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
+}
+void del (void *ptr)
+{
+	(void)ptr;
+}
+t_node * ft_unset(t_node * head,char * var)
+{
+	t_node * t=head;
+	t_node *tmp;
+	
+	if (!head || !var)
+		return (NULL);
+	while (t)
+	{
+		printf("%s\n", t->variable);
+		if (!strcmp(t->variable,var) && strcmp(t->variable,"_"))
+		{
+
+			tmp->next = t->next;
+		}
+		tmp = t;
+		t = t->next;
+	}
+	return (t);
 }
