@@ -83,6 +83,12 @@ t_token_info *next_word(char *str, char *delimiter)
             info->next_start =NULL;
             return info;
         }
+        // if (ft_strStartWith(info->word, '"') && !ft_strEndsWith(info->word, '\''))
+        // while (/* condition */)
+        // {
+        //     /* code */
+        // }
+        
     }
     return NULL;
 }
@@ -168,7 +174,16 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         last_lex->filename = str;
         lex->variable = str;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("modified first REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
+        printf("modified out REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
+        return (1);
+    }
+    else if (last_lex->type == REDIRECTION_INPUT && !last_lex->filename)
+    {
+
+        last_lex->filename = str;
+        lex->variable = str;
+        // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
+        printf("modified in REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
         return (1);
     }
     else if (last_lex->type != PIPE)

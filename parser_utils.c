@@ -75,29 +75,57 @@ int parse_quote(char *prompt, t_parse_utils *p_prompt)
     }
     return 0;
 }
+
+char *get_new_line(char *prompt,t_parse_utils *utils)
+{
+    char *line;
+    char *tmp;
+
+    tmp = readline(prompt);
+    // if (!tmp)
+    //     return (tmp);
+    if (!ft_strchr(tmp,'"'))
+        line = ft_strjoin(tmp,"\n"); 
+    else
+        line = tmp;
+    return (line);   
+}
+
 void parse_quotes(t_token_info *tok, t_parse_utils *utils)
 {
     int i;
     char c;
+    char *line;
     
     i = 1;
-    if ((*tok->next_start == '"' || *tok->next_start == '\'') 
-        && ft_strlen(tok->next_start) > 1)
+    while ((*tok->next_start == '"' || *tok->next_start == '\'') 
+        && ft_strlen(tok->next_start) >= 1)
     {
         c = *tok->next_start;
-        while (tok->next_start[i] != c)
+        while (tok->next_start[i] && tok->next_start[i] != c)
             i++; 
-        if (tok->next_start[i] == c)
+        if (tok->next_start[i] && tok->next_start[i] == c)
         {
             insert_to_lexer(ft_substr(tok->next_start, 0, ++i), utils);
             tok->next_start = &tok->next_start[i];
+            break;
         }
-        else 
+        else {
+            if (!utils->wait_dquote)
+                tok->next_start =ft_strjoin(tok->next_start,"\n");
             utils->wait_dquote = 1;
+            line = get_new_line("dquote>",utils);
+            tok->next_start = ft_strjoin(tok->next_start, line);
+            // printf("line : %s\n",line);
+        }
     }
 
 }
 
+// void parse_till_dquotes(char **word)
+// {
+
+// }
 
 void parse_prompt(char *prompt ,t_parse_utils *utils)
 {
@@ -112,7 +140,7 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
         //     printf("tok lim : %s\n", tok->limiter);
         // if (tok->next_start)
         //     printf("tok nxt : %s\n", tok->next_start);
-        printf("--------------------\n");
+        // printf("--------------------\n");
 
         if (!ft_strchr(" |",*tok->word))
             insert_to_lexer(tok->word, utils);

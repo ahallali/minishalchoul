@@ -65,6 +65,13 @@ void get_exec(t_parse_utils *u)
             else
                 exec->outputFd = tmp->fd;
         }
+
+        if (tmp->type == 0)
+        {
+            if (pipe(fd))
+		        perror("pipe error\n");
+            
+        }
         l_tmp = l_tmp->next;
 
         // cat -e < minishell.c < outils.c | grep main > out1 out2
