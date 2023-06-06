@@ -6,7 +6,7 @@
 #    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/06/06 01:20:27 by ichaiq           ###   ########.fr        #
+#    Updated: 2023/06/06 01:25:41 by ichaiq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ SRCS = minishell.c\
 		bulltins.c\
 		cd_builtin.c\
 		parser_utils.c\
-		outils.c\
 		env.c\
 		parser_utils2.c\
 		parser_utils3.c
