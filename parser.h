@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/04 23:06:19 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/06 01:05:20 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 #define DELIMS_PARSE "|<>"
 #define IO_PARSE "<>"
+#define QUOTES_PARSE "\"'"
 
 typedef enum e_lex_type
 {
@@ -65,17 +66,20 @@ typedef struct s_exec_utils
 {
     char    *cmd;
     t_list  *args;
+    char    *infile;
+    char    *outfile;
     int     inputFd;
     int     outputFd;
 }           t_exec_utils;
 
+void print_exec(void *exec);
 void print_lex(void *lex);
-void get_exec(t_parse_utils *u);
-
-void parse_prompt(char *prompt ,t_parse_utils *utils);
+t_list *parse_prompt(char *prompt ,t_parse_utils *utils);
 int parse_quote(char *prompt, t_parse_utils *p_prompt);
 int insert_to_lexer(char *str, t_parse_utils *u);
 void parse_quotes(t_token_info *tok, t_parse_utils *utils);
 t_token_info *next_word(char *str, char *delimiter);
+t_list *get_exec(t_parse_utils *u);
+
 
 #endif

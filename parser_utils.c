@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/04 23:13:21 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/06 01:05:06 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,17 @@ int parse_quote(char *prompt, t_parse_utils *p_prompt)
     return 0;
 }
 
-char *get_new_line(char *prompt,t_parse_utils *utils)
+char *get_new_line(char *prompt,t_parse_utils *utils, char c)
 {
     char *line;
     char *tmp;
 
+    (void)utils;
     tmp = readline(prompt);
     // if (!tmp)
     //     return (tmp);
-    if (!ft_strchr(tmp,'"'))
-        line = ft_strjoin(tmp,"\n"); 
+    if (!ft_strchr(tmp, c))
+        line = ft_strjoin(tmp, "\n"); 
     else
         line = tmp;
     return (line);   
@@ -112,9 +113,9 @@ void parse_quotes(t_token_info *tok, t_parse_utils *utils)
         }
         else {
             if (!utils->wait_dquote)
-                tok->next_start =ft_strjoin(tok->next_start,"\n");
+                tok->next_start =ft_strjoin(tok->next_start, "\n");
             utils->wait_dquote = 1;
-            line = get_new_line("dquote>",utils);
+            line = get_new_line(">", utils, c);
             tok->next_start = ft_strjoin(tok->next_start, line);
             // printf("line : %s\n",line);
         }
@@ -127,7 +128,7 @@ void parse_quotes(t_token_info *tok, t_parse_utils *utils)
 
 // }
 
-void parse_prompt(char *prompt ,t_parse_utils *utils)
+t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
 {
 
     t_token_info * tok = next_word(prompt, "| ");
@@ -148,14 +149,17 @@ void parse_prompt(char *prompt ,t_parse_utils *utils)
         if (tok->limiter && ( (ft_strchr("|<>",*(tok->limiter)))))
             insert_to_lexer(tok->limiter, utils);
 
-        if (tok->next_start && (*tok->next_start == '"' || *tok->next_start == '\''))
+        if (tok->next_start 
+            && (ft_strchr(QUOTES_PARSE, *tok->next_start) || ft_strchr(QUOTES_PARSE, *tok->word)))
             parse_quotes(tok, utils);
             
         tok = next_word(tok->next_start, "|<> ");
     }
     // ft_lstiter(utils->list_cmds, print_lex);
-    // get_exec(utils);
-    
+    // t_list *res = get_exec(utils);
+    // printf("count : %d",ft_lstsize(res));
+    // ft_lstiter(res, print_exec);
+    return get_exec(utils);
     
 }
 

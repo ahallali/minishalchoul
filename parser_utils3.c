@@ -14,6 +14,24 @@ void print_lex(void *lex)
     printf("FILE : %s\n",_lex->filename);
     printf("--------------\n");
 }
+void print_arg(void *arg)
+{
+    char *str;
+
+    str = (char *)arg;
+    printf("ARG : %s\n",str);
+}
+void print_exec(void *exec)
+{
+    t_exec_utils *_exec;
+
+    _exec = (t_exec_utils *)exec;
+    printf("CMD : %s\n",_exec->cmd);
+    printf("INF : %s\n",_exec->infile);
+    printf("OUT : %s\n",_exec->outfile);
+    ft_lstiter(_exec->args, print_arg);
+    printf("--------------\n");
+}
 
 // t_exec_utils *handle_exec()
 // {
@@ -30,16 +48,18 @@ int open_file(char *filename,int flags)
     return (fd);
 }
 
-void get_exec(t_parse_utils *u)
+t_list *get_exec(t_parse_utils *u)
 {
     t_lex *tmp;
     t_list *l_tmp;
+    t_list *result;
     t_exec_utils *exec;
     int fd[2];
 
     (void)fd;
     l_tmp = u->list_cmds;
     exec = ft_calloc(1, sizeof(t_exec_utils));
+    result = NULL;
     while (l_tmp)
     {
         tmp = l_tmp->content;
@@ -53,6 +73,7 @@ void get_exec(t_parse_utils *u)
         }
         else if (tmp->type == 5)
         {
+            exec->infile = tmp->filename;
             if (tmp->filename)
                 exec->inputFd = open_file(tmp->filename, tmp->flag);
             else
@@ -60,22 +81,29 @@ void get_exec(t_parse_utils *u)
         }
         else if (tmp->type == 6)
         {
+            exec->outfile = tmp->filename;
             if(tmp->filename)
                 exec->outputFd = open_file(tmp->filename, tmp->flag);
             else
                 exec->outputFd = tmp->fd;
         }
-
-        if (tmp->type == 0)
+        // printf("type : %d",tmp->type);
+        // echo "hello" "world" | cat -e > out | ls <ifile < infile >ou >outfile | ls 'erezr'
+        if (tmp->type == PIPE)
         {
-            if (pipe(fd))
-		        perror("pipe error\n");
+            // if (pipe(fd))
+		    //     perror("pipe error\n");
+
+            ft_lstadd_back(&result, ft_lstnew(exec));
+            exec = ft_calloc(1, sizeof(t_exec_utils));
             
         }
         l_tmp = l_tmp->next;
-
         // cat -e < minishell.c < outils.c | grep main > out1 out2
 
     }
-    
+    // if (!ft_lstsize(result))
+    ft_lstadd_back(&result, ft_lstnew(exec));
+
+    return (result);
 }

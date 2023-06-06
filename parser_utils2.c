@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/03 21:33:27 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/06 01:04:05 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         lex->command_name = str;
         node = ft_lstnew(lex);
         ft_lstadd_back(&u->list_cmds, node);
-        printf("CMD %s in lexer\n",str);
         return (1);
     }
     
@@ -120,7 +119,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
     {
         lex->type = PIPE;
         ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("PIPE in lexer\n");
         return (1);
 
     }
@@ -141,7 +139,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
             lex->fd = ft_atoi(str);
         }
         ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("REDIRECTION_OUTPUT %d in lexer\n",lex->fd);
 
         return (1);
         
@@ -163,7 +160,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
         }
         ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("REDIRECTION_INPUT %d in lexer\n",lex->fd);
         return (1);
 
         
@@ -174,7 +170,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         last_lex->filename = str;
         lex->variable = str;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("modified out REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
         return (1);
     }
     else if (last_lex->type == REDIRECTION_INPUT && !last_lex->filename)
@@ -183,7 +178,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         last_lex->filename = str;
         lex->variable = str;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("modified in REDIRECT OF %s TO '%s' in lexer\n", last_lex->command_name, str);
         return (1);
     }
     else if (last_lex->type != PIPE)
@@ -193,7 +187,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         lex->variable = str;
         lex->command_name = last_lex->command_name;
         ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-        printf("ARGS '%s' in lexer\n",str);
         return (1);
 
     }
@@ -214,7 +207,6 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         lex->command_name = str;
         node = ft_lstnew(lex);
         ft_lstadd_back(&u->list_cmds, node);
-        printf("CMD '%s' in lexer\n",str);
         return (1);
     }
     // else if (G)
