@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/05 01:18:17 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:10:35 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,6 @@ t_node * ft_unset(t_node * head,char * var)
 		return (NULL);
 	while (t)
 	{
-		printf("%s\n", t->variable);
 		if (!strcmp(t->variable,var) && strcmp(t->variable,"_"))
 		{
 
@@ -182,3 +181,10 @@ t_node * ft_unset(t_node * head,char * var)
 	}
 	return (t);
 }
+
+// void ft_echo (char ** t)
+// {
+// 	if (!t)
+// 		return;
+// 	if ()
+// }

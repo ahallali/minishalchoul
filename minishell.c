@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/05 01:21:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/06 01:03:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int main (int ac,char **av,char** env)
         //     ft_export(new,t[1]);
         else if (ft_strncmp(t[0], "unset",5) == 0)
             ft_unset(minishell->env,t[1]);
-          // else if (strcmp(t[0], "echo") == 0)
+        // else if (strcmp(t[0], "echo") == 0)
         //     ft_echo (new,t[1]);
         // else if (strcmp(t[0], "exit") == 0)
         //     ft_exit (new,t[1]);
