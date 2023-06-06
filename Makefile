@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
+#    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/06/04 23:17:10 by ahallali         ###   ########.fr        #
+#    Updated: 2023/06/06 01:20:27 by ichaiq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,26 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/include -fsanitize=address
 LDFLAGS = -lreadline  
 SRCS = minishell.c\
+		bulltins.c\
 		cd_builtin.c\
+		parser_utils.c\
 		outils.c\
-		env.c
-LIB = libft/libft.a
+		env.c\
+		parser_utils2.c\
+		parser_utils3.c
 OBJECTS = $(SRCS:.c=.o)
 INCLUD = minishell.h
+LIB=libft/libft.a
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-%.o: %.c $(INCLUD) $(lib)
+$(LIB):
+	make bonus -C libft 
+	# make clean
+
+%.o: %.c $(INCLUD) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS) $(LIB)

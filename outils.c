@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/03 18:51:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/06 01:18:04 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+// int ft_strlen (char *str)
+// {
+//     int i;
+//     i =0;
+//     while (str[i])
+//     {
+//         i++;
+//     }
+//     return (i);
+//     }
+// static size_t	wd(char *str, char sep)
+// {
+// 	size_t	i;
+// 	size_t	count;
+// 	int		flag;
 // int ft_strlen (char *str)
 // {
 //     int i;
@@ -111,22 +126,22 @@
 // 	size_t	len_s;
 // 	char	*ptr;
 
-// 	if (!s)
-// 		return (NULL);
-// 	len_s = ft_strlen(s);
-// 	i = 0;
-// 	if (start >= len_s)
-// 		len = 0;
-// 	else if (len > len_s)
-// 		len = len_s - start;
-// 	ptr = (char *)malloc(len + 1 * sizeof(char));
-// 	if (!ptr)
-// 		return (NULL);
-// 	while (i < len)
-// 	{
-// 		ptr[i] = s[start + i];
-// 			i++;
-// 	}
-// 	ptr[i] = '\0';
-// 	return (ptr);
-// }
+// // 	if (!s)
+// // 		return (NULL);
+// // 	len_s = ft_strlen(s);
+// // 	i = 0;
+// // 	if (start >= len_s)
+// // 		len = 0;
+// // 	else if (len > len_s)
+// // 		len = len_s - start;
+// // 	ptr = (char *)malloc(len + 1 * sizeof(char));
+// // 	if (!ptr)
+// // 		return (NULL);
+// // 	while (i < len)
+// // 	{
+// // 		ptr[i] = s[start + i];
+// // 			i++;
+// // 	}
+// // 	ptr[i] = '\0';
+// // 	return (ptr);
+// // }

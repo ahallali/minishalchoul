@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/05/22 02:06:00 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/06 01:20:54 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void print_list(t_node* head) {
-    t_node* tmp = head;
-    while (tmp != NULL) {
-        printf("%s=%s\n", tmp->variable, tmp->value);
-        tmp = tmp->next;
-    }
-}
+// void print_list(t_node* head) {
+//     t_node* tmp = head;
+//     while (tmp != NULL) {
+//         printf("%s=%s\n", tmp->variable, tmp->value);
+//         tmp = tmp->next;
+//     }
+// }
 int check_n_arg(char *str)
 {
   int i = 2;
@@ -77,4 +77,26 @@ void echo (char **str)
     i++;
   }
 }
+// PWD BUILTINS
 
+// void ft_pwd()
+// {
+// char *path;
+// // puts("lalalal");
+// path = getcwd(NULL,0);
+// printf("%s\n", path);
+// free(path);
+// }
+
+//  // CD BUILTINS
+
+// int ft_cd(char *str)
+// {
+//   if(chdir(str)==0)
+//     return (0);
+//   else
+//   {
+//     perror(str);
+//     return(1);
+//   }
+// } 

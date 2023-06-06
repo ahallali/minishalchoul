@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/06 01:03:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/06 01:24:11 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- 
 #include"minishell.h"
 
 int main (int ac,char **av,char** env)
@@ -20,7 +19,8 @@ int main (int ac,char **av,char** env)
     char *line = NULL;
     char **t;
     t_minishell *minishell;
-    // t_parse_utils *p_prompt;
+    t_parse_utils *p_prompt;
+    t_list *list_exec;
     // t_node *hea = NULL;
 
     minishell = malloc (sizeof (t_minishell));
@@ -63,6 +63,24 @@ int main (int ac,char **av,char** env)
             return (0);
         }
             
+        if (line && *line)
+            add_history(line);//
+        
+        p_prompt = ft_calloc(1, sizeof(t_parse_utils));
+        // char *p_clean = ft_strtrim(" echo \"hel | lo\" ", " ");
+        // char *p_clean = ft_strtrim(" ls|grep x", " ");
+        char *p_clean = ft_strtrim(line, " ");
+        p_prompt->prompt = ft_strdup(p_clean);
+        
+        list_exec = parse_prompt(p_prompt->prompt , p_prompt);
+        ft_lstiter(list_exec, print_exec);
+        // if (strcmp(line, "exit")==0)
+        // {
+        //     free (line);
+        //     break;
+        // }
+        t =ft_split(line,' ');
+        
         
         // print_list(new);
     //CD && PWD && ENV BUILTIN DONE 
@@ -81,5 +99,8 @@ int main (int ac,char **av,char** env)
         // else if (strcmp(t[0], "exit") == 0)
         //     ft_exit (new,t[1]);
     }
-    
+    // StORE ENV IN A LINKED LIST
+   
+ 
+    //ENV part
 }
