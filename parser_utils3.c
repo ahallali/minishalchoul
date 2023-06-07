@@ -107,3 +107,29 @@ t_list *get_exec(t_parse_utils *u)
 
     return (result);
 }
+
+
+
+char **convert_args(t_list *node)
+{
+    int len;
+    int tmp;
+    char **result;
+    t_list *n;
+
+
+    len = ft_lstsize(node);
+    result = NULL;
+    tmp = 0;
+
+    result = ft_calloc(len + 1, sizeof(char *));
+    if (!result)
+        return (NULL);
+    n = node;
+    while (n)
+    {
+        result[tmp++] = ft_strdup((const char *)n->content);
+        n = n->next;
+    }
+    return result;
+}

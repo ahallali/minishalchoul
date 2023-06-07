@@ -6,6 +6,7 @@
         "libft.h": "c",
         "history.h": "c",
         "minishell.h": "c",
-        "readline.h": "c"
+        "readline.h": "c",
+        "sstream": "c"
     }
 }

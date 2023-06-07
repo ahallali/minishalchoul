@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
+#    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/06/06 01:25:41 by ichaiq           ###   ########.fr        #
+#    Updated: 2023/06/06 21:11:12 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ LDFLAGS = -lreadline
 SRCS = minishell.c\
 		bulltins.c\
 		cd_builtin.c\
-		parser_utils.c\
 		env.c\
+		exec.c\
+		parser_utils.c\
 		parser_utils2.c\
 		parser_utils3.c
 OBJECTS = $(SRCS:.c=.o)

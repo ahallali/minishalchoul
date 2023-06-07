@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/06 01:20:54 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:33:08 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-// void print_list(t_node* head) {
-//     t_node* tmp = head;
-//     while (tmp != NULL) {
-//         printf("%s=%s\n", tmp->variable, tmp->value);
-//         tmp = tmp->next;
-//     }
-// }
+
 int check_n_arg(char *str)
 {
   int i = 2;
@@ -44,59 +38,39 @@ int ft_strwc(char *str)
   return (0);
 }
 
-
-void echo (char **str)
+void ft_echo(char **str,int fd)
 {
-  int i = 1;
-  int j = 0;
-  if (!str[i] || *str[i] == '\0')
-    printf("\n");
-  while (str[i])
+  int i = 0;
+  // int j = 0;
+  int flag = 0;
+  fd = STDOUT_FILENO;
+  if (!str || !*str)
   {
-    if (str[i][j] == '-')
-    {
-      j++;
-      if (!check_n_arg(str[i]))
-        {
-        i++;
-        printf("%s ",str[i]);
-        }
-      // if (str[i][j] == '\'' || str[i][j] == '\"')
-      // {
-      //   j++;
-      //   printf("%s", str[i]);
-      //   printf(" ");
-      // }
-    }
-    // else
-    //   if (str[i][j] == '\"' || str[i][j] == '\'')
-    //   {      
-    //   i++;
-    //   printf("%s ",str[i]);
-    //   }
+        flag = 1;
+        ft_putstr_fd("\n", fd);
+  } 
+    
+  while (str && str[i])
+  {
+      if (i == 0 && *str[i] == '-' && (ft_check_n (str[0]) == 0))
+      {
+      // printf("%s", str[i+1]);
+      ft_putstr_fd(str[i+1], fd);
+      flag = 1;
+      i++;
+      if (str[i + 1])
+        ft_putstr_fd(" ", fd);
+      }
+      else {
+        
+        ft_putstr_fd(str[i], fd);
+        if (str[i+1])
+          ft_putstr_fd(" ", fd);
+      }
+
+            // printf("%s",str[])
     i++;
   }
+  if (!flag)
+    ft_putstr_fd("\n", fd);
 }
-// PWD BUILTINS
-
-// void ft_pwd()
-// {
-// char *path;
-// // puts("lalalal");
-// path = getcwd(NULL,0);
-// printf("%s\n", path);
-// free(path);
-// }
-
-//  // CD BUILTINS
-
-// int ft_cd(char *str)
-// {
-//   if(chdir(str)==0)
-//     return (0);
-//   else
-//   {
-//     perror(str);
-//     return(1);
-//   }
-// } 

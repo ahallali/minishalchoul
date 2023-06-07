@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/06 01:22:37 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/06 19:32:46 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ int insert_to_lexer(char *str, t_parse_utils *u);
 void parse_quotes(t_token_info *tok, t_parse_utils *utils);
 t_token_info *next_word(char *str, char *delimiter);
 t_list *get_exec(t_parse_utils *u);
-
+char **convert_args(t_list *node);
 
 #endif
