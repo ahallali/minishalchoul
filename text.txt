@@ -1,7 +1,0 @@
-echo -n 
-exit
-pwd
-cd
-export
-unset
-env done
