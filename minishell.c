@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/07 01:27:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/07 01:44:26 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,16 @@ int main (int ac,char **av,char** env)
 		// char *path;
 		// char *tmp;
 		// 	printf("%s",path_finder(minishell->env, "PATH"));
-		char *path = NULL;
+		// char *path = NULL;
 		while (minishell->list_exec)
 		{
 			// ft_exec(list_exec->content);
 			//     char ** t =convert_args(s->args);
 			minishell->list = (t_exec_utils *)minishell->list_exec->content;
 			// if (!minishell->list->cmd)
-
-			if (strcmp(minishell->list->cmd ,"cd")==0)
+			if (!minishell->list_exec || !minishell->list->cmd || !*minishell->list->cmd)
+				line =readline("minishell>>");
+			else if (strcmp(minishell->list->cmd ,"cd")==0)
 			//     printf("%s", t[0]);
 				ft_cd(minishell, convert_args(minishell->list->args));
 			else if (strcmp(minishell->list->cmd,"env")==0 && ft_lstsize(minishell->list->args) == 0)
@@ -95,12 +96,12 @@ int main (int ac,char **av,char** env)
 			else
 			{
 				
-				path =update_path(path_finder(minishell->env, "PATH"),minishell->list->cmd);
-				printf("\n path : %s\n", path);
-				if (!access(path, X_OK))
-					execve(path,convert_args(minishell->list->args) , env);
-				else 
-					perror("wwwwwww");
+				update_path(path_finder(minishell->env, "PATH"),minishell->list->cmd,convert_args(minishell->list->args),env);
+				// printf("\n path : %s\n", path);
+				// if (!access(path, X_OK))
+				// 	execve(path,convert_args(minishell->list->args) , env);
+				// else 
+					// perror("wwwwwww");
 			}
 				minishell->list_exec = minishell->list_exec->next;
 		}

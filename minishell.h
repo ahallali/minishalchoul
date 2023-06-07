@@ -51,5 +51,5 @@ t_node *ft_unset(t_node *head, char *var);
 // void parse_prompt(char *p);
 void ft_exec(void *content);
 int ft_check_n(char *str);
-char *update_path(char *str, char *cmd);
+char *update_path(char *str, char *cmd, char **agrs, char **env);
 #endif
