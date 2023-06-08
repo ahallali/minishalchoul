@@ -6,21 +6,21 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/07 01:44:26 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:59:08 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-	t_minishell *minishell;
+t_minishell *minishell;
 int main (int ac,char **av,char** env)
 {
 	(void)ac;
 	(void)av;
+	// int status;
+	// pid_t pid = fork();
 	char *line = NULL;
-	// char **t;
 	t_parse_utils *p_prompt;
-	// t_node *hea = NULL;
 
 	minishell = malloc (sizeof (t_minishell));
 	minishell->env=NULL;
@@ -41,6 +41,11 @@ int main (int ac,char **av,char** env)
 			line =readline("minishell>>");
 		if (line && *line)
 			add_history(line);//
+		if (strcmp(line, "exit")==0)
+		{
+		    free (line);
+		    break;
+		}
 		// p_prompt = ft_calloc(1, sizeof(t_parse_utils));
 		// char *p_clean = ft_strtrim(" echo \"hel | lo\" ", " ");
 		// char *p_clean = ft_strtrim(" ls|grep x", " ");
@@ -62,50 +67,46 @@ int main (int ac,char **av,char** env)
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec= parse_prompt(p_prompt->prompt , p_prompt);
 		// ft_lstiter(list_exec, print_exec);
-		// if (strcmp(line, "exit")==0)
-		// {
-		//     free (line);
-		//     break;
-		// }
-		// print_list(list_exec);
-	// printf("%s", s->cmd);
-	// char *path;
-		// char *path;
-		// char *tmp;
-		// 	printf("%s",path_finder(minishell->env, "PATH"));
-		// char *path = NULL;
 		while (minishell->list_exec)
 		{
-			// ft_exec(list_exec->content);
-			//     char ** t =convert_args(s->args);
-			minishell->list = (t_exec_utils *)minishell->list_exec->content;
-			// if (!minishell->list->cmd)
-			if (!minishell->list_exec || !minishell->list->cmd || !*minishell->list->cmd)
-				line =readline("minishell>>");
-			else if (strcmp(minishell->list->cmd ,"cd")==0)
-			//     printf("%s", t[0]);
-				ft_cd(minishell, convert_args(minishell->list->args));
-			else if (strcmp(minishell->list->cmd,"env")==0 && ft_lstsize(minishell->list->args) == 0)
-				print_list( minishell->env);
-			else if (strcmp(minishell->list->cmd, "pwd") == 0)
-				ft_pwd( minishell->env,"PWD");
-			else if (ft_strncmp(minishell->list->cmd, "unset",5) == 0  && ft_lstsize(minishell->list->args) == 1)
-				ft_unset(minishell->env,convert_args(minishell->list->args)[0]);
-			else if (strcmp(minishell->list->cmd, "echo") == 0)
-				ft_echo (convert_args(minishell->list->args),STDOUT_FILENO);
-			else
-			{
-				
-				update_path(path_finder(minishell->env, "PATH"),minishell->list->cmd,convert_args(minishell->list->args),env);
-				// printf("\n path : %s\n", path);
-				// if (!access(path, X_OK))
-				// 	execve(path,convert_args(minishell->list->args) , env);
-				// else 
-					// perror("wwwwwww");
-			}
+				minishell->list = (t_exec_utils *)minishell->list_exec->content;
+				if (!minishell->list_exec || !minishell->list->cmd || !*minishell->list->cmd)
+					line =readline("minishell>>");
+				else if (strcmp(minishell->list->cmd ,"cd")==0)
+					ft_cd(minishell, convert_args(minishell->list->args));
+				else if (strcmp(minishell->list->cmd,"env")==0 && ft_lstsize(minishell->list->args) == 0)
+					print_list( minishell->env);
+				else if (strcmp(minishell->list->cmd, "pwd") == 0)
+					ft_pwd( minishell->env,"PWD");
+				else if (ft_strncmp(minishell->list->cmd, "unset",5) == 0  && ft_lstsize(minishell->list->args) == 1)
+					ft_unset(minishell->env,convert_args(minishell->list->args)[0]);
+				else if (strcmp(minishell->list->cmd, "echo") == 0)
+					ft_echo (convert_args(minishell->list->args),STDOUT_FILENO);
+				else
+				{
+					if (convert_args(minishell->list->args))
+						update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd,convert_args(minishell->list->args), convert_env(minishell->env));
+					// open(minishell->list->outfile, 777);
+					// printf("%d", fd);
+					// dup2(STDOUT_FILENO, fd);
+					// printf("%s",convert_args(minishell->list->args)[1]);
+					// puts("lalalal");
+					// else
+					// 	update_path(path_finder(minishell->env, "PATH"),minishell->list->cmd,NULL,convert_env(minishell->env));
+				// 	break;
+				// }
+				}
 				minishell->list_exec = minishell->list_exec->next;
+						
+				// else
+				// {	
+				// printf("%d",pid);
+				// waitpid(pid, &status, WUNTRACED | WCONTINUED);
+				// }
 		}
+		// line =readline("minishell>>");
 	}
+}
 	// print_list(new);
 	// CD && PWD && ENV BUILTIN DONE
 	
@@ -114,4 +115,3 @@ int main (int ac,char **av,char** env)
 		
 	//  else if (strcmp(t[0], "exit") == 0)
 	//      ft_exit (new,t[1]);
-}

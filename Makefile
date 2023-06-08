@@ -6,13 +6,13 @@
 #    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/06/06 21:11:12 by ahallali         ###   ########.fr        #
+#    Updated: 2023/06/08 17:59:31 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/include -fsanitize=address
+CFLAGS =  -Wall -Wextra -Werror -I /Users/ahallali/goinfre/.brew/opt/readline/include -fsanitize=address
 LDFLAGS = -lreadline  
 SRCS = minishell.c\
 		bulltins.c\
@@ -30,15 +30,13 @@ LIB=libft/libft.a
 
 all: $(NAME)
 
-$(LIB):
-	make bonus -C libft 
-	# make clean
+#
 
 %.o: %.c $(INCLUD) 
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS) $(LIB)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ichaiq/goinfre/.brew/opt/readline/lib $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
 $(LIB):
 	make bonus -C libft 

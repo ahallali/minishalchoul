@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/07 01:58:51 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:51:37 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int ft_check_n(char * str)
     return (0);
     
 }
-char *    update_path(char * str , char * cmd,char **agrs,char ** env)
+void   update_path(char * str , char * cmd,char **agrs,char ** env)
 {
     if (!str || !cmd)
-        return (NULL);
+        return ;
     char ** tmp;
     char * path;
     tmp = NULL;
@@ -39,16 +39,15 @@ char *    update_path(char * str , char * cmd,char **agrs,char ** env)
     {
 
     path = ft_strjoin(*tmp,ft_strjoin("/",cmd));
-    printf("path : %s\n", path);
+    // printf("path : %s\n", path);
+    printf("%s",*agrs);
     if (!access(path, X_OK))
         {
-            if (execve(str,agrs,env))
+           
+            if (!execve(path,agrs,env))
                 printf("khdmat");
-        }
-            else
-              perror("not found");
+        }   
+              
     tmp++;
     }
-
-    return (path);
 }

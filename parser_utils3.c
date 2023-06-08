@@ -133,3 +133,16 @@ char **convert_args(t_list *node)
     }
     return result;
 }
+char **convert_env(t_node  *node)
+{
+    char **exec_env;
+    const char *joined;
+    while (node)
+    {
+    joined = ft_strjoin(node->variable, ft_strjoin("=", ft_strjoin(node->value,"\n")));
+    // printf("%s", joined);
+    node = node->next;
+    }
+    exec_env = ft_split(joined, '\n');
+    return (exec_env);
+}
