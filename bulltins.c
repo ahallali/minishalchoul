@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/06 22:33:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:25:14 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,13 @@ void ft_echo(char **str,int fd)
   }
   if (!flag)
     ft_putstr_fd("\n", fd);
+}
+t_node  *ft_empty(void)
+{
+  t_node *head = NULL;
+  char *pwd = getcwd(NULL, 0);
+  insert_node (&head,pwd,"PWD");
+  insert_node (&head,"1","SHLVL=");
+  insert_node (&head,"/usr/bin/env","_=");
+  return (head);
 }

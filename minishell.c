@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/08 17:59:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:28:12 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main (int ac,char **av,char** env)
 {
 	(void)ac;
 	(void)av;
+	// char **t = NULL;
 	// int status;
 	// pid_t pid = fork();
 	char *line = NULL;
@@ -28,8 +29,8 @@ int main (int ac,char **av,char** env)
 		return (0);
 	if (*env)
 		minishell->env = ft_env(env);
-	// else 
-	// printf("EMPTY ENV \n");// to update
+	else 
+		minishell->env = ft_empty();// to update
 	update_env(minishell->env,"OLDPWD",NULL);
 	while (1)
 	{
@@ -52,7 +53,6 @@ int main (int ac,char **av,char** env)
 		// char *p_clean = ft_strtrim(line, " ");
 		// p_prompt->prompt = ft_strdup(p_clean);
 		// parse_prompt(p_prompt->prompt , p_prompt);
-		
 		if (strcmp(line, "exit")==0)
 		{
 			free (line);
@@ -66,7 +66,12 @@ int main (int ac,char **av,char** env)
 		char *p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec= parse_prompt(p_prompt->prompt , p_prompt);
-		// ft_lstiter(list_exec, print_exec);
+		ft_lstiter(minishell->list_exec, print_exec);
+		// convert_args(minishell->list->args);
+
+		// printf("t == %c\n", *t[0]);
+		// printf("t == %c\n", *t[1]);
+		// printf("t == %s\n",t[2]);
 		while (minishell->list_exec)
 		{
 				minishell->list = (t_exec_utils *)minishell->list_exec->content;

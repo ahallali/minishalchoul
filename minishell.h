@@ -43,6 +43,7 @@ void print_list(t_node *head);
 void ft_pwd(t_node *head,char *s);
 t_node * gt(char *str, t_node *head);
 t_node *update_env(t_node *head, char *var, char *data);
+void insert_node(t_node **head, char *value, char *variable);
 char *path_finder(t_node *head, char *var);
 t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
@@ -53,4 +54,5 @@ void ft_exec(void *content);
 int ft_check_n(char *str);
 void update_path(char *str, char *cmd, char **agrs, char **env);
 char **convert_env(t_node *node);
+t_node *ft_empty(void);
 #endif

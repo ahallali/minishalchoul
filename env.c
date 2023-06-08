@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 02:06:09 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/06 01:11:39 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/08 18:13:05 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_node * ft_env(char **env)
 		if (tmp!=NULL)
 			*tmp='\0';
 		char *value = tmp+1;
-		char *variable = *env;      
+		char *variable = *env; 
 		insert_node(&head,value,variable);
 		env++;
 	}
