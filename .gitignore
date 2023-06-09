@@ -1,0 +1,9 @@
+*.a
+*.o
+*.json
+*.vscode
+libft.a
+libft
+libft*
+minishell
+libft/*.o

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/08 17:51:37 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:38:20 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ void   update_path(char * str , char * cmd,char **agrs,char ** env)
 
     path = ft_strjoin(*tmp,ft_strjoin("/",cmd));
     // printf("path : %s\n", path);
-    printf("%s",*agrs);
+    // printf("%s",*agrs);
     if (!access(path, X_OK))
         {
-           
-            if (!execve(path,agrs,env))
-                printf("khdmat");
+            pid_t pid;
+            if((pid = fork()) == 0)
+            {
+                if (!execve(path,agrs,env))
+                    printf("khdmat");
+                
+            }else waitpid(pid,NULL,0);
         }   
               
     tmp++;

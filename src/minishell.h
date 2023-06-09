@@ -14,8 +14,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-# include "libft/libft.h"
-# include "parser.h"
+# include "../libft/libft.h"
+# include "parser/parser.h"
 // void parse(char *line);
 
 

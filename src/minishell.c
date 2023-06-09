@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/08 18:28:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:27:41 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int main (int ac,char **av,char** env)
 				else
 				{
 					if (convert_args(minishell->list->args))
-						update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd,convert_args(minishell->list->args), convert_env(minishell->env));
+						update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd, convert_command_args(minishell->list), convert_env(minishell->env));
 					// open(minishell->list->outfile, 777);
 					// printf("%d", fd);
 					// dup2(STDOUT_FILENO, fd);

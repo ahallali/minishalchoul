@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/06 17:22:35 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:26:40 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 //ls -al | cat < Makefile | grep OBJ 2> errfile
 
 
-#include "minishell.h"
+#include "parser.h"
 
 int ft_str_contains(char *str, char c)
 {

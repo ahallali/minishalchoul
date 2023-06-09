@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/06 19:32:46 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:26:29 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h" 
+# include "../minishell.h" 
 
 
 #ifndef PARSER_H
@@ -81,5 +81,6 @@ void parse_quotes(t_token_info *tok, t_parse_utils *utils);
 t_token_info *next_word(char *str, char *delimiter);
 t_list *get_exec(t_parse_utils *u);
 char **convert_args(t_list *node);
+char **convert_command_args(t_exec_utils *utils);
 
 #endif

@@ -7,6 +7,9 @@
         "history.h": "c",
         "minishell.h": "c",
         "readline.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "__locale": "c",
+        "stdlib.h": "c",
+        "parser.h": "c"
     }
 }
