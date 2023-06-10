@@ -6,12 +6,12 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/09 15:26:29 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/09 18:13:05 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h" 
 
+# include "../minishell.h" 
 
 #ifndef PARSER_H
 #define PARSER_H
@@ -62,15 +62,6 @@ typedef struct s_parse_utils
 } t_parse_utils;
 
 
-typedef struct s_exec_utils
-{
-    char    *cmd;
-    t_list  *args;
-    char    *infile;
-    char    *outfile;
-    int     inputFd;
-    int     outputFd;
-}           t_exec_utils;
 
 void print_exec(void *exec);
 void print_lex(void *lex);
@@ -81,6 +72,4 @@ void parse_quotes(t_token_info *tok, t_parse_utils *utils);
 t_token_info *next_word(char *str, char *delimiter);
 t_list *get_exec(t_parse_utils *u);
 char **convert_args(t_list *node);
-char **convert_command_args(t_exec_utils *utils);
-
 #endif

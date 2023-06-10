@@ -15,9 +15,9 @@
 # include <readline/history.h>
 # include <errno.h>
 # include "../libft/libft.h"
-# include "parser/parser.h"
 // void parse(char *line);
 
+# include "parser/parser.h"
 
 typedef struct s_node
 {
@@ -26,12 +26,25 @@ typedef struct s_node
 	struct s_node *next;
 }   t_node;
 
+typedef struct s_exec_utils
+{
+    char    *cmd;
+    t_list  *args;
+    char    *infile;
+    char    *outfile;
+    int     inputFd;
+    int     outputFd;
+}           t_exec_utils;
+
 typedef struct s_minishell
 {
 	t_node * env;
 	t_exec_utils *list;
 	struct s_list *list_exec;
 } t_minishell;
+
+t_minishell *minishell;
+
 
 t_node *
 ft_list_remove_if(t_node **head, char *data, int (*cmp)());
@@ -55,4 +68,8 @@ int ft_check_n(char *str);
 void update_path(char *str, char *cmd, char **agrs, char **env);
 char **convert_env(t_node *node);
 t_node *ft_empty(void);
+
+char *expand_dquotes(char *str, t_minishell *u);
+
+char **convert_command_args(t_exec_utils *utils);
 #endif

@@ -6,13 +6,12 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/09 15:27:41 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/10 02:02:12 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-t_minishell *minishell;
 int main (int ac,char **av,char** env)
 {
 	(void)ac;
@@ -31,7 +30,8 @@ int main (int ac,char **av,char** env)
 		minishell->env = ft_env(env);
 	else 
 		minishell->env = ft_empty();// to update
-	update_env(minishell->env,"OLDPWD",NULL);
+	update_env(minishell->env, "OLDPWD",
+	 NULL);
 	while (1)
 	{
 		line = readline("minishell>>");
@@ -66,7 +66,7 @@ int main (int ac,char **av,char** env)
 		char *p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec= parse_prompt(p_prompt->prompt , p_prompt);
-		ft_lstiter(minishell->list_exec, print_exec);
+		// ft_lstiter(minishell->list_exec, print_exec);
 		// convert_args(minishell->list->args);
 
 		// printf("t == %c\n", *t[0]);
@@ -89,8 +89,9 @@ int main (int ac,char **av,char** env)
 					ft_echo (convert_args(minishell->list->args),STDOUT_FILENO);
 				else
 				{
-					if (convert_args(minishell->list->args))
-						update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd, convert_command_args(minishell->list), convert_env(minishell->env));
+					expand_dquotes(minishell->list->cmd, minishell);
+					// if (convert_args(minishell->list->args))
+					// 	update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd, convert_command_args(minishell->list), convert_env(minishell->env));
 					// open(minishell->list->outfile, 777);
 					// printf("%d", fd);
 					// dup2(STDOUT_FILENO, fd);
