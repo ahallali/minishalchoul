@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/10 18:22:01 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/12 18:15:33 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int main (int ac,char **av,char** env)
 		char *p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec= parse_prompt(p_prompt->prompt , p_prompt);
-		// ft_lstiter(minishell->list_exec, print_exec);
+		ft_lstiter(minishell->list_exec, print_exec);
 		// convert_args(minishell->list->args);
 
 		// printf("t == %c\n", *t[0]);

@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/09 18:13:05 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/12 19:05:17 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void parse_quotes(t_token_info *tok, t_parse_utils *utils);
 t_token_info *next_word(char *str, char *delimiter);
 t_list *get_exec(t_parse_utils *u);
 char **convert_args(t_list *node);
+int dquote_finder(char *str, int i);
 #endif

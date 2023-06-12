@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/10 18:19:33 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/12 19:33:10 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,25 @@ t_token_info *next_word(char *str, char *delimiter)
     while (str[i] != '\0')
     {
         // c = ft_strchr(delimiter, str[i]);
-        
+        if ((!i || str[i - 1] != '\\') 
+            &&str[i] == '"' && !minishell->dquote_flag)
+        {
+            puts("f addded \n");
+            // printf(" : %c\n",str[i]);
+            printf("str[i] : %c\n",str[i]);
+            printf("str[i - 1] : %c\n",str[i - 1]);
+            minishell->dquote_flag = '"';
+        }
+        else if ((i && str[i-1] != '\\') 
+            && str[i] && str[i] == '"' && minishell->dquote_flag == '"')
+        {        
+            printf("str[i] : %c\n",str[i]);
+            printf("str[i - 1] : %c\n",str[i - 1]);
+            minishell->dquote_flag = '\0';
+        }
+            // printf("errorororr\n");        
         // REDIRECTIONS
-        if ((c = ft_strchr(IO_PARSE, str[i]) ) != 0)
+        if (!minishell->dquote_flag && (c = ft_strchr(IO_PARSE, str[i]) ) != 0)
         {
             printf("test : %s\n", &str[i]);
             
@@ -61,7 +77,7 @@ t_token_info *next_word(char *str, char *delimiter)
             return info;
         }
         // TOKEN DELIMITER
-        if ((c = ft_strchr(delimiter, str[i]) ))
+        if (!minishell->dquote_flag && (c = ft_strchr(delimiter, str[i]) ))
         {
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
@@ -76,11 +92,17 @@ t_token_info *next_word(char *str, char *delimiter)
             return info;
         }
         i++;
-        if (!str[i])
+        if (!str[i] && !minishell->dquote_flag)
         {
             info->word = str;
             info->limiter = NULL;
             info->next_start =NULL;
+            return info;
+        }
+        else {
+            info->word = str;
+            info->limiter = NULL;
+            info->next_start =str;
             return info;
         }
         // if (ft_strStartWith(info->word, '"') && !ft_strEndsWith(info->word, '\''))
@@ -105,6 +127,8 @@ int insert_to_lexer(char *str, t_parse_utils *u)
     // node = u->list_cmds;
     // printf("str : %s\n",str);
     node = ft_lstlast(u->list_cmds);
+    if (!str || !*str)
+        return (0);
     if (!node )
     {
         lex->type = CMD;
@@ -237,23 +261,25 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
     while (tok)
     {
 
-        // if (tok->word)
-        //     printf("tok word : %s\n", tok->word);
-        // if (tok->limiter)
-        //     printf("tok lim : %s\n", tok->limiter);
-        // if (tok->next_start)
-        //     printf("tok nxt : %s\n", tok->next_start);
-        // printf("--------------------\n");
+        if (tok->word)
+            printf("tok word : %s\n", tok->word);
+        if (tok->limiter)
+            printf("tok lim : %s\n", tok->limiter);
+        if (tok->next_start)
+            printf("tok nxt : %s\n", tok->next_start);
+        printf("--------------------\n");
 
-        if (!ft_strchr(" |",*tok->word))
+        if (!ft_strchr(" |",*tok->word) && (tok->next_start != tok->word))
             insert_to_lexer(tok->word, utils);
-        
+        puts("first nice \n");
         if (tok->limiter && ( (ft_strchr("|<>",*(tok->limiter)))))
             insert_to_lexer(tok->limiter, utils);
+        puts("second nice \n");
 
         if (tok->next_start 
             && (ft_strchr(QUOTES_PARSE, *tok->next_start) || ft_strchr(QUOTES_PARSE, *tok->word)))
             parse_quotes(tok, utils);
+        puts("third nice \n");
             
         tok = next_word(tok->next_start, "|<> ");
     }

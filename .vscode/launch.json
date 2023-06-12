@@ -2,16 +2,32 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "by-gdb",
+      "request": "launch",
+      "name": "Launch(gdb)",
+      "program": "${workspaceRoot}/minishell",
+      "cwd": "${workspaceRoot}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Launch",
+      "program": "${workspaceFolder}/minishell",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Build"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/lilnex/dev/42cursus/projects/minishalchoul",
-      "program": "/home/lilnex/dev/42cursus/projects/minishalchoul/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/minishell",
+      // "MIMode": "gdb",
+      // "miDebuggerPath": "gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

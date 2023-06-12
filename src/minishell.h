@@ -41,6 +41,8 @@ typedef struct s_minishell
 	t_node * env;
 	t_exec_utils *list;
 	struct s_list *list_exec;
+    char dquote_flag;
+    char squote_flag;
 } t_minishell;
 
 t_minishell *minishell;

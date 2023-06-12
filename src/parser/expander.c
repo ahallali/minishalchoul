@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/11 04:38:31 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/12 18:14:46 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,19 +162,21 @@ char *expand_dquotes(char *str, t_minishell *u)
     
     i = 0;
     res = str;
+    printf("str : %s\n",str);
+
     while (str[i])
     {
+        printf("str i : %c\n",str[i]);
         if (str[i] == '$')
         {
             tmp = ft_strdup(str);
-            var = ft_strtok(&tmp[i], " \0", NULL);
+            var = ft_strtok(&tmp[i], " \"\0", NULL);
             printf("var : %s\n",var);
-            printf("str : %s\n",str);
-
+            
             if (path_finder(u->env, convert_path(var)))
-                res = str_replace(str, var, path_finder(minishell->env, convert_path(var)));
+                res = ft_str_replace(str, var, path_finder(minishell->env, convert_path(var)));
             else 
-                res = str_replace(str, var, "");
+                res = ft_str_replace(str, var, "");
             i++;
         }
         i++;
