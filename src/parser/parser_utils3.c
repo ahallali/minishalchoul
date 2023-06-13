@@ -29,17 +29,19 @@ void print_exec(void *exec)
 	printf("CMD : %s\n",_exec->cmd);
 	printf("INF : %s\n",_exec->infile);
 	printf("OUT : %s\n",_exec->outfile);
+	printf("IN_FD : %d\n",_exec->inputFd);
+	printf("OUT_FD : %d\n",_exec->outputFd);
+
 	ft_lstiter(_exec->args, print_arg);
 	printf("--------------\n");
 }
 
 // t_exec_utils *handle_exec()
-// {
-
+// {    
 // }
-
+  
 int	open_file(char *filename, int flags)
-{
+{   
 	int	fd;
 
 	fd = -1;
@@ -83,10 +85,10 @@ t_list	*get_exec(t_parse_utils *u)
 		else if (tmp->type == 6)
 		{
 			exec->outfile = tmp->filename;
-			if (tmp->filename)
-				exec->outputFd = open_file(tmp->filename, tmp->flag);
-			else
-				exec->outputFd = tmp->fd;
+			// if (tmp->filename)
+			// 	exec->outputFd = open_file(tmp->filename, tmp->flag);
+			// else
+			// 	exec->outputFd = tmp->fd;
 		}
 		// printf("type : %d",tmp->type);
 		// echo "hello" "world" | cat -e > out | ls <ifile < infile >ou >outfile | ls 'erezr'
@@ -119,6 +121,7 @@ char **convert_args(t_list *node)
 	n = node;
 	while (n)
 	{
+		// result[0] = ft_strdup(str);
 		result[tmp++] = ft_strdup((const char *)n->content);
 		n = n->next;
 	}
@@ -151,12 +154,31 @@ char	**convert_command_args(t_exec_utils *utils)
 char **convert_env(t_node  *node)
 {
 	char **exec_env;
-	const char *joined;
-	while (node)
+	int i = 0;
+	t_node *tmp = node;
+	// const char *joined;
+	int len = 0;
+	while (tmp)
 	{
-		joined = ft_strjoin(node->variable, ft_strjoin("=", ft_strjoin(node->value,"\n")));
-		node = node->next;
+		len++;
+		printf("--->%s---%s\n", tmp->variable, tmp->value);
+		tmp = tmp->next;
 	}
-	exec_env = ft_split(joined, '\n');
+	exec_env = malloc((len+1) * sizeof(char *));
+	if (!exec_env)
+		return (NULL);
+	while (i < len)
+	{
+		exec_env[i] = ft_strjoin(node->variable, ft_strjoin("=",node->value));
+		node = node->next;
+		i++;
+	}
+	exec_env[i] = NULL;
+	int j = 0;
+	while (j<len)
+	{
+		printf("===>%s\n", exec_env[j]);
+		j++;
+	}
 	return (exec_env);
 }

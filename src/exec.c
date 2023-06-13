@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/09 15:38:20 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:30:12 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int ft_check_n(char * str)
     return (0);
     
 }
-void   update_path(char * str , char * cmd,char **agrs,char ** env)
+
+char *   update_path(char * str , char * cmd)
 {
     if (!str || !cmd)
-        return ;
+        return (NULL);
     char ** tmp;
     char * path;
     tmp = NULL;
@@ -38,20 +39,39 @@ void   update_path(char * str , char * cmd,char **agrs,char ** env)
     while (tmp && *tmp)
     {
 
-    path = ft_strjoin(*tmp,ft_strjoin("/",cmd));
-    // printf("path : %s\n", path);
-    // printf("%s",*agrs);
-    if (!access(path, X_OK))
-        {
-            pid_t pid;
-            if((pid = fork()) == 0)
-            {
-                if (!execve(path,agrs,env))
-                    printf("khdmat");
-                
-            }else waitpid(pid,NULL,0);
-        }   
-              
-    tmp++;
+        path = ft_strjoin(*tmp,ft_strjoin("/",cmd));
+        if (!access(path, X_OK | F_OK))
+            return (path); 
+        tmp++;
     }
+    return (NULL);
+}
+
+void child (t_minishell * minishell,int *flag,int * tmp,char * path)
+{
+    pid_t pid = fork();
+    (void)tmp;
+    if (pid == 0)
+    {
+        // close (tmp[0]);
+        // close(tmp[1]);
+        // dup2(minishell->list->inputFd, 0);
+        // if (minishell->list_exec->next)
+        //     dup2(tmp[1], 1);
+        open_pipes(minishell,flag,tmp); 
+        execve(path,convert_command_args(minishell->list),convert_env(minishell->env));
+    }
+    // else if (pid >0)
+    // {
+    //     close(tmp[1]);
+    //     close(tmp[0]);
+    //     // waitpid(pid ,NULL,-1);
+    // }
+        
+    // els
+    // {
+
+    //     perror ("fork");
+    //     exit (0);
+    // }
 }

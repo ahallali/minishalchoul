@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/09 15:27:41 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:45:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int main (int ac,char **av,char** env)
 	(void)av;
 	// char **t = NULL;
 	// int status;
-	// pid_t pid = fork();
 	char *line = NULL;
+	char * path;
 	t_parse_utils *p_prompt;
 
 	minishell = malloc (sizeof (t_minishell));
@@ -72,12 +72,20 @@ int main (int ac,char **av,char** env)
 		// printf("t == %c\n", *t[0]);
 		// printf("t == %c\n", *t[1]);
 		// printf("t == %s\n",t[2]);
+		// t_minishell *tmp = minishell;
+		int flag = 0;
+		int tmp[2];
+		tmp[0] = -1;
+		tmp[1] = -1;
 		while (minishell->list_exec)
-		{
+		{		
 				minishell->list = (t_exec_utils *)minishell->list_exec->content;
-				if (!minishell->list_exec || !minishell->list->cmd || !*minishell->list->cmd)
-					line =readline("minishell>>");
-				else if (strcmp(minishell->list->cmd ,"cd")==0)
+				if (!minishell->list->cmd)
+					break;
+				if (!minishell->list_exec->next)
+					tmp[1] = 1;
+				// ft_exec_blt(minishell);
+				if (strcmp(minishell->list->cmd, "cd") == 0)
 					ft_cd(minishell, convert_args(minishell->list->args));
 				else if (strcmp(minishell->list->cmd,"env")==0 && ft_lstsize(minishell->list->args) == 0)
 					print_list( minishell->env);
@@ -87,36 +95,38 @@ int main (int ac,char **av,char** env)
 					ft_unset(minishell->env,convert_args(minishell->list->args)[0]);
 				else if (strcmp(minishell->list->cmd, "echo") == 0)
 					ft_echo (convert_args(minishell->list->args),STDOUT_FILENO);
+				else if (ft_strncmp(minishell->list->cmd, "export",6) == 0)
+					ft_export(&minishell->env,convert_args(minishell->list->args));
 				else
 				{
+			// printf(" args---------->%s\n", convert_command_args(minishell->list)[0]);
 					if (convert_args(minishell->list->args))
-						update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd, convert_command_args(minishell->list), convert_env(minishell->env));
-					// open(minishell->list->outfile, 777);
-					// printf("%d", fd);
-					// dup2(STDOUT_FILENO, fd);
-					// printf("%s",convert_args(minishell->list->args)[1]);
-					// puts("lalalal");
-					// else
-					// 	update_path(path_finder(minishell->env, "PATH"),minishell->list->cmd,NULL,convert_env(minishell->env));
-				// 	break;
-				// }
+						{
+							path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
+							if (pipe(tmp) == 0 && path)
+							{
+								child (minishell,&flag,tmp,path);
+								if (flag != 0)
+									close(minishell->fd_out);	
+								minishell->fd_out = dup(tmp[0]);
+								close(tmp[0]);
+								close(tmp[1]);
+							}
+							else
+								perror("failed pipe");
+						}
 				}
 				minishell->list_exec = minishell->list_exec->next;
-						
-				// else
-				// {	
-				// printf("%d",pid);
-				// waitpid(pid, &status, WUNTRACED | WCONTINUED);
-				// }
 		}
-		// line =readline("minishell>>");
+		while (wait(NULL) != -1)
+				;
 	}
 }
+				// printf("here\n");
+		// line =readline("minishell>>");
+		// free(tmp);
 	// print_list(new);
 	// CD && PWD && ENV BUILTIN DONE
-	
-	//  // else if (ft_strncmp(t[0], "export",6) == 0)
-	//  //     ft_export(new,t[1]);
-		
 	//  else if (strcmp(t[0], "exit") == 0)
 	//      ft_exit (new,t[1]);
+	// any builtin before  pipe executed on child 
