@@ -161,10 +161,9 @@ char **convert_env(t_node  *node)
 	while (tmp)
 	{
 		len++;
-		printf("--->%s---%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
-	exec_env = malloc((len+1) * sizeof(char *));
+	exec_env = malloc((len + 1) * sizeof(char *));
 	if (!exec_env)
 		return (NULL);
 	while (i < len)
@@ -174,11 +173,5 @@ char **convert_env(t_node  *node)
 		i++;
 	}
 	exec_env[i] = NULL;
-	int j = 0;
-	while (j<len)
-	{
-		printf("===>%s\n", exec_env[j]);
-		j++;
-	}
 	return (exec_env);
 }

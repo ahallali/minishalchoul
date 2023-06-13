@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/13 12:45:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:12:00 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main (int ac,char **av,char** env)
 		minishell->env = ft_env(env);
 	else 
 		minishell->env = ft_empty();// to update
-	update_env(minishell->env,"OLDPWD",NULL);
+	update_env(minishell->env,"OLDPWD","");
 	while (1)
 	{
 		line = readline("minishell>>");

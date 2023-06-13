@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/13 12:30:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:54:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void child (t_minishell * minishell,int *flag,int * tmp,char * path)
         // if (minishell->list_exec->next)
         //     dup2(tmp[1], 1);
         open_pipes(minishell,flag,tmp); 
-        execve(path,convert_command_args(minishell->list),convert_env(minishell->env));
+        if(execve(path,convert_command_args(minishell->list),convert_env(minishell->env)) == -1)
+            perror("execve");
     }
     // else if (pid >0)
     // {
