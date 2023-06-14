@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/05 20:10:35 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:53:46 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "../minishell.h"
 
 t_node * gt(char *str,t_node * head)
 {
@@ -24,7 +24,6 @@ t_node * gt(char *str,t_node * head)
 	update_env(head,"OLDPWD",oldpwd);
 	t =  getcwd(NULL,0);
 	new=update_env(head,"PWD",t);
-	// print_list(new);
 	return (new);
   }
   else
@@ -104,40 +103,44 @@ char * path_finder(t_node *head ,char *var)
 		return (t->value);
 	t = t->next;
   }
-//   puts("test");
   return (NULL);
 }
 
-t_node*  ft_cd (t_minishell *head,char ** t)
+t_node*  ft_cd (t_minishell *head, char ** t)
 {
   t_node *new=NULL;
   char *tmp=NULL;
-  if (t[1] && *t[1])
-  {
-	if (t[1][0]== '~')
-	{
-	  if (path_finder(head->env,"HOME"))
-		tmp = path_finder(head->env,"HOME");
-	  chdir(tmp);
-	  head->env = update_env(head->env,"OLDPWD",path_finder(head->env,"PWD"));
-	  head->env =update_env(head->env,"PWD",tmp);
+ 
+
+	
+  	if (t[0] && *t[0])
+  	{
+		if (t[0][0] == '~')
+		{
+			if (path_finder(head->env,"HOME"))
+				tmp = path_finder(head->env,"HOME");
+			if (chdir(tmp)==0)
+				return (NULL);
+			else 
+			{
+			head->env = update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
+			head->env =update_env(head->env,"PWD",tmp);
+			}
+		}
+		else
+			new = gt(t[0], head->env);
 	}
-	else
-		new = gt(t[1], head->env);
-	}
- 	else if (!t[1] || !*t[1])
+	else if (!t[0] || !*t[0])
 	{
 		if (path_finder(head->env,"HOME"))
 			tmp = path_finder(head->env,"HOME");
 		if (chdir(tmp) == 0)
 		{	
 			update_env(head->env,"OLDPWD",path_finder(head->env,"PWD"));
-			new=	update_env(head->env,"PWD",tmp);
-		
- 		 }
+			new=update_env(head->env,"PWD",tmp);
+		}
 	}
-
-  return (new);
+	return (new);
 }
 void ft_pwd(t_node *head,char *s)
 {

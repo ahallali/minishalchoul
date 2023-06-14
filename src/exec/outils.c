@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/06 01:18:04 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/14 16:54:00 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 // int ft_strlen (char *str)
 // {
 //     int i;

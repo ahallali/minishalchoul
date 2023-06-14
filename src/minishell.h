@@ -14,8 +14,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-# include "libft/libft.h"
-# include "parser.h"
+# include "../libft/libft.h"
+# include "parser/parser.h"
 // void parse(char *line);
 
 
@@ -29,23 +29,36 @@ typedef struct s_node
 typedef struct s_minishell
 {
 	t_node * env;
-}t_minishell;
+	t_exec_utils *list;
+	int 		fd_out;
+	struct s_list *list_exec;
+} t_minishell;
 
-t_node *
-ft_list_remove_if(t_node **head, char *data, int (*cmp)());
+
+t_node *ft_list_remove_if(t_node **head, char *data, int (*cmp)());
 t_node *ft_env(char **env);
 char *ft_strtok(char *str, const char *delimiters, char *skip) ;
-void echo(char **str);
+void ft_echo(char **str,int fd);
 // char *ft_substr(char *s, unsigned int start, size_t len);
 void print_list(t_node *head);
 void ft_pwd(t_node *head,char *s);
 t_node * gt(char *str, t_node *head);
 t_node *update_env(t_node *head, char *var, char *data);
+void insert_node(t_node **head, char *value, char *variable);
 char *path_finder(t_node *head, char *var);
 t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
-t_node *ft_export(t_node *head, char *s);
+void ft_export(t_node **env, char **args);
 t_node *ft_unset(t_node *head, char *var);
 // void parse_prompt(char *p);
-
+void ft_exec(void *content);
+int ft_check_n(char *str);
+char *update_path(char *str, char *cmd);
+char **convert_env(t_node *node);
+t_node *ft_empty(void);
+void ft_sort_env(t_node **env);
+void open_pipes(t_minishell *minishell,int* flag ,int *tmp);
+void child(t_minishell * minishell, int *flag,int *tmp, char *path);
+void do_builtin(t_minishell *minishell);
+int is_builtin(t_minishell *minishell);
 #endif

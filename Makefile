@@ -1,49 +1,30 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/14 10:39:54 by ahallali          #+#    #+#              #
-#    Updated: 2023/06/06 01:25:41 by ichaiq           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  -I /Users/ahallali/goinfre/.brew/opt/readline/include -fsanitize=address
-LDFLAGS = -lreadline  
-SRCS = minishell.c\
-		bulltins.c\
-		cd_builtin.c\
-		parser_utils.c\
-		env.c\
-		parser_utils2.c\
-		parser_utils3.c
-OBJECTS = $(SRCS:.c=.o)
-INCLUD = minishell.h
-LIB=libft/libft.a
+CFLAGS = -Wall -Wextra -Werror -I /Users/ahallali/goinfre/.brew/opt/readline/include -fsanitize=address -g
+LDFLAGS = -lreadline
+SRCDIR = src
+OBJDIR = obj
+SRCS = $(shell find $(SRCDIR) -type f -name '*.c')
+OBJECTS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
+INCLUD = src/minishell.h 
+LIB = libft/libft.a
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(LIB):
-	make bonus -C libft 
-	# make clean
-
-%.o: %.c $(INCLUD) 
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUD)
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS) $(LIB)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ichaiq/goinfre/.brew/opt/readline/lib $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
 $(LIB):
-	make bonus -C libft 
+	make bonus -C libft
 
 clean:
-	rm -rf $(OBJECTS)
+	rm -rf $(OBJDIR)
 	make clean -C libft/
 
 	@echo "Cleaning objects"
@@ -55,3 +36,5 @@ fclean: clean
 	@echo "Cleaning objects and executable"
 
 re: fclean all
+
+.PRECIOUS: $(OBJECTS)

@@ -6,11 +6,11 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/06 01:04:05 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/09 15:27:20 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parser.h"
 
 
 t_token_info *next_word(char *str, char *delimiter)
@@ -130,7 +130,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_OUTPUT;
         lex->command_name = last_lex->command_name;
-        lex->flag = O_WRONLY;
+        lex->flag = W_OK;
         // printf("str is : %s\n",str);
 
         if ((ft_strlen(str) == 2 && (str[1] == '>')))
@@ -150,7 +150,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_INPUT;
         lex->command_name = last_lex->command_name;
-        lex->flag = O_RDONLY;
+        lex->flag = R_OK;
         
         
         if ((ft_strlen(str) == 2 && (str[1] == '<' )))
@@ -211,7 +211,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
     }
     // else if (G)
     // {
-
+        
     // }
     
 
