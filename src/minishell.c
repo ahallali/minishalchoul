@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/14 16:52:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:01:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ int main (int ac,char **av,char** env)
 	{
 		line = readline("minishell>>");
 		if (!line )
+		{
+
 			ft_putstr_fd("exit\n",STDIN_FILENO);
-			// exit(0);
+			exit(0);
+		}
 		while (!line || !*line)
 			line =readline("minishell>>");
 		if (line && *line)
@@ -75,15 +78,20 @@ int main (int ac,char **av,char** env)
 				{
 					if (convert_args(minishell->list->args))
 					{
+						// printf("%s\n",path);
 						path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
 						if (pipe(tmp) == 0 && path)
 						{
+							// printf("%d\n",minishell->list->inputFd);
 							child(minishell, &flag, tmp, path);
+							// printf("%d\n",minishell->list->inputFd);
+							
 							if (flag != 0)
 								close(minishell->fd_out);
 							minishell->fd_out = dup(tmp[0]);
-							close(tmp[0]);
+							// close(tmp[0]);
 							close(tmp[1]);
+							
 						}
 					}
 				}	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/14 16:53:56 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:55:16 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ char *   update_path(char * str , char * cmd)
     tmp= ft_split(str,':');
     while (tmp && *tmp)
     {
-
+        if (!access(cmd,X_OK))
+            return (cmd);
+        else 
+        {
+            
         path = ft_strjoin(*tmp,ft_strjoin("/",cmd));
         if (!access(path, X_OK | F_OK))
             return (path); 
         tmp++;
+        }
     }
     return (NULL);
 }
@@ -51,7 +56,7 @@ void child (t_minishell * minishell,int *flag,int * tmp,char * path)
 {
  
     pid_t pid = fork();
-    (void)tmp;
+    // (void)tmp;
     if (pid == 0)
     {
         open_pipes(minishell,flag,tmp);

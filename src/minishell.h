@@ -11,6 +11,8 @@
 # include <string.h>
 # include <signal.h>
 # include <stdlib.h>
+#include <sys/wait.h>
+# include<stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/09 15:27:20 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/21 13:51:37 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ t_token_info *next_word(char *str, char *delimiter)
 {
     t_token_info *info;
     int i;
-    int flag;
+    // int flag;
     char *c;
 
-    flag = 0;
+    // flag = 0;
     if (!str)
         return (NULL);
     info = ft_calloc(1, sizeof(t_token_info));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/14 16:54:05 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:24:36 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	first_node(t_minishell	*minishell, int *flag, int *tmp)
 {
 	
 	{
-		close(tmp [0]);
+		close(tmp[0]);
 		dup2(minishell->list->inputFd, STDIN_FILENO);
 		dup2(tmp[1], 1);
 		close(tmp [1]);
@@ -27,9 +27,10 @@ void	first_node(t_minishell	*minishell, int *flag, int *tmp)
 void	center_node(t_minishell	*minishell, int *tmp)
 {
 	close(tmp[0]);
+	// dup2(minishell->list->inputFd, STDIN_FILENO);
+	dup2(minishell->fd_out, 0);
 	dup2(tmp[1], 1);
 	close(tmp[1]);
-	dup2(minishell->fd_out, 0);
 	printf("pipe reading : %d\n", tmp[0]);
 	printf("pipe writing : %d\n", tmp[1]);
 }
@@ -53,8 +54,13 @@ void	open_pipes(t_minishell *minishell, int *flag, int *tmp)
 		close(tmp [0]);
 		dup2(minishell->fd_out, 0);
 		minishell->list->inputFd = tmp[0];
-			minishell->list->outputFd = STDOUT_FILENO;
+		minishell->list->outputFd = STDOUT_FILENO;
 	}
 	if (*flag != 0)
+	{
+		
+		close(tmp[1]);
+		close(tmp[0]);
 		close(minishell->fd_out);
+	}
 }

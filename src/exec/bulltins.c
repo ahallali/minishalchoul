@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/14 16:55:07 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:02:16 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void ft_echo(char **str,int fd)
   int i = 0;
   // int j = 0;
   int flag = 0;
+  int count = 1;
   fd = STDOUT_FILENO;
   if (!str || !*str)
   {
@@ -52,14 +53,15 @@ void ft_echo(char **str,int fd)
     
   while (str && str[i])
   {
-      if (i == 0 && *str[i] == '-' && (ft_check_n (str[0]) == 0))
+      if (i == 0 && *str[i] == '-' && (ft_check_n (str[i]) == 0))
       {
-      // printf("%s", str[i+1]);
-      ft_putstr_fd(str[i+1], fd);
-      flag = 1;
-      i++;
-      if (str[i + 1])
-        ft_putstr_fd(" ", fd);
+            while (str[i + count] && ft_check_n(str[i + count]) == 0) {
+                count++;
+            }
+            if (count % 2 == 0) {
+                flag = 1;
+            }
+            i =i+ (count - 1);
       }
       else {
         
@@ -67,20 +69,19 @@ void ft_echo(char **str,int fd)
         if (str[i+1])
           ft_putstr_fd(" ", fd);
       }
-
-            // printf("%s",str[])
     i++;
   }
-  if (!flag)
+  if (!flag && count != 1)
     ft_putstr_fd("\n", fd);
 }
+
 t_node  *ft_empty(void)
 {
   t_node *head = NULL;
   char *pwd = getcwd(NULL, 0);
   insert_node (&head,pwd,"PWD");
-  insert_node (&head,"1","SHLVL=");
-  insert_node (&head,"/usr/bin/env","_=");
+  insert_node (&head,"1","SHLVL");
+  insert_node (&head,"/usr/bin/env","_");
   return (head);
 }
 void ft_export (t_node ** env ,char ** args)
