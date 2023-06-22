@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/21 23:31:52 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:32:02 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,17 @@ t_token_info *next_word(char *str, char *delimiter)
             // puts("test\n");
             if (minishell->dquote_flag != '"')
             {
-                // printf("f added \n");
+                printf("f added \n");
                 minishell->dquote_flag = '"';
             }
-            else if (minishell->dquote_flag == '"')
+            if (minishell->dquote_flag == '"')
             {
                 // printf("str[i - 1] : %c\n",str[i - 1]);
                 while (str[i])
                 {
                     // puts("while\n");
-                    if (str[i] == '"' && str[i - 1] == '\\')
+                    printf("str[%d] : %c\n", i, str[i]);
+                    if (i > 0 && str[i] == '"' && str[i - 1] == '\\')
                         continue;
                     else if (str[i] == '"')
                     {
@@ -322,8 +323,9 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
             insert_to_lexer(tok->limiter, utils);
         // puts("second nice \n");
 
-        if (tok->next_start 
+        if ((tok->next_start 
             && (ft_strchr(QUOTES_PARSE, *tok->next_start) || ft_strchr(QUOTES_PARSE, *tok->word)))
+            || minishell->dquote_flag != 0)
             parse_quotes(tok, utils);
         // puts("third nice \n");
             

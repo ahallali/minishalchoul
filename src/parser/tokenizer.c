@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/12 20:40:51 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:32:23 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void parse_quotes(t_token_info *tok, t_parse_utils *utils)
             utils->wait_dquote = 1;
             line = get_new_line(">", utils, c);
             tok->next_start = ft_strjoin(tok->next_start, line);
-            // printf("line : %s\n",line);
         }
     }
 
