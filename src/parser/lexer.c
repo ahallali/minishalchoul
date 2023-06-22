@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/12 19:33:10 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/21 23:31:52 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,63 @@ t_token_info *next_word(char *str, char *delimiter)
     while (str[i] != '\0')
     {
         // c = ft_strchr(delimiter, str[i]);
-        if ((!i || str[i - 1] != '\\') 
-            &&str[i] == '"' && !minishell->dquote_flag)
+        // if ((!i || str[i - 1] != '\\') 
+        //     &&str[i] == '"' && !minishell->dquote_flag)
+        // {
+        //     puts("f addded \n");
+        //     // printf(" : %c\n",str[i]);
+        //     printf("str[i] : %c\n",str[i]);
+        //     printf("str[i - 1] : %c\n",str[i - 1]);
+        //     minishell->dquote_flag = '"';
+        // }
+        // else if ((i && str[i-1] != '\\') 
+        //     && str[i] && str[i] == '"' && minishell->dquote_flag == '"')
+        // {        
+        //     printf("str[i] : %c\n",str[i]);
+        //     printf("str[i - 1] : %c\n",str[i - 1]);
+        //     minishell->dquote_flag = '\0';
+        // }
+        if (str[i] == '"')
         {
-            puts("f addded \n");
-            // printf(" : %c\n",str[i]);
-            printf("str[i] : %c\n",str[i]);
-            printf("str[i - 1] : %c\n",str[i - 1]);
-            minishell->dquote_flag = '"';
+            // puts("test\n");
+            if (minishell->dquote_flag != '"')
+            {
+                // printf("f added \n");
+                minishell->dquote_flag = '"';
+            }
+            else if (minishell->dquote_flag == '"')
+            {
+                // printf("str[i - 1] : %c\n",str[i - 1]);
+                while (str[i])
+                {
+                    // puts("while\n");
+                    if (str[i] == '"' && str[i - 1] == '\\')
+                        continue;
+                    else if (str[i] == '"')
+                    {
+                        minishell->dquote_flag = '\0'; 
+                        // printf("f ended \n");
+                    }
+                    i++;
+                }
+                
+                if (!str[i])
+                {
+                    info->word = str;
+                    info->limiter = NULL;
+                    info->next_start = NULL;
+                    return (info);
+                }
+                // if (i != 0 && str[i - 1] != '\\')
+                // {
+                //     minishell->dquote_flag = '\0'; 
+                //     printf("f ended \n");
+                //     i++;
+                // }   
+            }
         }
-        else if ((i && str[i-1] != '\\') 
-            && str[i] && str[i] == '"' && minishell->dquote_flag == '"')
-        {        
-            printf("str[i] : %c\n",str[i]);
-            printf("str[i - 1] : %c\n",str[i - 1]);
-            minishell->dquote_flag = '\0';
-        }
-            // printf("errorororr\n");        
+        // printf("dquote_flag : %d\n",minishell->dquote_flag);
+        // printf("errorororr\n");        
         // REDIRECTIONS
         if (!minishell->dquote_flag && (c = ft_strchr(IO_PARSE, str[i]) ) != 0)
         {
@@ -74,10 +114,13 @@ t_token_info *next_word(char *str, char *delimiter)
                 // info->word = ft_substr(str, 0, i);
             }
             info->next_start = &str[i + 1];
-            return info;
+            return (info);
         }
         // TOKEN DELIMITER
-        if (!minishell->dquote_flag && (c = ft_strchr(delimiter, str[i]) ))
+        // printf("strchr : %s\n", ft_strchr(delimiter, str[i]));
+        // printf("delimiter : %s\n", delimiter);
+        // printf("str : %s\n", &str[i]);
+        if (minishell->dquote_flag == 0 && (c = ft_strchr(delimiter, str[i]) ))
         {
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
@@ -85,26 +128,27 @@ t_token_info *next_word(char *str, char *delimiter)
             // printf("str[i] : %c\n",str[i]);
             // printf("str[i + 1] : %c\n",str[i + 1]);
             // printf("delimiter : %c\n",*delimiter);
-            if (ft_strnchr(DELIMS_PARSE, str[i],2) && ft_strnchr(DELIMS_PARSE, str[i + 1],1))
+            if (ft_strnchr(DELIMS_PARSE, str[i], 2) && 
+                ft_strnchr(DELIMS_PARSE, str[i + 1],1))
                 return (perror("Syntax error : unexpected token found2"),NULL);
             info->limiter = &str[i];
             info->next_start = &str[i + 1];
-            return info;
+            return (info);
         }
         i++;
         if (!str[i] && !minishell->dquote_flag)
         {
             info->word = str;
             info->limiter = NULL;
-            info->next_start =NULL;
-            return info;
+            info->next_start = NULL;
+            return (info);
         }
-        else {
-            info->word = str;
-            info->limiter = NULL;
-            info->next_start =str;
-            return info;
-        }
+        // else {
+        //     info->word = str;
+        //     info->limiter = NULL;
+        //     info->next_start = NULL;
+        //     return (info);
+        // }
         // if (ft_strStartWith(info->word, '"') && !ft_strEndsWith(info->word, '\''))
         // while (/* condition */)
         // {
@@ -256,8 +300,10 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 }
 t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
 {
-
-    t_token_info * tok = next_word(prompt, "| ");
+    
+    minishell->dquote_flag = 0;
+    minishell->squote_flag = 0;
+    t_token_info * tok = next_word(prompt, " |");
     while (tok)
     {
 
@@ -271,15 +317,15 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
 
         if (!ft_strchr(" |",*tok->word) && (tok->next_start != tok->word))
             insert_to_lexer(tok->word, utils);
-        puts("first nice \n");
+        // puts("first nice \n");
         if (tok->limiter && ( (ft_strchr("|<>",*(tok->limiter)))))
             insert_to_lexer(tok->limiter, utils);
-        puts("second nice \n");
+        // puts("second nice \n");
 
         if (tok->next_start 
             && (ft_strchr(QUOTES_PARSE, *tok->next_start) || ft_strchr(QUOTES_PARSE, *tok->word)))
             parse_quotes(tok, utils);
-        puts("third nice \n");
+        // puts("third nice \n");
             
         tok = next_word(tok->next_start, "|<> ");
     }

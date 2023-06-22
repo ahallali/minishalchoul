@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/12 19:05:17 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:06:14 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,55 +22,58 @@
 
 typedef enum e_lex_type
 {
-    PIPE = 0,
-    CMD = 1,
-    ARG = 2,
-    QUOTE=3,
-    DQUOTE=4,
-    // FILE,
-    REDIRECTION_INPUT=5,    
-    REDIRECTION_OUTPUT=6,    
+	PIPE = 0,
+	CMD = 1,
+	ARG = 2,
+	QUOTE=3,
+	DQUOTE=4,
+	// FILE,
+	REDIRECTION_INPUT=5,    
+	REDIRECTION_OUTPUT=6,    
 } t_lex_type;
 
 typedef struct s_lex
 {
-    char *command_name;
-    char *variable;
-    char *filename;
-    int  flag;
-    int  fd;
-    void *next;
-    t_lex_type type;
+	char		*command_name;
+	char		*variable;
+	char		*filename;
+	int			flag;
+	int			fd;
+	void		*next;
+	t_lex_type 	type;
 } t_lex;
 
 
 typedef struct s_token_info{
-    char *word;
-    char *limiter;
-    char *next_start;
+	char *word;
+	char *limiter;
+	char *next_start;
 }               t_token_info;
 
 typedef struct s_parse_utils
 {
-    t_lex_type   *lexer;
-    t_list  *list_cmds;
-    t_list  *list_exec;
-    int     wait_squote;
-    int     wait_dquote;
-    char    *prompt;
-    char    *tmp_prompt;
-} t_parse_utils;
+	t_lex_type		*lexer;
+	t_list			*list_cmds;
+	t_list			*list_exec;
+	int				wait_squote;
+	int				wait_dquote;
+	char			*prompt;
+	char			*tmp_prompt;
+}				t_parse_utils;
 
 
+char			*ft_strtok(char *str, const char *delimiters, char *skip) ;
+void			print_exec(void *exec);
+void			print_lex(void *lex);
+t_list			*parse_prompt(char *prompt, t_parse_utils *utils);
+int				parse_quote(char *prompt, t_parse_utils *p_prompt);
+int				insert_to_lexer(char *str, t_parse_utils *u);
+void			parse_quotes(t_token_info *tok, t_parse_utils *utils);
+t_token_info	*next_word(char *str, char *delimiter);
+t_list			*get_exec(t_parse_utils *u);
+char			**convert_args(t_list *node);
+int				dquote_finder(char *str, int i);
+char			*add_dollar_sign(char *var);
+char			*extract_variable(char *str);
 
-void print_exec(void *exec);
-void print_lex(void *lex);
-t_list *parse_prompt(char *prompt ,t_parse_utils *utils);
-int parse_quote(char *prompt, t_parse_utils *p_prompt);
-int insert_to_lexer(char *str, t_parse_utils *u);
-void parse_quotes(t_token_info *tok, t_parse_utils *utils);
-t_token_info *next_word(char *str, char *delimiter);
-t_list *get_exec(t_parse_utils *u);
-char **convert_args(t_list *node);
-int dquote_finder(char *str, int i);
 #endif

@@ -51,7 +51,6 @@ t_minishell *minishell;
 t_node *
 ft_list_remove_if(t_node **head, char *data, int (*cmp)());
 t_node *ft_env(char **env);
-char *ft_strtok(char *str, const char *delimiters, char *skip) ;
 void ft_echo(char **str,int fd);
 // char *ft_substr(char *s, unsigned int start, size_t len);
 void print_list(t_node *head);

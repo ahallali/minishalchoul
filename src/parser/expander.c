@@ -6,95 +6,36 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/12 18:14:46 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:07:33 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+int count_occ(char *str, char *find)
+{
+    int i;
+    int count;
 
-int count_occurrences(char *str, char *find) {
-    int count = 0;
-    char *temp = str;
-
-    while ((temp = strstr(temp, find)) != NULL) {
-        count++;
-        temp += strlen(find);
-    }
-
-    return count;
-}
-
-void perform_replacements(char *result, char *str, char *find, char *replace) {
-    while (*str) {
-        if (strstr(str, find) == str) {
-            strcpy(result, replace);
-            result += strlen(replace);
-            str += strlen(find);
-        } else {
-            *result++ = *str++;
+    i = 0;
+    count = 0;
+    while (str[i])
+    {
+        if (!ft_strncmp(find, &str[i], ft_strlen(find)))
+        {
+           count++;
+           i += ft_strlen(find); 
         }
+        else
+            i++;
     }
-    *result = '\0'; // Add null terminator to the end of the result string
+    return (count);
 }
 
-int calculate_result_length(char *str, char *find, char *replace, int find_len, int replace_len, int count) {
-    int str_len = strlen(str);
-    replace_len = ft_strlen(replace);
-    find_len = ft_strlen(find);
-    return str_len + count * (replace_len - find_len);
-}
-
-// char *str_replace(char *str, char *find, char *replace) {
-//     char *result; // Pointer to the result string
-//     char *temp; // Pointer to temporarily store portions of the original string
-//     int find_len = strlen(find);
-//     int replace_len = strlen(replace);
-//     int count = 0;
-    
-//     // Count the occurrences of 'find' in 'str'
-//     temp = str;
-//     while ((temp = strstr(temp, find)) != NULL) {
-//         count++;
-//         temp += find_len;
-//     }
-    
-//     // Allocate memory for the result string with enough space
-//     // to accommodate the replacements
-//     result = (char *) malloc(strlen(str) + count * (replace_len - find_len) + 1);
-//     if (result == NULL) {
-//         return NULL; // Memory allocation failed
-//     }
-    
-//     temp = result;
-    
-//     // Iterate through 'str' and replace occurrences of 'find' with 'replace'
-//     while (*str) {
-//         if (strstr(str, find) == str) { // If 'find' is found at the current position
-//             strcpy(temp, replace); // Replace 'find' with 'replace' in 'result'
-//             temp += replace_len;
-//             str += find_len;
-//         } else {
-//             *temp++ = *str++;
-//         }
-//     }
-//     *temp = '\0'; // Add null terminator to the end of the result string
-    
-//     return result;
-// }
-char *str_replace(char *str, char *find, char *replace) {
-    int find_len = strlen(find);
-    int replace_len = strlen(replace);
-    int count = count_occurrences(str, find);
-    int result_len = calculate_result_length(str, find, replace, find_len, replace_len, count);
-
-    char *result = (char *) malloc(result_len + 1);
-    if (result == NULL) {
-        return NULL; // Memory allocation failed
-    }
-
-    perform_replacements(result, str, find, replace);
-
-    return result;
+int result_len(char *str, char *find, char *replace)
+{
+    int occ;
+    occ = count_occ(str, find);
+    return (ft_strlen(str) - (ft_strlen(find) * occ) + (ft_strlen(replace) * occ) ) + 1 ;
 }
 
 char *ft_str_replace(char *str, char *find, char *replace)
@@ -102,30 +43,23 @@ char *ft_str_replace(char *str, char *find, char *replace)
     size_t i;
     size_t y;
     size_t f_len;
-    size_t t_len;
     char *result;
+    char *tmp;
 
     i = 0;
     y = 0;
-    printf("str : %s\n",str);
     f_len = ft_strlen(find);
-    t_len = (ft_strlen(str) - ft_strlen(find) )+ ft_strlen(replace) + 1;
-    printf("t_len : %zu\n",t_len);
-    result = ft_calloc(t_len + 1, sizeof(char));
-    while (y < t_len)
+    tmp = replace;
+    result = ft_calloc(result_len(str, find, replace) + 1, sizeof(char));
+    while (str[i])
     {
-        printf("i : %zu\n",i);
-        if (i < t_len && ft_strncmp(&str[i], find, ft_strlen(find)) == 0)
+        // printf("%zu | %s\n", i, &str[i]);
+        if (ft_strncmp(&str[i], find, ft_strlen(find)) == 0)
         {
-            i = i + ft_strlen(find) ;            
-            // puts("rete");
-            // printf("result : %s\n", result);
+            i = i + ft_strlen(find);            
+            replace = tmp;
             while (replace && (*replace != '\0'))
-            {
                 result[y++] = *replace++;
-                printf("a result : %s\n", result);
-            }
-            // puts("te");
         }
         else
             result[y++] = str[i++];
@@ -139,14 +73,13 @@ char *convert_path(char *str)
     int i;
     
     i = 0;
-    
     if (i == 0 && str[i] == '$')
         i++;
-    // printf("arg : %s\n",ft_strdup(&str[i]));
     return ft_strdup(&str[i]);
-
-    
 }
+
+
+
 
 
 char *expand_dquotes(char *str, t_minishell *u)
@@ -159,25 +92,29 @@ char *expand_dquotes(char *str, t_minishell *u)
     char *var;
     char *res;
     char *tmp;
+    // char *env_var;
     
     i = 0;
     res = str;
-    printf("str : %s\n",str);
+    // printf("str : %s\n",str);
 
     while (str[i])
     {
-        printf("str i : %c\n",str[i]);
+        // printf("str i : %c\n",str[i]);
         if (str[i] == '$')
         {
             tmp = ft_strdup(str);
-            var = ft_strtok(&tmp[i], " \"\0", NULL);
-            printf("var : %s\n",var);
+            // var = ft_strtok(&tmp[i + 1], " $\"\0", NULL);
+            var = extract_variable(&tmp[i]);
+            // env_var = add_dollar_sign(var);
+            printf("var : %s\n", var);
+            // printf("env_var : %s\n", env_var);
             
-            if (path_finder(u->env, convert_path(var)))
-                res = ft_str_replace(str, var, path_finder(minishell->env, convert_path(var)));
+            if (path_finder(u->env, convert_path(var + 1)))
+                res = ft_str_replace(res, var, path_finder(minishell->env, convert_path(var + 1)));
             else 
-                res = ft_str_replace(str, var, "");
-            i++;
+                res = ft_str_replace(res, var, "");
+            // i++;
         }
         i++;
     }

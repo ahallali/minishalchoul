@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/10 18:17:48 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/12 20:40:51 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,8 @@ int parse_quote(char *prompt, t_parse_utils *p_prompt)
     lex = ft_calloc(1, sizeof(t_lex));
     while (tmp != NULL)
     {
-        
-        // printf("parser : %s\n",tmp );
         cmd = ft_strtrim(tmp, " ");
-        
-        
         tmp = ft_strtok(NULL, " ", NULL);
-    
     }
     return 0;
 }
