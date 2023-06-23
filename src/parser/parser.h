@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/23 16:34:24 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/23 19:47:32 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_parse_utils
 
 
 t_token_info	*init_token_struct();
-t_token_info	*validate_dquotes(char *str, int i);
+t_token_info	*validate_dquotes(char *str, int *i);
 
 
 char			*ft_strtok(char *str, const char *delimiters, char *skip) ;

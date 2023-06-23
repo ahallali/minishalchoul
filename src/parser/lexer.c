@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/23 16:33:04 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/23 20:12:10 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token_info *next_word(char *str, char *delimiter)
         return (NULL);
     info = init_token_struct();
     i = 0;
-    while (str[i] != '\0')
+    while ((size_t)i < ft_strlen(str) && str[i] != '\0')
     {
         // c = ft_strchr(delimiter, str[i]);
         // if ((!i || str[i - 1] != '\\') 
@@ -57,8 +57,8 @@ t_token_info *next_word(char *str, char *delimiter)
         //     printf("str[i - 1] : %c\n",str[i - 1]);
         //     minishell->dquote_flag = '\0';
         // }
-        tmp = validate_dquotes(str, i);
-        if (tmp)
+        tmp = validate_dquotes(str, &i);
+        if (tmp || (size_t)i > ft_strlen(str))
             return (tmp);
        
         printf("dquote_flag : %d\n",minishell->dquote_flag);
@@ -98,7 +98,7 @@ t_token_info *next_word(char *str, char *delimiter)
         // printf("strchr : %s\n", ft_strchr(delimiter, str[i]));
         // printf("delimiter : %s\n", delimiter);
         // printf("str : %s\n", &str[i]);
-        if (minishell->dquote_flag == 0 && (c = ft_strchr(delimiter, str[i]) ))
+        if (!minishell->dquote_flag && (c = ft_strchr(delimiter, str[i]) ))
         {
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
@@ -114,7 +114,8 @@ t_token_info *next_word(char *str, char *delimiter)
             return (info);
         }
         i++;
-        if (!str[i] && !minishell->dquote_flag)
+        printf("str[%d] : %s\n", i ,str);
+        if (!minishell->dquote_flag && !str[i])
         {
             info->word = str;
             info->limiter = NULL;
@@ -293,7 +294,7 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
             printf("tok nxt : %s\n", tok->next_start);
         printf("--------------------\n");
 
-        if (!ft_strchr(" |",*tok->word) && (tok->next_start != tok->word))
+        if (tok->word && !ft_strchr(" |",*tok->word) && (tok->next_start != tok->word))
             insert_to_lexer(tok->word, utils);
         // puts("first nice \n");
         if (tok->limiter && ( (ft_strchr("|<>",*(tok->limiter)))))
