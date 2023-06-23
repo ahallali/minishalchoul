@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/22 18:32:23 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/23 16:49:11 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ char *get_new_line(char *prompt,t_parse_utils *utils, char c)
     // if (!tmp)
     //     return (tmp);
     if (!ft_strchr(tmp, c))
+    {
         line = ft_strjoin(tmp, "\n"); 
+        free(tmp);
+    }
     else
         line = tmp;
     return (line);   

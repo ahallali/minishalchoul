@@ -6,15 +6,28 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/22 18:32:02 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/23 16:33:04 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+t_token_info *init_token_struct()
+{
+    t_token_info *info;
+
+    info = ft_calloc(1, sizeof(t_token_info));
+    if (!info)
+        return (info);
+    info->word = NULL;
+    info->limiter = NULL;
+    info->next_start= NULL;
+    return (info);
+}
 
 t_token_info *next_word(char *str, char *delimiter)
 {
+    t_token_info *tmp;
     t_token_info *info;
     int i;
     int flag;
@@ -23,7 +36,7 @@ t_token_info *next_word(char *str, char *delimiter)
     flag = 0;
     if (!str)
         return (NULL);
-    info = ft_calloc(1, sizeof(t_token_info));
+    info = init_token_struct();
     i = 0;
     while (str[i] != '\0')
     {
@@ -44,47 +57,11 @@ t_token_info *next_word(char *str, char *delimiter)
         //     printf("str[i - 1] : %c\n",str[i - 1]);
         //     minishell->dquote_flag = '\0';
         // }
-        if (str[i] == '"')
-        {
-            // puts("test\n");
-            if (minishell->dquote_flag != '"')
-            {
-                printf("f added \n");
-                minishell->dquote_flag = '"';
-            }
-            if (minishell->dquote_flag == '"')
-            {
-                // printf("str[i - 1] : %c\n",str[i - 1]);
-                while (str[i])
-                {
-                    // puts("while\n");
-                    printf("str[%d] : %c\n", i, str[i]);
-                    if (i > 0 && str[i] == '"' && str[i - 1] == '\\')
-                        continue;
-                    else if (str[i] == '"')
-                    {
-                        minishell->dquote_flag = '\0'; 
-                        // printf("f ended \n");
-                    }
-                    i++;
-                }
-                
-                if (!str[i])
-                {
-                    info->word = str;
-                    info->limiter = NULL;
-                    info->next_start = NULL;
-                    return (info);
-                }
-                // if (i != 0 && str[i - 1] != '\\')
-                // {
-                //     minishell->dquote_flag = '\0'; 
-                //     printf("f ended \n");
-                //     i++;
-                // }   
-            }
-        }
-        // printf("dquote_flag : %d\n",minishell->dquote_flag);
+        tmp = validate_dquotes(str, i);
+        if (tmp)
+            return (tmp);
+       
+        printf("dquote_flag : %d\n",minishell->dquote_flag);
         // printf("errorororr\n");        
         // REDIRECTIONS
         if (!minishell->dquote_flag && (c = ft_strchr(IO_PARSE, str[i]) ) != 0)
