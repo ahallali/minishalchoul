@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/21 13:51:37 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:56:00 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,27 @@ t_token_info *next_word(char *str, char *delimiter)
     while (str[i] != '\0')
     {
         // c = ft_strchr(delimiter, str[i]);
-        
-        // REDIRECTIONS
-        if ((c = ft_strchr(IO_PARSE, str[i]) ) != 0)
+        // printf("str[%d] : %c\n", i, str[i]);
+        if (ft_strchr(QUOTES_PARSE, str[i]))
         {
-            printf("test : %s\n", &str[i]);
+            minishell->quote_flag = str[i];
+            i++;
+            while (str[i])
+            {
+                if (i > 0 && str[i] == minishell->quote_flag
+                    && str[i - 1] != '\\')
+                {
+                    i++;
+                    break;
+                }
+                else i++;
+                
+            }
+            
+        }
+        // REDIRECTIONS
+        if (str[i] && (c = ft_strchr(IO_PARSE, str[i]) ) != 0)
+        {
             
             info->word = ft_substr(str, 0, i);
             if ((ft_strnchr(IO_PARSE, str[i + 1], 1) && ft_strnchr(IO_PARSE, str[i + 2], 1)
@@ -61,7 +77,7 @@ t_token_info *next_word(char *str, char *delimiter)
             return info;
         }
         // TOKEN DELIMITER
-        if ((c = ft_strchr(delimiter, str[i]) ))
+        if (str[i] && (c = ft_strchr(delimiter, str[i]) ))
         {
             // puts("delimiter found\n");
             info->word = ft_substr(str, 0, i);
@@ -69,18 +85,19 @@ t_token_info *next_word(char *str, char *delimiter)
             // printf("str[i] : %c\n",str[i]);
             // printf("str[i + 1] : %c\n",str[i + 1]);
             // printf("delimiter : %c\n",*delimiter);
-            if (ft_strnchr(DELIMS_PARSE, str[i],2) && ft_strnchr(DELIMS_PARSE, str[i + 1],1))
+            if (ft_strnchr(DELIMS_PARSE, str[i], 2) && ft_strnchr(DELIMS_PARSE, str[i + 1],1))
                 return (perror("Syntax error : unexpected token found2"),NULL);
             info->limiter = &str[i];
             info->next_start = &str[i + 1];
             return info;
         }
-        i++;
+        if (str[i])
+            i++;
         if (!str[i])
         {
             info->word = str;
             info->limiter = NULL;
-            info->next_start =NULL;
+            info->next_start = NULL;
             return info;
         }
         // if (ft_strStartWith(info->word, '"') && !ft_strEndsWith(info->word, '\''))

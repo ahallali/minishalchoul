@@ -30,12 +30,14 @@ typedef struct s_node
 
 typedef struct s_minishell
 {
-	t_node * env;
-	t_exec_utils *list;
-	int 		fd_out;
-	struct s_list *list_exec;
-} t_minishell;
+	t_node			*env;
+	t_exec_utils	*list;
+	int 			fd_out;
+	struct s_list	*list_exec;
+	char			quote_flag;
+}					t_minishell;
 
+t_minishell *minishell;
 
 t_node *ft_list_remove_if(t_node **head, char *data, int (*cmp)());
 t_node *ft_env(char **env);
