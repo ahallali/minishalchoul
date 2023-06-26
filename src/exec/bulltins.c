@@ -6,7 +6,7 @@
 /*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/22 18:02:16 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:30:51 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,42 +38,41 @@ int ft_strwc(char *str)
   return (0);
 }
 
-void ft_echo(char **str,int fd)
+
+
+void ft_echo(char **str, int fd)
 {
-  int i = 0;
-  // int j = 0;
-  int flag = 0;
-  int count = 1;
-  fd = STDOUT_FILENO;
-  if (!str || !*str)
-  {
+    int i = 0;
+    int flag = 0;
+    int count = 0;
+
+    if (!str || !*str)
+    {
         flag = 1;
         ft_putstr_fd("\n", fd);
-  } 
-    
-  while (str && str[i])
-  {
-      if (i == 0 && *str[i] == '-' && (ft_check_n (str[i]) == 0))
-      {
-            while (str[i + count] && ft_check_n(str[i + count]) == 0) {
-                count++;
-            }
-            if (count % 2 == 0) {
-                flag = 1;
-            }
-            i =i+ (count - 1);
-      }
-      else {
-        
-        ft_putstr_fd(str[i], fd);
-        if (str[i+1])
-          ft_putstr_fd(" ", fd);
-      }
-    i++;
-  }
-  if (!flag && count != 1)
-    ft_putstr_fd("\n", fd);
+        return;
+    }
+
+    while (str[i])
+    {
+        if (*str[i] == '-' && (ft_check_n(str[i]) == 0))
+        {
+            count++;
+            i++;
+            continue;
+        }
+          ft_putstr_fd(str[i], fd);
+
+        if (str[i + 1])
+            ft_putstr_fd(" ", fd);
+
+        i++;
+    }
+
+    if (!count)
+        ft_putstr_fd("\n", fd);
 }
+
 
 t_node  *ft_empty(void)
 {

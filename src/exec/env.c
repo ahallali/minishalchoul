@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 02:06:09 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/14 16:53:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:11:15 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,5 @@ void swap_nodes(t_node **head , t_node  *n,t_node *m)
 	m->next = tmp;
 }
 void ft_sort_env(t_node** env)
-	
 {
-	int swapped =1;
-	t_node *current;
-	t_node *last =NULL;
-	t_node *ls =NULL;
-	if (!env)
-		return ;
-	while (swapped)
-	{
-		swapped =0;
-		current = *env;
-		while (current->next)
-		{
-			if (strcmp(current->value,current->next->value) !=0)
-			{
-				swap_nodes(env,current,current->next);
-				swapped =1;
-				ls= current;
-			}
-		}
-		current = current->next;
-	}
-	ls =last;
 }

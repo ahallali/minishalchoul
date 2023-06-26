@@ -6,7 +6,7 @@
 /*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/22 14:55:16 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:32:37 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char *   update_path(char * str , char * cmd)
     tmp= ft_split(str,':');
     while (tmp && *tmp)
     {
-        if (!access(cmd,X_OK))
+        if (!access(cmd,X_OK| F_OK))
             return (cmd);
         else 
         {
