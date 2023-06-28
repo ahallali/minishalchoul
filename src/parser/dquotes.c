@@ -6,13 +6,13 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/26 22:58:15 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/27 23:35:42 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "parser.h"
 
-int validate_quote(char *str)
+int	validate_quote(char *str)
 {
 	int		i;
 	char	quote;
@@ -28,7 +28,7 @@ int validate_quote(char *str)
 			{
 				quote = 0;
 			}
-			else
+			else if (!quote)
 			{
 				quote = str[i];
 			}

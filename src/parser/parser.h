@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/25 19:13:41 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/06/28 02:00:50 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char			*append_new_line(char *prompt, char delimiter);
 
 void			print_exec(void *exec);
 void			print_lex(void *lex);
-t_list          *parse_prompt(char *prompt ,t_parse_utils *utils);
+t_list          *parse_prompt(char *prompt, t_parse_utils *utils);
 int				parse_quote(char *prompt, t_parse_utils *p_prompt);
 int				insert_to_lexer(char *str, t_parse_utils *u);
 void			parse_quotes(t_token_info *tok, t_parse_utils *utils);
@@ -88,5 +88,9 @@ t_list			*get_exec(t_parse_utils *u);
 char			**convert_args(t_list *node);
 char			**convert_command_args(t_exec_utils *utils);
 int				validate_quote(char *str);
+int				is_valid_variable(char *var);
+char			*add_dollar_sign(char *var);
+char			*extract_variable(char *str);
+
 
 #endif

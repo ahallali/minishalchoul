@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/22 16:01:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:59:11 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-t_minishell *minishell;
 int main (int ac,char **av,char** env)
 {
 	(void)ac;
@@ -23,9 +22,10 @@ int main (int ac,char **av,char** env)
 	int tmp[2];
 	t_parse_utils *p_prompt;
 
-		tmp[0] = -1;
-		tmp[1] = -1;
-	minishell = malloc (sizeof (t_minishell));
+	tmp[0] = -1;
+	tmp[1] = -1;
+	minishell = ft_calloc(1, sizeof(t_minishell));
+
 	minishell->env=NULL;
 	if (!minishell)
 		return (0);
@@ -36,7 +36,7 @@ int main (int ac,char **av,char** env)
 	while (1)
 	{
 		line = readline("minishell>>");
-		if (!line )
+		if (!line)
 		{
 
 			ft_putstr_fd("exit\n",STDIN_FILENO);
