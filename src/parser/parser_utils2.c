@@ -147,7 +147,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_OUTPUT;
         lex->command_name = last_lex->command_name;
-        lex->flag = W_OK;
+        lex->flag = O_WRONLY;
         // printf("str is : %s\n",str);
 
         if ((ft_strlen(str) == 2 && (str[1] == '>')))
@@ -167,7 +167,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
         // ex: ls -al | grep .c < Makefile > outfiles >oj
         lex->type = REDIRECTION_INPUT;
         lex->command_name = last_lex->command_name;
-        lex->flag = R_OK;
+        lex->flag = O_RDONLY;
         
         
         if ((ft_strlen(str) == 2 && (str[1] == '<' )))
@@ -186,7 +186,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
         last_lex->filename = str;
         ft_lstadd_back(&last_lex->outfiles, ft_lstnew(str));
-        last_lex->flag_outfile = W_OK;
+        last_lex->flag_outfile = O_WRONLY;
         lex->variable = str;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
         return (1);
@@ -196,7 +196,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
         last_lex->filename = str;
         ft_lstadd_back(&last_lex->infiles, ft_lstnew(str));
-        last_lex->flag_outfile = R_OK;
+        last_lex->flag_outfile = O_RDONLY;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
         return (1);
     }
