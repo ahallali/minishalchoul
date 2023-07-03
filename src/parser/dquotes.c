@@ -46,7 +46,7 @@ char	*append_new_line(char *prompt, char delimiter)
 
 	tmp = get_new_line(">", NULL, delimiter);
 	line = ft_strjoin(prompt, "\n");
-	printf("line : %s\n--", line);
+	// printf("line : %s\n--", line);
 	free(prompt);
 	prompt = ft_strjoin(line, tmp);
 	return (free(line), free(tmp), prompt);

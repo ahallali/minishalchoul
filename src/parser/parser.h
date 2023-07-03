@@ -38,6 +38,10 @@ typedef struct s_lex
 	char *command_name;
 	char *variable;
 	char *filename;
+	t_list *infiles;
+	int		flag_infile;
+	t_list *outfiles;
+	int		flag_outfile;
 	int  flag;
 	int  fd;
 	void *next;
@@ -69,8 +73,12 @@ typedef struct s_exec_utils
 	t_list  *args;
 	char    *infile;
 	char    *outfile;
-	int     inputFd;
-	int     outputFd;
+	// int     inputFd;
+	// int     outputFd;
+	t_list	*infiles;
+	int		flag_infile;
+	t_list	*outfiles;
+	int		flag_outfile;
 }           t_exec_utils;
 
 char			*get_new_line(char *prompt,t_parse_utils *utils, char c);

@@ -40,8 +40,8 @@ void	print_exec(void *exec)
 	printf("CMD : %s\n", _exec->cmd);
 	printf("INF : %s\n", _exec->infile);
 	printf("OUT : %s\n", _exec->outfile);
-	printf("IN_FD : %d\n", _exec->inputFd);
-	printf("OUT_FD : %d\n", _exec->outputFd);
+	// printf("IN_FD : %d\n", _exec->inputFd);
+	// printf("OUT_FD : %d\n", _exec->outputFd);
 	ft_lstiter(_exec->args, print_arg);
 	printf("--------------\n");
 }
@@ -85,15 +85,20 @@ t_list	*get_exec(t_parse_utils *u)
 		}
 		else if (tmp->type == 5)
 		{
-			exec->infile = tmp->filename;
-			if (tmp->filename)
-				exec->inputFd = open_file(tmp->filename, tmp->flag);
-			else
-				exec->inputFd = tmp->fd;
+			// exec->infile = tmp->filename;
+			// if (tmp->filename)
+			// 	exec->inputFd = open_file(tmp->filename, tmp->flag);
+			// else
+			// 	exec->inputFd = tmp->fd;
+			exec->infiles = tmp->infiles;
+			exec->infile = ft_lstlast(exec->infiles)->content;
+			exec->flag_infile = tmp->flag_infile;
 		}
 		else if (tmp->type == 6)
 		{
-			exec->outfile = tmp->filename;
+			exec->outfiles = tmp->outfiles;
+			exec->outfile = ft_lstlast(exec->outfiles)->content;
+			exec->flag_outfile = tmp->flag_outfile;
 			// if (tmp->filename)
 			// 	exec->outputFd = open_file(tmp->filename, tmp->flag);
 			// else
