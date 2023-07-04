@@ -73,8 +73,8 @@ typedef struct s_exec_utils
 	t_list  *args;
 	char    *infile;
 	char    *outfile;
-	// int     inputFd;
-	// int     outputFd;
+	int     inputFd;
+	int     outputFd;
 	t_list	*infiles;
 	int		flag_infile;
 	t_list	*outfiles;

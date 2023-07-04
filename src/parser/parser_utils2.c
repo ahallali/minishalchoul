@@ -60,7 +60,7 @@ t_token_info *next_word(char *str, char *delimiter)
             // printf("str[i + 1] %c\n",str[i + 1]);
             if (str[i] == str[i + 1])
                 info->limiter = ft_substr(str, i, 2);
-            else if (ft_isdigit(str[i-1]))
+            else if (i > 0 && ft_isdigit(str[i-1]))
             {
                 // while (ft_isdigit(str[--i]))
                 //     ;
@@ -108,6 +108,17 @@ t_token_info *next_word(char *str, char *delimiter)
         
     }
     return NULL;
+}
+
+t_lex   *init_lexer_struct()
+{
+    t_lex   *lex;
+
+    lex = ft_calloc(1, sizeof(t_lex));
+    if (!lex)
+        return (lex);
+    lex->fd = -1;
+    return (lex);
 }
 
 int insert_to_lexer(char *str, t_parse_utils *u)
@@ -186,7 +197,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
         last_lex->filename = str;
         ft_lstadd_back(&last_lex->outfiles, ft_lstnew(str));
-        last_lex->flag_outfile = O_WRONLY;
+        last_lex->flag_outfile = O_CREAT | O_TRUNC | O_WRONLY;
         lex->variable = str;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
         return (1);
@@ -196,7 +207,7 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
         last_lex->filename = str;
         ft_lstadd_back(&last_lex->infiles, ft_lstnew(str));
-        last_lex->flag_outfile = O_RDONLY;
+        last_lex->flag_infile = O_RDONLY;
         // ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
         return (1);
     }
