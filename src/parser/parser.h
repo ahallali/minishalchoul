@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/05 02:07:02 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:46:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef enum e_lex_type
 	// FILE,
 	REDIRECTION_INPUT=5,    
 	REDIRECTION_OUTPUT=6,    
+	REDIRECTION_AINPUT=7,    
+	REDIRECTION_AOUTPUT=8,    
 } t_lex_type;
 
 typedef struct s_lex
@@ -85,7 +87,7 @@ char			*get_new_line(char *prompt,t_parse_utils *utils, char c);
 char			*append_new_line(char *prompt, char delimiter);
 void			print_exec(void *exec);
 void			print_lex(void *lex);
-t_list          *parse_prompt(char *prompt, t_parse_utils *utils);
+t_list			*parse_prompt(char *prompt, t_parse_utils *utils);
 int				parse_quote(char *prompt, t_parse_utils *p_prompt);
 int				insert_to_lexer(char *str, t_parse_utils *u);
 void			parse_quotes(t_token_info *tok, t_parse_utils *utils);
@@ -97,6 +99,8 @@ int				validate_quote(char *str);
 int				is_valid_variable(char *var);
 char			*add_dollar_sign(char *var);
 char			*extract_variable(char *str);
+void			skip_quoted(char *str, int *i);
+int				token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u);
 
 
 #endif
