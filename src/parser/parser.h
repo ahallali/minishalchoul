@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/28 02:00:50 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/04 12:20:32 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ typedef struct s_parse_utils
 typedef struct s_exec_utils
 {
 	char    *cmd;
-	t_list  *args;
+	t_list *args;
 	char    *infile;
 	char    *outfile;
-	// int     inputFd;
-	// int     outputFd;
 	t_list	*infiles;
 	int		flag_infile;
 	t_list	*outfiles;
@@ -82,9 +80,7 @@ typedef struct s_exec_utils
 }           t_exec_utils;
 
 char			*get_new_line(char *prompt,t_parse_utils *utils, char c);
-
 char			*append_new_line(char *prompt, char delimiter);
-
 void			print_exec(void *exec);
 void			print_lex(void *lex);
 t_list          *parse_prompt(char *prompt, t_parse_utils *utils);

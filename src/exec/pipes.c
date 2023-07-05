@@ -3,64 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/21 14:24:36 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:30:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../minishell.h"
 
-void	first_node(t_minishell	*minishell, int *flag, int *tmp)
-{
-	
-	{
-		close(tmp[0]);
-		dup2(minishell->list->inputFd, STDIN_FILENO);
-		dup2(tmp[1], 1);
-		close(tmp [1]);
-		*flag = 1;
-	}
-}
+/*
+bool read_from_pipe;
+int	read_of_old_fd;
 
-void	center_node(t_minishell	*minishell, int *tmp)
+while (minishell->list_exec)
 {
-	close(tmp[0]);
-	// dup2(minishell->list->inputFd, STDIN_FILENO);
-	dup2(minishell->fd_out, 0);
-	dup2(tmp[1], 1);
-	close(tmp[1]);
-	printf("pipe reading : %d\n", tmp[0]);
-	printf("pipe writing : %d\n", tmp[1]);
-}
+	fork();
+	pipe(fd);
+	read_of_old_fd = fd[0];
+	if (child do) // 0 1 2 fd[0] fd[1]
+	{
+		if (we have a heredoc)
+		{
+			FIRST TO BE OPENNED AND STORE IT IN A FILE;
+		}
+		if (next_command)
+			dup2(fd[1], 1);
+		else if (read_from_pipe == 1)
+		{	dup2(read_of_old_fd, 0);
+			close(read_of_old_fd);
+		}
+		close(fd[1]);
+		if (next_command == NULL)
+			close(fd[0]);
 
-void	open_pipes(t_minishell *minishell, int *flag, int *tmp)
-{
-	if (!minishell->list_exec)
-		return ;
-	if (minishell->list_exec->next)
-	{	
-		if (minishell->list_exec->next && *flag == 0)
-			first_node(minishell, flag, tmp);
-		else if (minishell->list_exec->next)
-			center_node(minishell, tmp);
-		else if (pipe(tmp))
-			perror("pipeerror");
+		while (list_of_redirections)
+		{
+			//if last redirection dup before closing fd
+			open(infile);
+			close(infile);
+			open(outfile);
+			close(outfile);
+			goto_next_redirection;
+		}
+		get_path();
+		execve();
 	}
-	else
+	else(parent)
 	{
-		close(tmp[1]);
-		close(tmp [0]);
-		dup2(minishell->fd_out, 0);
-		minishell->list->inputFd = tmp[0];
-		minishell->list->outputFd = STDOUT_FILENO;
-	}
-	if (*flag != 0)
-	{
-		
-		close(tmp[1]);
-		close(tmp[0]);
-		close(minishell->fd_out);
+		close(fd[1], fd[0]);
+		goto_next_command; minishell->list_exec = minishell->list_exec-next;
+		read_from_pipe = 1;
 	}
 }
+wait_childs();
+*/

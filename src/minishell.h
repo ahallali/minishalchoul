@@ -32,7 +32,6 @@ typedef struct s_minishell
 {
 	t_node			*env;
 	t_exec_utils	*list;
-	int 			fd_out;
 	struct s_list	*list_exec;
 	char			quote_flag;
 }					t_minishell;
