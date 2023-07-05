@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/04 12:20:32 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/05 02:07:02 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_exec_utils
 	t_list *args;
 	char    *infile;
 	char    *outfile;
+	int     inputFd;
+	int     outputFd;
 	t_list	*infiles;
 	int		flag_infile;
 	t_list	*outfiles;

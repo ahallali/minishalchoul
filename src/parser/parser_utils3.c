@@ -40,8 +40,8 @@ void	print_exec(void *exec)
 	printf("CMD : %s\n", _exec->cmd);
 	printf("INF : %s\n", _exec->infile);
 	printf("OUT : %s\n", _exec->outfile);
-	// printf("IN_FD : %d\n", _exec->inputFd);
-	// printf("OUT_FD : %d\n", _exec->outputFd);
+	printf("IN_FD : %d\n", _exec->inputFd);
+	printf("OUT_FD : %d\n", _exec->outputFd);
 	ft_lstiter(_exec->args, print_arg);
 	printf("--------------\n");
 }
@@ -53,11 +53,24 @@ int	open_file(char *filename, int flags)
 {
 	int	fd;
 
-	fd = -1;
-	fd = access(filename, flags);
+	printf("opening with flag : %d\n", flags);
+	fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	printf("fd %d\n", fd);
+
 	if (fd < 0)
-		perror("No such file or directory");
+		perror("Error redirection");
 	return (fd);
+}
+
+t_exec_utils	*init_exec_utils()
+{
+	t_exec_utils	*exec;
+
+	exec = ft_calloc(1, sizeof(t_exec_utils));
+	if (!exec)
+		return (exec);
+	exec->inputFd = -1;
+	exec->outputFd = -1;
 }
 
 t_list	*get_exec(t_parse_utils *u)
@@ -70,9 +83,9 @@ t_list	*get_exec(t_parse_utils *u)
 
 	(void)fd;
 	l_tmp = u->list_cmds;
-	exec = ft_calloc(1, sizeof(t_exec_utils));
+	exec = init_exec_utils();
 	result = NULL;
-	while (l_tmp)
+	while (l_tmp && exec)
 	{
 		tmp = l_tmp->content;
 		if (tmp->type == 1)
@@ -86,30 +99,31 @@ t_list	*get_exec(t_parse_utils *u)
 		else if (tmp->type == 5)
 		{
 			// exec->infile = tmp->filename;
-			// if (tmp->filename)
-			// 	exec->inputFd = open_file(tmp->filename, tmp->flag);
-			// else
-			// 	exec->inputFd = tmp->fd;
+			if (tmp->filename)
+				exec->inputFd = open_file(tmp->filename, tmp->flag_infile);
+			else if (tmp->fd != -1)
+				exec->inputFd = tmp->fd;
 			exec->infiles = tmp->infiles;
 			exec->infile = ft_lstlast(exec->infiles)->content;
 			exec->flag_infile = tmp->flag_infile;
 		}
 		else if (tmp->type == 6)
 		{
+			if (tmp->filename)
+				exec->outputFd = open_file(tmp->filename, tmp->flag_outfile);
+			else if (tmp->fd != -1)
+				exec->outputFd = tmp->fd;
+
 			exec->outfiles = tmp->outfiles;
 			exec->outfile = ft_lstlast(exec->outfiles)->content;
 			exec->flag_outfile = tmp->flag_outfile;
-			// if (tmp->filename)
-			// 	exec->outputFd = open_file(tmp->filename, tmp->flag);
-			// else
-			// 	exec->outputFd = tmp->fd;
 		}
 		// printf("type : %d",tmp->type);
 		// echo "hello" "world" | cat -e > out | ls <ifile < infile >ou >outfile | ls 'erezr'
 		if (tmp->type == PIPE)
 		{
 			ft_lstadd_back(&result, ft_lstnew(exec));
-			exec = ft_calloc(1, sizeof(t_exec_utils));
+			exec = init_exec_utils();
 		}
 		l_tmp = l_tmp->next;
 	}
