@@ -6,11 +6,19 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/05 02:01:13 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:12:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void cleanup_fds(int fd1, int fd2)
+{
+	if (fd1 != -1)
+		close(fd1);
+	if (fd2 != -1)
+		close(fd2);
+}
 
 int main(int ac, char **av, char **env)
 {
@@ -19,10 +27,14 @@ int main(int ac, char **av, char **env)
 	char *line = NULL;
 	int flag = 0;
 	char *path;
-
+	int fd[2];
+	int STDIN = -1;
+	int STDOUT;
+	int old_stdin = -1;
 	t_parse_utils *p_prompt;
 	int read_f_pipe = 0;
-	int old_pipe_fd =0;
+	int old_pipe_fd = 0;
+	int pip = 0;
 
 	pid_t pid;
 
@@ -40,7 +52,6 @@ int main(int ac, char **av, char **env)
 		line = readline("minishell>>");
 		if (!line)
 		{
-
 			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(0);
 		}
@@ -53,58 +64,46 @@ int main(int ac, char **av, char **env)
 			free(line);
 			break;
 		}
-		if (strcmp(line, "exit") == 0)
-		{
-			free(line);
-			break;
-		}
-		if (line && *line)
-			add_history(line); //
 		p_prompt = ft_calloc(1, sizeof(t_parse_utils));
 		char *p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
-		// ft_lstiter(minishell->list_exec, print_exec);
+		ft_lstiter(minishell->list_exec, print_exec);
 
-		int fd[2];
+	
 		while (minishell->list_exec)
 		{
-			minishell->list = (t_exec_utils *)minishell->list_exec->content;
-			if (!minishell->list->cmd)
-				break;
-			if (is_builtin(minishell))
-				do_builtin(minishell);
-			else
-			{
+				STDOUT = -1;
+				minishell->list = (t_exec_utils *)minishell->list_exec->content;
+				if (!minishell->list->cmd)
+					break;
 				if (minishell->list_exec->next)
 				{
+					// pip = 1;
 					if (pipe(fd) < 0)
 					{
-						perror("pipe");
+						perror("pipe:");
 						exit(1);
+					}
+					else
+					{
+						STDOUT = fd[1];
+						old_stdin = fd[0];
 					}
 				}
 				pid = fork();
 				if (pid < 0)
 				{
-					perror("fork");
+					perror("forkerror :");
 					exit(1);
 				}
 				if (pid == 0)
 				{
-					if (minishell->list_exec->next)
-					{	
-						// puts("dup tmp 1 output");
-							dup2(fd[1], 1);
-							close(fd[0]);
-					}
-					else if (read_f_pipe == 1)
-					{
-						// puts("dup old pipe to 0");
-						dup2(old_pipe_fd, 0);
-						// close(0);
-					}
-					close(fd[1]);
+					dup2(STDIN, 0);
+					close(STDIN);
+					dup2(STDOUT, 1);
+					close(STDOUT);
+					close(fd[0]);
 					path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
 					if (path)
 					{
@@ -115,38 +114,21 @@ int main(int ac, char **av, char **env)
 				else
 				{
 					close(fd[1]);
-					close(fd[0]);
-					if (read_f_pipe == 1)
-                    	close(old_pipe_fd);
-					old_pipe_fd = fd[0]; 
-					read_f_pipe = 1;
+					close(STDIN);
+					STDIN = old_stdin;
 				}
-			}
-			minishell->list_exec = minishell->list_exec->next;
+		// if (pip)
+			while (waitpid(-1, NULL, 0)!= -1);
+		// pip = 0;
+		minishell->list_exec = minishell->list_exec->next;
 		}
-		while (waitpid(-1, 0, 0) != -1)
-			;
-		// printf()
-		int status;
-		waitpid(pid, &status, 0);
 	}
 }
-// 	if (convert_args(minishell->list->args))
-// 	{
-// 		path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
-// 		if (pipe(fd) == 0 && path) // PARENT // 0 1 2 fd[0] fd[1]
-// 		{
-// 			child(minishell, &flag, tmp, path);
-// 			// if (flag != 0)
-// 			// close(minishell->fd_out);
-// 			// minishell->fd_out = dup(tmp[0]);
-// 			// close(tmp[0]);
-// 			close(tmp[1]);
-
-// 		}
-// 	}
-// }
-// minishell->list_exec = minishell->list_exec->next;
+	// dup2(soutput_fd,1);
+	// dup2(sinput_fd,0);
+	// close(soutput_fd);
+	// close(sinput_fd);
+	// }
 // printf("here\n");
 // line =readline("minishell>>");
 // free(tmp);

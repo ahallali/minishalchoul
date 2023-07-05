@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/05 01:30:54 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:00:51 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
 	// ft_lstiter(utils->list_cmds, print_lex);
 	t_list *res = get_exec(utils);
 	// printf("count : %d",ft_lstsize(res));
-	ft_lstiter(res, print_exec);
+	// ft_lstiter(res, print_exec);
 	return res;
 	
 }

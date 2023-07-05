@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:00:23 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/21 13:52:54 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:07:04 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_exec_utils	*init_exec_utils()
 		return (exec);
 	exec->inputFd = -1;
 	exec->outputFd = -1;
+	return (exec);
 }
 
 t_list	*get_exec(t_parse_utils *u)
