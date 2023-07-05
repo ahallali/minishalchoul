@@ -37,6 +37,7 @@ typedef struct s_minishell
 }					t_minishell;
 
 t_minishell *minishell;
+void execute_one(t_minishell *minishell, pid_t pid);
 
 t_node *ft_list_remove_if(t_node **head, char *data, int (*cmp)());
 t_node *ft_env(char **env);
