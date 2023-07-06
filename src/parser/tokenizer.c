@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/05 19:44:49 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/06 13:44:05 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,9 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 
 	}
 	else if (ft_strchr(IO_PARSE, *str))
-		return (token_redirection (str, lex, last_lex, u));
+		return (t_redirect (str, lex, last_lex, u));
+	else if (is_redirection(last_lex->type) && !last_lex->filename)
+		return (get_redir_file(str, lex, last_lex, u));
 	// else if ((*str == '>' || (ft_strlen(str) == 2 && (str[1] == '>')))
 	// )
 	// {
@@ -149,25 +151,25 @@ int insert_to_lexer(char *str, t_parse_utils *u)
 	// 	ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
 	// 	return (1);
 	// }
-	else if (last_lex->type == REDIRECTION_OUTPUT && !last_lex->filename)
-	{
+	// else if (last_lex->type == REDIRECTION_OUTPUT && !last_lex->filename)
+	// {
 
-		last_lex->filename = str;
-		ft_lstadd_back(&last_lex->outfiles, ft_lstnew(str));
-		last_lex->flag_outfile = O_CREAT | O_TRUNC | O_WRONLY;
-		lex->variable = str;
-		// ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-		return (1);
-	}
-	else if (last_lex->type == REDIRECTION_INPUT  && !last_lex->filename)
-	{
+	// 	last_lex->filename = str;
+	// 	ft_lstadd_back(&last_lex->outfiles, ft_lstnew(str));
+	// 	last_lex->flag_outfile = O_CREAT | O_TRUNC | O_WRONLY;
+	// 	lex->variable = str;
+	// 	// ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
+	// 	return (1);
+	// }
+	// else if (last_lex->type == REDIRECTION_INPUT  && !last_lex->filename)
+	// {
 
-		last_lex->filename = str;
-		ft_lstadd_back(&last_lex->infiles, ft_lstnew(str));
-		last_lex->flag_infile = O_RDONLY;
-		// ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
-		return (1);
-	}
+	// 	last_lex->filename = str;
+	// 	ft_lstadd_back(&last_lex->infiles, ft_lstnew(str));
+	// 	last_lex->flag_infile = O_RDONLY;
+	// 	// ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
+	// 	return (1);
+	// }
 	else if (last_lex->type != PIPE)
 	{
 		lex->type = ARG;
