@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/05 19:12:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/06 23:56:43 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ int main(int ac, char **av, char **env)
 	char *line = NULL;
 	int flag = 0;
 	char *path;
-	int fd[2];
-	int STDIN = -1;
-	int STDOUT;
-	int old_stdin = -1;
 	t_parse_utils *p_prompt;
 	int read_f_pipe = 0;
 	int old_pipe_fd = 0;
@@ -70,6 +66,10 @@ int main(int ac, char **av, char **env)
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		ft_lstiter(minishell->list_exec, print_exec);
 
+	int fd[2];
+	int STDIN = -1;
+	int STDOUT;
+	int old_stdin = -1;
 	
 		while (minishell->list_exec)
 		{
@@ -114,14 +114,15 @@ int main(int ac, char **av, char **env)
 				else
 				{
 					close(fd[1]);
+					// close (fd[0]);
 					close(STDIN);
 					STDIN = old_stdin;
 				}
 		// if (pip)
-			while (waitpid(-1, NULL, 0)!= -1);
 		// pip = 0;
 		minishell->list_exec = minishell->list_exec->next;
 		}
+			while (waitpid(-1, NULL, 0)!= -1);
 	}
 }
 	// dup2(soutput_fd,1);
