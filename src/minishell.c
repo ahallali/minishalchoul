@@ -12,15 +12,9 @@
 
 #include "minishell.h"
 
-void cleanup_fds(int fd1, int fd2)
-{
-	if (fd1 != -1)
-		close(fd1);
-	if (fd2 != -1)
-		close(fd2);
-}
+t_minishell *minishell;
 
-int main(int ac, char **av, char **env)
+int main (int ac, char **av, char** env)
 {
 	(void)ac;
 	(void)av;
@@ -99,11 +93,18 @@ int main(int ac, char **av, char **env)
 				}
 				if (pid == 0)
 				{
-					dup2(STDIN, 0);
-					close(STDIN);
-					dup2(STDOUT, 1);
-					close(STDOUT);
-					close(fd[0]);
+					if (STDIN != -1){
+
+						dup2(STDIN, 0);
+						close(STDIN);
+					}
+					if (STDOUT != -1) {
+						dup2(STDOUT, 1);
+						close(STDOUT);
+					}
+
+					if (minishell->list_exec->next)
+						close(fd[0]);
 					path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
 					if (path)
 					{
@@ -113,16 +114,18 @@ int main(int ac, char **av, char **env)
 				}
 				else
 				{
-					close(fd[1]);
+					if (minishell->list_exec->next)
+						close(fd[1]);
 					// close (fd[0]);
-					close(STDIN);
+					if (STDIN != -1)
+						close(STDIN);
 					STDIN = old_stdin;
 				}
 		// if (pip)
 		// pip = 0;
 		minishell->list_exec = minishell->list_exec->next;
 		}
-			while (waitpid(-1, NULL, 0)!= -1);
+		while (waitpid(-1, NULL, 0)!= -1);
 	}
 }
 	// dup2(soutput_fd,1);
