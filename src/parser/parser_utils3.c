@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:00:23 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/05 19:47:18 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/08 15:36:19 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_list	*get_exec(t_parse_utils *u)
 				exec->infile = ft_lstlast(exec->infiles)->content;
 			exec->flag_infile = tmp->flag_infile;
 		}
-		else if (tmp->type == 6)
+		else if (tmp->type == 6 || tmp->type == 8)
 		{
 			if (tmp->filename)
 				exec->outputFd = open_file(tmp->filename, tmp->flag_outfile);
@@ -194,7 +194,7 @@ char **convert_env(t_node	*node)
 		len++;
 		tmp = tmp->next;
 	}
-	exec_env = malloc((len + 1) * sizeof(char *));
+	exec_env = ft_calloc((len + 1), sizeof(char *));
 	if (!exec_env || !*exec_env)
 		return (NULL);
 	while (i < len)

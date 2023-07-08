@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/05 19:46:13 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/08 13:47:35 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char			*add_dollar_sign(char *var);
 char			*extract_variable(char *str);
 void			skip_quoted(char *str, int *i);
 int				token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u);
+int				is_enum_redirection(int val);
 
 
 #endif

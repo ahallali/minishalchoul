@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/05 19:46:56 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/08 15:41:21 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,13 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
 	while (tok)
 	{
 
-		if (tok->word)
-		    printf("tok word : %s\n", tok->word);
-		if (tok->limiter)
-		    printf("tok lim : %s\n", tok->limiter);
-		if (tok->next_start)
-		    printf("tok nxt : %s\n", tok->next_start);
-		printf("--------------------\n");
+		// if (tok->word)
+		//     printf("tok word : %s\n", tok->word);
+		// if (tok->limiter)
+		//     printf("tok lim : %s\n", tok->limiter);
+		// if (tok->next_start)
+		//     printf("tok nxt : %s\n", tok->next_start);
+		// printf("--------------------\n");
 
 		if (tok->word && !ft_strchr(" |",*tok->word))
 			insert_to_lexer(tok->word, utils);
@@ -161,7 +161,7 @@ t_list *parse_prompt(char *prompt ,t_parse_utils *utils)
 			
 		tok = next_word(tok->next_start, "|<> ");
 	}
-	ft_lstiter(utils->list_cmds, print_lex);
+	// ft_lstiter(utils->list_cmds, print_lex);
 	t_list *res = get_exec(utils);
 	// printf("count : %d",ft_lstsize(res));
 	// ft_lstiter(res, print_exec);
