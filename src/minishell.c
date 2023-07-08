@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/06 23:56:43 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:02:20 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int main (int ac, char **av, char** env)
 			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(0);
 		}
-		// while (!line || !*line)
-		// 	line =readline("minishell>>");
 		if (line && *line)
 			add_history(line); //
 		if (strcmp(line, "exit") == 0)
@@ -59,83 +57,9 @@ int main (int ac, char **av, char** env)
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		ft_lstiter(minishell->list_exec, print_exec);
-
-	int fd[2];
-	int STDIN = -1;
-	int STDOUT;
-	int old_stdin = -1;
-	
-		while (minishell->list_exec)
-		{
-				STDOUT = -1;
-				minishell->list = (t_exec_utils *)minishell->list_exec->content;
-				if (!minishell->list->cmd)
-					break;
-				if (minishell->list_exec->next)
-				{
-					// pip = 1;
-					if (pipe(fd) < 0)
-					{
-						perror("pipe:");
-						exit(1);
-					}
-					else
-					{
-						STDOUT = fd[1];
-						old_stdin = fd[0];
-					}
-				}
-				pid = fork();
-				if (pid < 0)
-				{
-					perror("forkerror :");
-					exit(1);
-				}
-				if (pid == 0)
-				{
-					if (STDIN != -1){
-
-						dup2(STDIN, 0);
-						close(STDIN);
-					}
-					if (STDOUT != -1) {
-						dup2(STDOUT, 1);
-						close(STDOUT);
-					}
-
-					if (minishell->list_exec->next)
-						close(fd[0]);
-					path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
-					if (path)
-					{
-						if (execve(path, convert_command_args(minishell->list), convert_env(minishell->env)) == -1)
-							perror("execve");
-					}
-				}
-				else
-				{
-					if (minishell->list_exec->next)
-						close(fd[1]);
-					// close (fd[0]);
-					if (STDIN != -1)
-						close(STDIN);
-					STDIN = old_stdin;
-				}
-		// if (pip)
-		// pip = 0;
-		minishell->list_exec = minishell->list_exec->next;
-		}
-		while (waitpid(-1, NULL, 0)!= -1);
+		execute(minishell);
 	}
 }
-	// dup2(soutput_fd,1);
-	// dup2(sinput_fd,0);
-	// close(soutput_fd);
-	// close(sinput_fd);
-	// }
-// printf("here\n");
-// line =readline("minishell>>");
-// free(tmp);
 // print_list(new);
 // CD && PWD && ENV BUILTIN DONE
 //  else if (strcmp(t[0], "exit") == 0)

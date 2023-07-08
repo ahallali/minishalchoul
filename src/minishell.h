@@ -55,14 +55,19 @@ t_node *sort_var(t_node *head, char *s);
 void ft_export(t_node **env, char **args);
 t_node *ft_unset(t_node *head, char *var);
 // void parse_prompt(char *p);
+void execute(t_minishell *minishell);
 void ft_exec(void *content);
 int ft_check_n(char *str);
 char *update_path(char *str, char *cmd);
 char **convert_env(t_node *node);
+void child(t_minishell *minishell, int STDIN, int STDOUT ,int *fd);
 t_node *ft_empty(void);
 void ft_sort_env(t_node **env);
 void open_pipes(t_minishell *minishell,int* flag ,int *tmp);
-void child(t_minishell * minishell, int *flag,int *tmp, char *path);
+void parent(t_minishell *minishell, int *fd, int STDIN,int old_stdin);
 void do_builtin(t_minishell *minishell);
 int is_builtin(t_minishell *minishell);
+void execute_cmd(t_minishell *minishell, char *path);
+void run_builltin(t_minishell *minishell);
+
 #endif

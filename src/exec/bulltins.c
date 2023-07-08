@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/26 12:30:51 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:10:31 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int check_n_arg(char *str)
 {
