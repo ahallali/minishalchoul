@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/27 23:41:07 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/08 16:32:58 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	*ft_str_replace(char *str, char *find, char *replace)
 		}
 		else
 			result[y++] = str[i++];
-
 	}
 	return (result);
 }
@@ -89,7 +88,6 @@ char	*expand_dquotes(char *str, t_minishell *u)
 
 	i = 0;
 	res = str;
-
 	while (str[i])
 	{
 		if (str[i] == '$')

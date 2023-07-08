@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 01:52:17 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/06/28 02:00:10 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/08 17:36:28 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char	*extract_variable(char *str)
 		tmp = ft_substr(str, 0, i + 1);
 		return (tmp);
 	}
-	while (!ft_strchr(" $\"\0", str[i]) &&
-		(ft_isalpha(str[i]) || str[i] == 95 || ft_isdigit(str[i])))
+	while (!ft_strchr(" $\"\0", str[i])
+		&& (ft_isalpha(str[i]) || str[i] == 95 || ft_isdigit(str[i])))
 		i++;
 	tmp = ft_substr(str, 0, i);
 	return (tmp);

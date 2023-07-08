@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 13:47:35 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/08 17:33:26 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,22 @@ typedef struct s_exec_utils
 {
 	char    *cmd;
 	t_list *args;
-	char    *infile;
-	char    *outfile;
-	int     inputFd;
-	int     outputFd;
+	char	*infile;
+	char	*outfile;
+	int		inputFd;
+	int		outputFd;
 	t_list	*infiles;
 	int		flag_infile;
 	t_list	*outfiles;
 	int		flag_outfile;
-}           t_exec_utils;
+}			t_exec_utils;
 
-char			*get_new_line(char *prompt,t_parse_utils *utils, char c);
+t_exec_utils	*init_exec_utils(void);
+char			*get_new_line(char *prompt, t_parse_utils *utils, char c);
 char			*append_new_line(char *prompt, char delimiter);
 void			print_exec(void *exec);
 void			print_lex(void *lex);
 t_list			*parse_prompt(char *prompt, t_parse_utils *utils);
-int				parse_quote(char *prompt, t_parse_utils *p_prompt);
 int				insert_to_lexer(char *str, t_parse_utils *u);
 void			parse_quotes(t_token_info *tok, t_parse_utils *utils);
 t_token_info	*next_word(char *str, char *delimiter);
@@ -100,8 +100,27 @@ int				is_valid_variable(char *var);
 char			*add_dollar_sign(char *var);
 char			*extract_variable(char *str);
 void			skip_quoted(char *str, int *i);
-int				token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u);
+int				token_redirection(char *str, t_lex *lex,
+					t_lex *last_lex, t_parse_utils *u);
 int				is_enum_redirection(int val);
-
+int				open_file(char *filename, int flags);
+void			convert_input_redirection(t_lex *tmp, t_exec_utils *exec);
+void			convert_output_redirection(t_lex *tmp, t_exec_utils *exec);
+int				handle_pipe(t_lex *tmp, t_list *l_tmp,
+					t_exec_utils **exec, t_list **result);
+int				get_output(t_lex *last_lex, t_lex *lex,
+					char *str, t_parse_utils *u);
+int				handle_lastlex_redir(t_lex *last_lex, t_lex *lex,
+					char *str, t_parse_utils *u);
+int				verify_exec_node(t_list *node, char *str, t_lex *lex,
+					t_parse_utils *u);
+int				insert_pipe(t_lex *lex, t_parse_utils *u);
+int				insert_args(t_lex *lex, t_lex *last_lex,
+					char *str, t_parse_utils *u);
+int				insert_command(t_lex *lex, char *str,
+					t_parse_utils *u, t_list **node);
+t_token_info	*token_io(char *str, int *i, t_token_info *info);
+t_token_info	*token_delim(char *str, int *i, t_token_info *info);
+t_token_info	*token_last(char *str, t_token_info *info);
 
 #endif
