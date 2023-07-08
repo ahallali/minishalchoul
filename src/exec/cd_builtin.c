@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/07 16:03:07 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:05:28 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,9 @@ void ft_pwd(t_node *head,char *s)
 
 void print_list(t_node* head) {
 	t_node* tmp = head;
-	while (tmp != NULL) {
+	while (tmp != NULL) 
+	{
+		if (!tmp->value)
 		printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
@@ -176,8 +178,8 @@ t_node * ft_unset(t_node * head,char * var)
 	{
 		if (!strcmp(t->variable,var) && strcmp(t->variable,"_"))
 		{
-
-			tmp->next = t->next;
+		del(t->variable);
+		tmp->next = t->next;
 		}
 		tmp = t;
 		t = t->next;

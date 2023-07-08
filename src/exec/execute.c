@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/07 16:18:46 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/08 22:52:04 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 	pid_t pid;
 	int fd[2];
 	int STDIN = -1;
+	int old = dup(0);
+	int old_out = dup(1);
 	int STDOUT;
 	int old_stdin = -1;
 	char *path =NULL;
@@ -26,13 +28,43 @@
 		minishell->list = (t_exec_utils *)minishell->list_exec->content;
 		if (!minishell->list->cmd)
 			break;
-		if (is_builtin(minishell) && ft_lstsize(minishell->list_exec) ==1)
+		if (is_builtin(minishell) && ft_lstsize(minishell->list_exec) == 1 && minishell->list->inputFd)
 		{
-			do_builtin(minishell);
+			if (minishell->list->inputFd != -1 || minishell->list->outputFd != -1)
+			{	
+				if (minishell->list->inputFd != -1)
+				{
+					dup2(minishell->list->inputFd, 0);
+					do_builtin(minishell);
+					dup2(old, 0);
+				}
+				if (minishell->list->outputFd != -1)
+				{
+					dup2(minishell->list->outputFd,1);
+					do_builtin(minishell);
+					dup2(old_out, 1);
+				}
+			}
+			else
+				do_builtin(minishell);
 			break;
 		}
-		if (minishell->list_exec->next || (is_builtin(minishell) && ft_lstsize(minishell->list_exec)>1))
+		if (minishell->list_exec->next || (is_builtin(minishell) && ft_lstsize(minishell->list_exec) > 1) )
 		{
+			// if (minishell->list->inputFd != -1 && is_builtin(minishell))
+			// {
+			// 	dup2(minishell->list->inputFd, 0);
+			// 	do_builtin(minishell);
+			// }
+			// if (minishell->list->outputFd != -1 && is_builtin(minishell))
+			// {
+			// 	dup2(minishell->list->outputFd,1);
+			// 	do_builtin(minishell);
+			// 	close(fd[0]);
+			// 	// close(fd[1]);
+			// 	// dup2(old_out,1);
+			// 	// STDOUT = -1;
+			// }
 			if (pipe(fd) < 0)
 			{
 				perror("pipe:");
@@ -43,6 +75,7 @@
 				STDOUT = fd[1];
 				old_stdin = fd[0];
 			}
+
 		}
 		pid = fork();
 		if (pid < 0)
@@ -52,12 +85,17 @@
 		}
 		if (pid == 0)
 		{
+			redirection(minishell,STDIN,STDOUT);
 			child (minishell , STDIN,STDOUT,fd);
 			execute_cmd(minishell, path);
 		}
 		else
 		{
 			parent(minishell, fd, STDIN,old_stdin);
+			if (minishell->list->inputFd > 2)
+				close(minishell->list->inputFd);
+			if (minishell->list->outputFd > 2)
+				close(minishell->list->outputFd);
 			STDIN = old_stdin;
 		}
 	minishell->list_exec = minishell->list_exec->next;
@@ -98,8 +136,4 @@ void execute_cmd(t_minishell *minishell, char *path)
 		if (execve(path, convert_command_args(minishell->list), convert_env(minishell->env)) == -1)
 					perror("execve");
 	}
-}
-void run_builltin(t_minishell *minishell)
-{
-	
 }

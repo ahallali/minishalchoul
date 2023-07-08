@@ -38,12 +38,10 @@ typedef struct s_minishell
 
 t_minishell *minishell;
 void execute_one(t_minishell *minishell, pid_t pid);
-
 t_node *ft_list_remove_if(t_node **head, char *data, int (*cmp)());
 t_node *ft_env(char **env);
 char *ft_strtok(char *str, const char *delimiters, char *skip) ;
 void ft_echo(char **str,int fd);
-// char *ft_substr(char *s, unsigned int start, size_t len);
 void print_list(t_node *head);
 void ft_pwd(t_node *head,char *s);
 t_node * gt(char *str, t_node *head);
@@ -54,7 +52,6 @@ t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
 void ft_export(t_node **env, char **args);
 t_node *ft_unset(t_node *head, char *var);
-// void parse_prompt(char *p);
 void execute(t_minishell *minishell);
 void ft_exec(void *content);
 int ft_check_n(char *str);
@@ -69,5 +66,7 @@ void do_builtin(t_minishell *minishell);
 int is_builtin(t_minishell *minishell);
 void execute_cmd(t_minishell *minishell, char *path);
 void run_builltin(t_minishell *minishell);
+// void redirection(t_minishell *minishell);
+void redirection(t_minishell *minishell, int STDIN, int STDOUT);
 
 #endif

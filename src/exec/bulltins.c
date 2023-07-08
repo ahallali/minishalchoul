@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/07 13:10:31 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:18:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	do_builtin (t_minishell * minishell)
     ft_unset(minishell->env,convert_args(minishell->list->args)[0]);
   else if (ft_strncmp(minishell->list->cmd, "echo",4) == 0)
     ft_echo (convert_args(minishell->list->args),STDOUT_FILENO);
-  else if (ft_strncmp(minishell->list->cmd, "export",6) == 0)
-    ft_export(&minishell->env,convert_args(minishell->list->args));
+  // else if (ft_strncmp(minishell->list->cmd, "export",6) == 0)
+  //   ft_export(&minishell->env,convert_args(minishell->list->args));
 }
 int is_builtin(t_minishell * minishell)
 {
