@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/05 15:19:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/08 23:54:04 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,31 @@ int ft_check_n(char * str)
     
 }
 
+
+int check_cmd (char*  cmd)
+{
+    int i = 0;
+
+    while (cmd[i])
+    {
+        if (cmd[i] == '/')
+            return (1);
+        i++;
+    }
+    return (0);
+}
 char *   update_path(char * str , char * cmd)
 {
     if (!str || !cmd)
         return (NULL);
+    if (cmd[0] == '/' || cmd[0]== '.' || check_cmd(cmd))
+        return (cmd);  
     char ** tmp;
     char * path;
     tmp = NULL;
     tmp= ft_split(str,':');
-    while (tmp && *tmp)
-    {
+        while (tmp && *tmp)
+        {
         if (!access(cmd,X_OK| F_OK))
             return (cmd);
         else 

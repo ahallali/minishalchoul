@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   converter_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:28:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 17:35:28 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/09 00:26:36 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char	**convert_args(t_list *node)
+char **convert_args(t_list *node)
 {
-	int		len;
-	int		tmp;
-	char	**result;
-	t_list	*n;
+	int len;
+	int tmp;
+	char **result;
+	t_list *n;
 
 	len = ft_lstsize(node);
 	result = NULL;
@@ -34,12 +34,12 @@ char	**convert_args(t_list *node)
 	return (result);
 }
 
-char	**convert_command_args(t_exec_utils *utils)
+char **convert_command_args(t_exec_utils *utils)
 {
-	int		len;
-	int		tmp;
-	char	**result;
-	t_list	*n;
+	int len;
+	int tmp;
+	char **result;
+	t_list *n;
 
 	len = ft_lstsize(utils->args);
 	result = NULL;
@@ -57,13 +57,13 @@ char	**convert_command_args(t_exec_utils *utils)
 	return (result);
 }
 
-char	**convert_env(t_node *node)
+char **convert_env(t_node *node)
 {
-	char	**exec_env;
-	int		i;
-	t_node	*tmp;
-	int		len;
-
+	char **exec_env;
+	// char ** tmp;
+	int i;
+	t_node *tmp;
+	int len;
 	tmp = node;
 	len = 0;
 	i = 0;
@@ -73,7 +73,7 @@ char	**convert_env(t_node *node)
 		tmp = tmp->next;
 	}
 	exec_env = ft_calloc((len + 1), sizeof(char *));
-	if (!exec_env || !*exec_env)
+	if (!exec_env)
 		return (NULL);
 	while (i < len)
 	{
@@ -82,5 +82,6 @@ char	**convert_env(t_node *node)
 		i++;
 	}
 	exec_env[i] = NULL;
+	
 	return (exec_env);
 }

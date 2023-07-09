@@ -68,5 +68,6 @@ void execute_cmd(t_minishell *minishell, char *path);
 void run_builltin(t_minishell *minishell);
 // void redirection(t_minishell *minishell);
 void redirection(t_minishell *minishell, int STDIN, int STDOUT);
-
+void ft_exit(t_minishell *minishell, char *cmd);
+int check_cmd_num(char *cmd);
 #endif

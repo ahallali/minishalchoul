@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/07 13:02:20 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 03:26:22 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int main (int ac, char **av, char** env)
 		minishell->env = ft_empty();
 	while (1)
 	{
-		line = readline("minishell>>");
+		line = readline("minishell>");
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(0);
 		}
 		if (line && *line)
-			add_history(line); //
+			add_history(line);
 		if (strcmp(line, "exit") == 0)
 		{
 			free(line);
@@ -56,7 +56,7 @@ int main (int ac, char **av, char** env)
 		char *p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
-		ft_lstiter(minishell->list_exec, print_exec);
+		 ft_lstiter(minishell->list_exec, print_exec);
 		execute(minishell);
 	}
 }

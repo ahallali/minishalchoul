@@ -6,6 +6,8 @@
         "libft.h": "c",
         "history.h": "c",
         "minishell.h": "c",
-        "readline.h": "c"
+        "readline.h": "c",
+        "locale": "c",
+        "__locale": "c"
     }
 }

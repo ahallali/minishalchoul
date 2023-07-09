@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/08 17:18:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 01:36:02 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,35 @@ void	do_builtin (t_minishell * minishell)
     ft_unset(minishell->env,convert_args(minishell->list->args)[0]);
   else if (ft_strncmp(minishell->list->cmd, "echo",4) == 0)
     ft_echo (convert_args(minishell->list->args),STDOUT_FILENO);
-  // else if (ft_strncmp(minishell->list->cmd, "export",6) == 0)
-  //   ft_export(&minishell->env,convert_args(minishell->list->args));
+  else if (ft_strncmp(minishell->list->cmd, "export",6) == 0)
+    ft_export(&minishell->env,convert_args(minishell->list->args));
+  else if (ft_strncmp(minishell->list->cmd, "exit", 4) == 0)
+    ft_exit(minishell, convert_args(minishell->list->args)[0]);
 }
 int is_builtin(t_minishell * minishell)
 {
-    if(ft_strncmp(minishell->list->cmd, "cd",3) == 0 || (ft_strncmp(minishell->list->cmd,"env",3)==0 && ft_lstsize(minishell->list->args) == 0)|| \
-     ft_strncmp(minishell->list->cmd, "pwd",3) == 0||(ft_strncmp(minishell->list->cmd, "unset",5) == 0  && ft_lstsize(minishell->list->args))||(ft_strncmp(minishell->list->cmd, "echo",4) ==0) ||(ft_strncmp(minishell->list->cmd, "export",6) == 0))
-      return (1);
-    return (0);
+  if (ft_strncmp(minishell->list->cmd, "cd", 3) == 0 || (ft_strncmp(minishell->list->cmd, "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0) ||
+      ft_strncmp(minishell->list->cmd, "pwd", 3) == 0 || ft_strncmp(minishell->list->cmd, "exit",4) == 0 || (ft_strncmp(minishell->list->cmd, "unset", 5) == 0 && ft_lstsize(minishell->list->args)) || (ft_strncmp(minishell->list->cmd, "echo", 4) == 0) || (ft_strncmp(minishell->list->cmd, "export", 6) == 0))
+    return (1);
+  return (0);
+}
+void ft_exit(t_minishell *minishell,char *cmd)
+{
+  if (check_cmd_num(cmd))
+  {
+      perror("numeric argument required");
+  }
+  else 
+    exit (0);
+}
+int check_cmd_num (char * cmd)
+{
+  int i = 0;
+  while (cmd[i])
+  {
+    if (!ft_isdigit (cmd[i]))
+            return (1);
+    i++;
+  }
+  return (0);
 }
