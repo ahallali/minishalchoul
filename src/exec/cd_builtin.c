@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/08 23:32:02 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:30:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,7 @@ void print_list(t_node* head) {
 	t_node* tmp = head;
 	while (tmp != NULL) 
 	{
-	 	if (tmp->value && tmp->variable)
-			printf("%s=%s\n", tmp->variable, tmp->value);
+		printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;
 	}
 }

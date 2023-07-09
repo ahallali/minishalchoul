@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 15:28:17 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/09 18:21:49 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,23 @@
 
 t_minishell *minishell;
 
-void f()
+// void f()
+// {
+// 	system("leaks minishell");
+// }
+void *handler(int signal)
 {
-	system("leaks minishell");
+	if (waitpid(0, NULL, WNOHANG))
+	{
+		
+	rl_replace_line("",0);
+	rl_on_new_line();
+	rl_redisplay();
+	}
+	else
+	write(1,"\n",1);
 }
-
-int main (int ac, char **av, char** env)
+int main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
@@ -30,11 +41,9 @@ int main (int ac, char **av, char** env)
 	int read_f_pipe = 0;
 	int old_pipe_fd = 0;
 	int pip = 0;
-
 	pid_t pid;
-	atexit(f);
+	
 	minishell = ft_calloc(1, sizeof(t_minishell));
-
 	minishell->env = NULL;
 	if (!minishell)
 		return (0);
@@ -42,8 +51,11 @@ int main (int ac, char **av, char** env)
 		minishell->env = ft_env(env);
 	else
 		minishell->env = ft_empty();
+	rl_catch_signals = 0;
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, (void *)handler);
 		line = readline("minishell>");
 		if (!line)
 		{
@@ -55,8 +67,7 @@ int main (int ac, char **av, char** env)
 		if (strcmp(line, "exit") == 0)
 		{
 			t_list **n = get_gcollector();
-			printf("lst : %p\n",n);
-			// ft_lstiter(*n, ft_free);
+			printf("lst : %p\n", n);
 			free(n);
 			free(line);
 			break;
@@ -65,7 +76,7 @@ int main (int ac, char **av, char** env)
 		char *p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
-		 ft_lstiter(minishell->list_exec, print_exec);
+		// ft_lstiter(minishell->list_exec, print_exec);
 		execute(minishell);
 	}
 }

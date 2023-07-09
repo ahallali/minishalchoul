@@ -1,0 +1,14 @@
+Makefile
+bulltins.o
+cd_builtin.o
+env.o
+libft
+libft.zip
+minishell
+minishell.o
+obj
+oufff
+out
+parser_utils2.o
+parser_utils3.o
+src

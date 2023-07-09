@@ -18,6 +18,7 @@
 # include <errno.h>
 # include "../libft/libft.h"
 # include "parser/parser.h"
+#include <sys/types.h>
 // void parse(char *line);
 
 
