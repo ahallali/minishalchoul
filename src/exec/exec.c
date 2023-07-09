@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/08 23:54:04 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:28:28 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ void execute_one(t_minishell *minishell, pid_t pid)
         path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
         if (path)
         {
-        if (execve(path, convert_command_args(minishell->list), convert_env(minishell->env)) == -1)
-            perror("execve");
+            if (execve(path, convert_command_args(minishell->list), convert_env(minishell->env)) == -1)
+                perror("execve");
         }
+        ft_lstiter(*get_gcollector(), ft_free);
     }
 }

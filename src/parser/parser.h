@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 17:33:26 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/09 15:39:33 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_exec_utils
 	int		flag_outfile;
 }			t_exec_utils;
 
+void			close_last_fd(int fd);
 t_exec_utils	*init_exec_utils(void);
 char			*get_new_line(char *prompt, t_parse_utils *utils, char c);
 char			*append_new_line(char *prompt, char delimiter);

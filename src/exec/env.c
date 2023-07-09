@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 02:06:09 by ahallali          #+#    #+#             */
-/*   Updated: 2023/06/26 12:11:15 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/08 23:09:11 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_node *create_node(char *value,char *variable)
 {
-  	t_node*new=malloc (sizeof(t_node));
+  	t_node	*new = ft_calloc (1, sizeof(t_node));
   	if (!new)
 		return (NULL);
 	new->value=strdup(value);

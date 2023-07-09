@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 03:26:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:28:17 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_minishell *minishell;
+
+void f()
+{
+	system("leaks minishell");
+}
 
 int main (int ac, char **av, char** env)
 {
@@ -27,7 +32,7 @@ int main (int ac, char **av, char** env)
 	int pip = 0;
 
 	pid_t pid;
-
+	atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
 
 	minishell->env = NULL;
@@ -49,6 +54,10 @@ int main (int ac, char **av, char** env)
 			add_history(line);
 		if (strcmp(line, "exit") == 0)
 		{
+			t_list **n = get_gcollector();
+			printf("lst : %p\n",n);
+			// ft_lstiter(*n, ft_free);
+			free(n);
 			free(line);
 			break;
 		}

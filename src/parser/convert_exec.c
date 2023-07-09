@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 17:38:12 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/09 15:38:39 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,39 @@ int	open_file(char *filename, int flags)
 void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename)
+	{
+		close_last_fd(exec->inputFd);
 		exec->inputFd = open_file(tmp->filename, tmp->flag_infile);
+	}
 	else if (tmp->fd != -1)
+	{
+		close_last_fd(exec->inputFd);
 		exec->inputFd = tmp->fd;
+	}
 	exec->infiles = tmp->infiles;
 	if (ft_lstsize(exec->infiles))
 		exec->infile = ft_lstlast(exec->infiles)->content;
 	exec->flag_infile = tmp->flag_infile;
 }
 
+void	close_last_fd(int fd)
+{
+	if (fd != -1)
+		close(fd);
+}
+
 void	convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename)
+	{
+		close_last_fd(exec->outputFd);
 		exec->outputFd = open_file(tmp->filename, tmp->flag_outfile);
+	}
 	else if (tmp->fd != -1)
+	{
+		close_last_fd(exec->outputFd);
 		exec->outputFd = tmp->fd;
+	}
 	exec->outfiles = tmp->outfiles;
 	if (ft_lstsize(exec->outfiles))
 		exec->outfile = ft_lstlast(exec->outfiles)->content;

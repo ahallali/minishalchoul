@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 04:19:09 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 15:28:34 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void execute(t_minishell *minishell)
 			child(minishell, STDIN, STDOUT, fd);
 			redirection(minishell, STDIN, STDOUT);
 			execute_cmd(minishell, path);
+			ft_lstiter(*get_gcollector(), ft_free);
 		}
 		else
 		{
