@@ -6,55 +6,45 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/04 10:30:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:48:07 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../minishell.h"
 
-/*
-bool read_from_pipe;
-int	read_of_old_fd;
-
-while (minishell->list_exec)
+int is_builtin(t_minishell *minishell)
 {
-	fork();
-	pipe(fd);
-	read_of_old_fd = fd[0];
-	if (child do) // 0 1 2 fd[0] fd[1]
-	{
-		if (we have a heredoc)
-		{
-			FIRST TO BE OPENNED AND STORE IT IN A FILE;
-		}
-		if (next_command)
-			dup2(fd[1], 1);
-		else if (read_from_pipe == 1)
-		{	dup2(read_of_old_fd, 0);
-			close(read_of_old_fd);
-		}
-		close(fd[1]);
-		if (next_command == NULL)
-			close(fd[0]);
-
-		while (list_of_redirections)
-		{
-			//if last redirection dup before closing fd
-			open(infile);
-			close(infile);
-			open(outfile);
-			close(outfile);
-			goto_next_redirection;
-		}
-		get_path();
-		execve();
-	}
-	else(parent)
-	{
-		close(fd[1], fd[0]);
-		goto_next_command; minishell->list_exec = minishell->list_exec-next;
-		read_from_pipe = 1;
-	}
+	if (ft_strncmp(minishell->list->cmd, "cd", 3) == 0 || (ft_strncmp(minishell->list->cmd, "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0) ||
+			ft_strncmp(minishell->list->cmd, "pwd", 3) == 0 || ft_strncmp(minishell->list->cmd, "exit", 4) == 0 || (ft_strncmp(minishell->list->cmd, "unset", 5) == 0 && ft_lstsize(minishell->list->args)) || (ft_strncmp(minishell->list->cmd, "echo", 4) == 0) || (ft_strncmp(minishell->list->cmd, "export", 6) == 0))
+		return (1);
+	return (0);
 }
-wait_childs();
-*/
+void ft_exit(t_minishell *minishell, char **cmd)
+{
+	(void)minishell;
+	if (check_cmd_num(cmd[0]))
+	{
+		ft_putstr_fd("minishell>:exit:numeric argument required\n",2);
+		exit(ft_atoi(cmd[0]));
+	}
+	if(cmd[1])
+		ft_putstr_fd("minishell>: exit: too many arguments\n", 2);
+	if (!cmd[0])
+	{
+			ft_putstr_fd("exit",2);
+			exit(0);
+	}
+	ft_putstr_fd("exit",2);
+	exit(ft_atoi(cmd[0]));
+}
+int check_cmd_num(char *cmd)
+{
+	int i = 0;
+	while (cmd[i])
+	{
+		if (!ft_isdigit(cmd[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}

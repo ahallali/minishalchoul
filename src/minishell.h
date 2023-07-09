@@ -62,13 +62,14 @@ void child(t_minishell *minishell, int STDIN, int STDOUT ,int *fd);
 t_node *ft_empty(void);
 void ft_sort_env(t_node **env);
 void open_pipes(t_minishell *minishell,int* flag ,int *tmp);
-void parent(t_minishell *minishell, int *fd, int STDIN,int old_stdin);
+void parent(t_minishell *minishell, int *fd, int STDIN);
 void do_builtin(t_minishell *minishell);
 int is_builtin(t_minishell *minishell);
 void execute_cmd(t_minishell *minishell, char *path);
 void run_builltin(t_minishell *minishell);
 // void redirection(t_minishell *minishell);
-void redirection(t_minishell *minishell, int STDIN, int STDOUT);
-void ft_exit(t_minishell *minishell, char *cmd);
+void redirection(t_minishell *minishell);
+void ft_exit(t_minishell *minishell, char **cmd);
 int check_cmd_num(char *cmd);
+void handler(int signal);
 #endif

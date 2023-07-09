@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 18:21:49 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:07:10 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,7 @@ t_minishell *minishell;
 // {
 // 	system("leaks minishell");
 // }
-void *handler(int signal)
-{
-	if (waitpid(0, NULL, WNOHANG))
-	{
-		
-	rl_replace_line("",0);
-	rl_on_new_line();
-	rl_redisplay();
-	}
-	else
-	write(1,"\n",1);
-}
+
 int main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -42,7 +31,7 @@ int main(int ac, char **av, char **env)
 	int old_pipe_fd = 0;
 	int pip = 0;
 	pid_t pid;
-	
+	// atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
 	minishell->env = NULL;
 	if (!minishell)
@@ -67,7 +56,8 @@ int main(int ac, char **av, char **env)
 		if (strcmp(line, "exit") == 0)
 		{
 			t_list **n = get_gcollector();
-			printf("lst : %p\n", n);
+			ft_lstiter(*n, ft_free);
+			// printf("lst : %p\n", n);
 			free(n);
 			free(line);
 			break;
@@ -78,6 +68,7 @@ int main(int ac, char **av, char **env)
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		// ft_lstiter(minishell->list_exec, print_exec);
 		execute(minishell);
+		free(line);
 	}
 }
 // print_list(new);

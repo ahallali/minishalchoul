@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 17:55:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:48:36 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void execute(t_minishell *minishell)
 				do_builtin(minishell);
 			break;
 		}
-		if (minishell->list_exec->next) 
+		if (minishell->list_exec->next)
 		{
-			
+
 			if (pipe(fd) < 0)
 			{
 				perror("pipe:");
@@ -80,13 +80,13 @@ void execute(t_minishell *minishell)
 			close(old);
 			close(old_out);
 			child(minishell, STDIN, STDOUT, fd);
-			redirection(minishell, STDIN, STDOUT);
+			redirection(minishell);
 			execute_cmd(minishell, path);
 			ft_lstiter(*get_gcollector(), ft_free);
 		}
 		else
 		{
-			parent(minishell, fd, STDIN, old_stdin);
+			parent(minishell, fd, STDIN);
 			if (minishell->list->inputFd > 2)
 				close(minishell->list->inputFd);
 			if (minishell->list->outputFd > 2)
@@ -115,7 +115,7 @@ void child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
 	if (minishell->list_exec->next)
 		close(fd[0]);
 }
-void parent(t_minishell *minishell, int *fd, int STDIN, int old_stdin)
+void parent(t_minishell *minishell, int *fd, int STDIN)
 {
 	if (minishell->list_exec->next)
 		close(fd[1]);
@@ -126,10 +126,19 @@ void execute_cmd(t_minishell *minishell, char *path)
 {
 	path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
 	if (!path)
+	{
 		perror("path not found");
+		ft_lstiter(*get_gcollector(), ft_free);
+		exit(0);
+		
+	}
 	else
 	{
 		if (execve(path, convert_command_args(minishell->list), convert_env(minishell->env)) == -1)
+		{
 			perror("execve");
+			ft_lstiter(*get_gcollector(), ft_free);
+			exit(0);
+		}
 	}
 }

@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 00:10:50 by ahallali         ###   ########.fr       */
+/*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
+/*   Updated: 2023/07/09 23:50:22 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void redirection(t_minishell *minishell)
+void handler(int signal)
 {
-    if (minishell->list->inputFd > 2)
-        dup2(minishell->list->inputFd, 0);
-    if (minishell->list->outputFd > 2)
-        dup2(minishell->list->outputFd, 1);
+    (void)signal;
+    if (waitpid(0, NULL, WNOHANG))
+    {
+
+        rl_replace_line("", 0);
+        rl_on_new_line();
+        rl_redisplay();
+    }
+    else
+        write(1, "\n", 1);
 }

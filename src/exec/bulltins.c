@@ -6,133 +6,101 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 17:33:40 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:46:31 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_n_arg(char *str)
+int	check_n_arg(char *str)
 {
-  int i = 2;
-  while (str[i])
-  {
-    if (str[i] != 'n')
-      return (1);
-    i++;
-  }
-  return (0);
-}
-int ft_strwc(char *str)
-{
-  int i = 0;
-  while (str[i])
-  {
-    if (str[i] != '\"' && str[i] != '\'')
-    {
-      printf("%c", str[i]);
-    }
-    i++;
-  }
-  return (0);
+	int	i;
+
+	i = 2;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-void ft_echo(char **str, int fd)
+int	ft_strwc(char *str)
 {
-  int i = 0;
-  int flag = 0;
-  int count = 0;
+	int	i ;
 
-  if (!str || !*str)
-  {
-    flag = 1;
-    ft_putstr_fd("\n", fd);
-    return;
-  }
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\"' && str[i] != '\'')
+		{
+			printf("%c", str[i]);
+		}
+		i++;
+	}
+	return (0);
+}
 
-  while (str[i])
-  {
-    if (*str[i] == '-' && (ft_check_n(str[i]) == 0))
-    {
-      count++;
-      i++;
-      continue;
-    }
-    ft_putstr_fd(str[i], fd);
+void	ft_echo(char **str, int fd)
+{
+	int i;
+	int flag;
+	flag = 0;
+	int count = 0;
 
-    if (str[i + 1])
-      ft_putstr_fd(" ", fd);
+	i = 0;
+	if (!str || !*str)
+	{
+		flag = 1;
+		ft_putstr_fd("\n", fd);
+		return;
+	}
 
-    i++;
-  }
+	while (str[i])
+	{
+		if (*str[i] == '-' && (ft_check_n(str[i]) == 0))
+		{
+			count++;
+			i++;
+			continue;
+		}
+		ft_putstr_fd(str[i], fd);
 
-  if (!count)
-    ft_putstr_fd("\n", fd);
+		if (str[i + 1])
+			ft_putstr_fd(" ", fd);
+
+		i++;
+	}
+
+	if (!count)
+		ft_putstr_fd("\n", fd);
 }
 
 t_node *ft_empty(void)
 {
-  t_node *head = NULL;
-  char *pwd = getcwd(NULL, 0);
-  insert_node(&head, pwd, "PWD");
-  insert_node(&head, "1", "SHLVL");
-  insert_node(&head, "/usr/bin/env", "_");
-  return (head);
+	t_node *head = NULL;
+	char *pwd = getcwd(NULL, 0);
+	insert_node(&head, pwd, "PWD");
+	insert_node(&head, "1", "SHLVL");
+	insert_node(&head, "/usr/bin/env", "_");
+	return (head);
 }
-// void ft_export(t_node **env, char **args)
-// {
-//   if (args == NULL)
-//     ft_sort_env(env);
-//   puts("ok");
-//   print_list(*env);
-// }
+
 void do_builtin(t_minishell *minishell)
 {
-  if (ft_strncmp(minishell->list->cmd, "cd", 2) == 0)
-    ft_cd(minishell, convert_args(minishell->list->args));
-  else if (ft_strncmp(minishell->list->cmd, "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0)
-    print_list(minishell->env);
-  else if (ft_strncmp(minishell->list->cmd, "pwd", 3) == 0)
-    ft_pwd(minishell->env, "PWD");
-  else if (ft_strncmp(minishell->list->cmd, "unset", 5) == 0 && ft_lstsize(minishell->list->args) == 1)
-    ft_unset(minishell->env, convert_args(minishell->list->args)[0]);
-  else if (ft_strncmp(minishell->list->cmd, "echo", 4) == 0)
-    ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
-  // else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
-  //   ft_export(&minishell->env, convert_args(minishell->list->args));
-  else if (ft_strncmp(minishell->list->cmd, "exit", 4) == 0 && minishell->list->cmd[1])
-    ft_exit(minishell, convert_args(minishell->list->args)[0]);
-}
-int is_builtin(t_minishell *minishell)
-{
-  if (ft_strncmp(minishell->list->cmd, "cd", 3) == 0 || (ft_strncmp(minishell->list->cmd, "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0) ||
-      ft_strncmp(minishell->list->cmd, "pwd", 3) == 0 || ft_strncmp(minishell->list->cmd, "exit", 4) == 0 || (ft_strncmp(minishell->list->cmd, "unset", 5) == 0 && ft_lstsize(minishell->list->args)) || (ft_strncmp(minishell->list->cmd, "echo", 4) == 0) || (ft_strncmp(minishell->list->cmd, "export", 6) == 0))
-    return (1);
-  return (0);
-}
-void ft_exit(t_minishell *minishell, char *cmd)
-{
-  if (check_cmd_num(cmd))
-  {
-    ft_putstr_fd("minishell>:exit:numeric argument required\n",2);
-    exit(ft_atoi(cmd));
-  }
-  else if(cmd[1])
-    ft_putstr_fd("minishell>: exit: too many arguments\n", 2);
-  else 
-  {
-    ft_putstr_fd("exit",2);
-    exit(ft_atoi(cmd));
-  }
-}
-int check_cmd_num(char *cmd)
-{
-  int i = 0;
-  while (cmd[i])
-  {
-    if (!ft_isdigit(cmd[i]))
-      return (1);
-    i++;
-  }
-  return (0);
+	if (ft_strncmp(minishell->list->cmd, "cd", 2) == 0)
+		ft_cd(minishell, convert_args(minishell->list->args));
+	else if (ft_strncmp(minishell->list->cmd, "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0)
+		print_list(minishell->env);
+	else if (ft_strncmp(minishell->list->cmd, "pwd", 3) == 0)
+		ft_pwd(minishell->env, "PWD");
+	else if (ft_strncmp(minishell->list->cmd, "unset", 5) == 0 && ft_lstsize(minishell->list->args) == 1)
+		ft_unset(minishell->env, convert_args(minishell->list->args)[0]);
+	else if (ft_strncmp(minishell->list->cmd, "echo", 4) == 0)
+		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
+	//else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
+	//   ft_export(&minishell->env, convert_args(minishell->list->args));
+	else if (ft_strncmp(minishell->list->cmd, "exit", 4) == 0)
+		ft_exit(minishell, &convert_args(minishell->list->args)[0]);
 }

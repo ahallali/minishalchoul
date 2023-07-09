@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/09 15:38:39 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/10 00:09:59 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	handle_pipe(t_lex *tmp, t_list *l_tmp,
 	}
 	if (tmp->type == PIPE && !l_tmp->next)
 		return (perror("Syntax Error: Expected command after pipe"), 0);
+	return (1);
 }
 
 t_list	*get_exec(t_parse_utils *u)

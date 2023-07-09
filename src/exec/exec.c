@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 15:28:28 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/09 23:25:48 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int ft_check_n(char * str)
     
 }
 
-
 int check_cmd (char*  cmd)
 {
     int i = 0;
@@ -41,6 +40,7 @@ int check_cmd (char*  cmd)
     }
     return (0);
 }
+
 char *   update_path(char * str , char * cmd)
 {
     if (!str || !cmd)

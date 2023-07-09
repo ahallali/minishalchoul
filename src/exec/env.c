@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/09 15:53:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/09 23:46:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_node *create_node(char *value,char *variable)
   	t_node	*new = ft_calloc (1, sizeof(t_node));
   	if (!new)
 		return (NULL);
-	new->value=strdup(value);
-	new->variable = strdup(variable);
+	new->value=ft_strdup(value);
+	new->variable = ft_strdup(variable);
 	new->next = NULL;
 	return (new);
 }
@@ -44,7 +44,7 @@ void  insert_node(t_node **head,char *value,char *variable)
 t_node * ft_env(char **env)
 {
   	t_node *head = NULL;
-	static int shlvl = 1;
+	// static int shlvl = 1;
 	while (*env)
 	{
 		char* tmp =strchr(*env,'=');
