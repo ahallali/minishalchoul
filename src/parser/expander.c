@@ -45,14 +45,12 @@ char	*ft_str_replace(char *str, char *find, char *replace)
 {
 	size_t	i;
 	size_t	y;
-	size_t	f_len;
 	int		flag;
 	char	*result;
 
 	i = 0;
 	y = 0;
 	flag = 0;
-	f_len = ft_strlen(find);
 	result = ft_calloc(result_len(str, find, replace) + 1, sizeof(char));
 	while (str[i])
 	{

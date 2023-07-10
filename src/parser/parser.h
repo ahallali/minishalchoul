@@ -122,5 +122,6 @@ int				insert_command(t_lex *lex, char *str,
 t_token_info	*token_io(char *str, int *i, t_token_info *info);
 t_token_info	*token_delim(char *str, int *i, t_token_info *info);
 t_token_info	*token_last(char *str, t_token_info *info);
+void			insert_heredoc(t_lex *lex, char *str);
 
 #endif
