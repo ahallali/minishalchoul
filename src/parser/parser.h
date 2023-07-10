@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/09 15:39:33 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/10 04:57:22 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ typedef struct s_exec_utils
 
 void			close_last_fd(int fd);
 t_exec_utils	*init_exec_utils(void);
-char			*get_new_line(char *prompt, t_parse_utils *utils, char c);
-char			*append_new_line(char *prompt, char delimiter);
+char			*get_new_line(char *prompt, t_parse_utils *utils,char  delimiter);
+char			*append_new_line(char *prompt,char delimiter);
 void			print_exec(void *exec);
 void			print_lex(void *lex);
 t_list			*parse_prompt(char *prompt, t_parse_utils *utils);
@@ -109,8 +109,7 @@ void			convert_input_redirection(t_lex *tmp, t_exec_utils *exec);
 void			convert_output_redirection(t_lex *tmp, t_exec_utils *exec);
 int				handle_pipe(t_lex *tmp, t_list *l_tmp,
 					t_exec_utils **exec, t_list **result);
-int				get_output(t_lex *last_lex, t_lex *lex,
-					char *str, t_parse_utils *u);
+int				get_output(t_lex *last_lex,char *str);
 int				handle_lastlex_redir(t_lex *last_lex, t_lex *lex,
 					char *str, t_parse_utils *u);
 int				verify_exec_node(t_list *node, char *str, t_lex *lex,

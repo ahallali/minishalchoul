@@ -6,32 +6,29 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 00:07:10 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 04:43:57 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_minishell *minishell;
+t_minishell	*minishell;
 
 // void f()
 // {
 // 	system("leaks minishell");
 // }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
+	char			*line;
+	t_parse_utils	*p_prompt;
+	t_list			**n;
+	char			*p_clean;
+
 	(void)ac;
 	(void)av;
-	char *line = NULL;
-	int flag = 0;
-	char *path;
-	t_parse_utils *p_prompt;
-	int read_f_pipe = 0;
-	int old_pipe_fd = 0;
-	int pip = 0;
-	pid_t pid;
-	// atexit(f);
+	// line = NULL;	// atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
 	minishell->env = NULL;
 	if (!minishell)
@@ -41,7 +38,7 @@ int main(int ac, char **av, char **env)
 	else
 		minishell->env = ft_empty();
 	rl_catch_signals = 0;
-	while (1)
+	while (0x5ABA)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, (void *)handler);
@@ -55,15 +52,14 @@ int main(int ac, char **av, char **env)
 			add_history(line);
 		if (strcmp(line, "exit") == 0)
 		{
-			t_list **n = get_gcollector();
+			n = get_gcollector();
 			ft_lstiter(*n, ft_free);
-			// printf("lst : %p\n", n);
 			free(n);
 			free(line);
-			break;
+			break ;
 		}
 		p_prompt = ft_calloc(1, sizeof(t_parse_utils));
-		char *p_clean = ft_strtrim(line, " ");
+		p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		// ft_lstiter(minishell->list_exec, print_exec);

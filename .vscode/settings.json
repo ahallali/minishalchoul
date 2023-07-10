@@ -9,6 +9,7 @@
         "readline.h": "c",
         "locale": "c",
         "__locale": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "parser.h": "c"
     }
 }

@@ -6,17 +6,18 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 00:06:54 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 01:09:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "parser.h"
 
-char	*get_new_line(char *prompt, t_parse_utils *utils, char c)
+char	*get_new_line(char *prompt, t_parse_utils *utils,char delimiter)
+
 {
-	char	*line;
-	char	*tmp;
+	(void)delimiter;
+	char *tmp;
 
 	(void)utils;
 	tmp = readline(prompt);

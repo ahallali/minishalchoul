@@ -19,8 +19,6 @@
 # include "../libft/libft.h"
 # include "parser/parser.h"
 #include <sys/types.h>
-// void parse(char *line);
-
 
 typedef struct s_node
 {
@@ -67,9 +65,9 @@ void do_builtin(t_minishell *minishell);
 int is_builtin(t_minishell *minishell);
 void execute_cmd(t_minishell *minishell, char *path);
 void run_builltin(t_minishell *minishell);
-// void redirection(t_minishell *minishell);
 void redirection(t_minishell *minishell);
 void ft_exit(t_minishell *minishell, char **cmd);
 int check_cmd_num(char *cmd);
 void handler(int signal);
+void check_echo_arg(char **str, int i, int count, int fd);
 #endif

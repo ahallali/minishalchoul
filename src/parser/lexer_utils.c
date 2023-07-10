@@ -6,14 +6,13 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:44:10 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 00:06:50 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:13:39 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	get_output(t_lex *last_lex, t_lex *lex,
-			char *str, t_parse_utils *u)
+int	get_output(t_lex *last_lex,char *str)
 {
 	if (last_lex->type == REDIRECTION_OUTPUT && !last_lex->filename)
 	{
@@ -38,7 +37,7 @@ int	handle_lastlex_redir(t_lex *last_lex, t_lex *lex,
 	if ((last_lex->type == REDIRECTION_OUTPUT
 			|| last_lex->type == REDIRECTION_AOUTPUT)
 		&& !last_lex->filename)
-		return (get_output(last_lex, lex, str, u));
+		return (get_output(last_lex, str));
 	else if (last_lex->type == REDIRECTION_INPUT && !last_lex->filename)
 	{
 		last_lex->filename = str;

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 00:06:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 00:14:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_token_info	*next_word(char *str, char *delimiter)
 {
 	t_token_info	*info;
 	int				i;
-	char			*c;
 
 	if (!str)
 		return (NULL);
@@ -55,6 +54,7 @@ int	insert_to_lexer(char *str, t_parse_utils *u)
 	t_lex	*lex;
 	t_lex	*last_lex;
 
+	last_lex = NULL;
 	lex = ft_calloc(1, sizeof(t_lex));
 	if (ft_strchr(IO_PARSE, *str))
 		return (token_redirection (str, lex, last_lex, u));

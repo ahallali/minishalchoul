@@ -6,13 +6,13 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/09 23:48:36 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 04:52:05 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void execute(t_minishell *minishell)
+void	execute(t_minishell *minishell)
 {
 	pid_t pid;
 	int fd[2];
@@ -28,9 +28,8 @@ void execute(t_minishell *minishell)
 		STDOUT = -1;
 		minishell->list = (t_exec_utils *)minishell->list_exec->content;
 		if (!minishell->list->cmd)
-			break;
-
-		if (is_builtin(minishell) && ft_lstsize(minishell->list_exec) == 1 && minishell->list->inputFd)
+			break ;
+		if (is_builtin(minishell) && ft_lstsize(minishell->list_exec) == 1 && minishell->list->inputFd )
 		{
 			if (minishell->list->inputFd != -1 || minishell->list->outputFd != -1)
 			{
@@ -51,11 +50,10 @@ void execute(t_minishell *minishell)
 			}
 			else
 				do_builtin(minishell);
-			break;
+			break ;
 		}
 		if (minishell->list_exec->next)
 		{
-
 			if (pipe(fd) < 0)
 			{
 				perror("pipe:");
@@ -100,7 +98,8 @@ void execute(t_minishell *minishell)
 	while (waitpid(-1, NULL, 0) != -1)
 		;
 }
-void child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
+
+void	child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
 {
 	if (STDIN != -1)
 	{
@@ -115,26 +114,29 @@ void child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
 	if (minishell->list_exec->next)
 		close(fd[0]);
 }
-void parent(t_minishell *minishell, int *fd, int STDIN)
+
+void	parent(t_minishell *minishell, int *fd, int STDIN)
 {
 	if (minishell->list_exec->next)
 		close(fd[1]);
 	if (STDIN != -1)
 		close(STDIN);
 }
-void execute_cmd(t_minishell *minishell, char *path)
+
+void	execute_cmd(t_minishell *minishell, char *path)
 {
-	path = update_path(path_finder(minishell->env, "PATH"), minishell->list->cmd);
+	path = update_path(path_finder(minishell->env, "PATH") \
+		, minishell->list->cmd);
 	if (!path)
 	{
 		perror("path not found");
 		ft_lstiter(*get_gcollector(), ft_free);
 		exit(0);
-		
 	}
 	else
 	{
-		if (execve(path, convert_command_args(minishell->list), convert_env(minishell->env)) == -1)
+		if (execve(path, convert_command_args(minishell->list), \
+			convert_env(minishell->env)) == -1)
 		{
 			perror("execve");
 			ft_lstiter(*get_gcollector(), ft_free);
