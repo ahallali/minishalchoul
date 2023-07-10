@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 04:43:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:28:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	// line = NULL;	// atexit(f);
+	line = NULL;	
+	
+	// atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
 	minishell->env = NULL;
 	if (!minishell)
@@ -50,7 +52,7 @@ int	main(int ac, char **av, char **env)
 		}
 		if (line && *line)
 			add_history(line);
-		if (strcmp(line, "exit") == 0)
+		if (ft_strncmp(line, "exit" , 4) == 0)
 		{
 			n = get_gcollector();
 			ft_lstiter(*n, ft_free);

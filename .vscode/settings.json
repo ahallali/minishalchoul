@@ -10,6 +10,8 @@
         "locale": "c",
         "__locale": "c",
         "sstream": "c",
-        "parser.h": "c"
+        "parser.h": "c",
+        "errno.h": "c",
+        "types.h": "c"
     }
 }

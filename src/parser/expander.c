@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 16:32:58 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/10 15:24:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ char	*ft_str_replace(char *str, char *find, char *replace)
 {
 	size_t	i;
 	size_t	y;
-	size_t	f_len;
 	int		flag;
 	char	*result;
 
 	i = 0;
 	y = 0;
 	flag = 0;
-	f_len = ft_strlen(find);
 	result = ft_calloc(result_len(str, find, replace) + 1, sizeof(char));
 	while (str[i])
 	{

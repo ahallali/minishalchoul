@@ -16,7 +16,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-# include "../libft/libft.h"
+# include "../../libft/libft.h"
 # include "parser/parser.h"
 #include <sys/types.h>
 
@@ -35,7 +35,7 @@ typedef struct s_minishell
 	char			quote_flag;
 }					t_minishell;
 
-t_minishell *minishell;
+extern t_minishell *minishell;
 void execute_one(t_minishell *minishell, pid_t pid);
 t_node *ft_list_remove_if(t_node **head, char *data, int (*cmp)());
 t_node *ft_env(char **env);
@@ -50,7 +50,7 @@ char *path_finder(t_node *head, char *var);
 t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
 void ft_export(t_node **env, char **args);
-t_node *ft_unset(t_node *head, char *var);
+t_node *ft_unset(t_node **head, char *var);
 void execute(t_minishell *minishell);
 void ft_exec(void *content);
 int ft_check_n(char *str);
@@ -69,5 +69,5 @@ void redirection(t_minishell *minishell);
 void ft_exit(t_minishell *minishell, char **cmd);
 int check_cmd_num(char *cmd);
 void handler(int signal);
-void check_echo_arg(char **str, int i, int count, int fd);
+void check_echo_arg(char **str, int fd);
 #endif

@@ -1,0 +1,14 @@
+""
+bulltins.o
+cd_builtin.o
+env.o
+libft
+Makefile
+minishell
+minishell.o
+obj
+-ok
+parser_utils2.o
+parser_utils3.o
+parser_utils.o
+src

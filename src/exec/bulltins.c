@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 01:13:21 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:48:01 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,13 @@ int	ft_strwc(char *str)
 	return (0);
 }
 
-void	check_echo_arg(char **str, int i, int count, int fd)
+void	check_echo_arg(char **str, int fd)
 {
+	int i;
+	int count;
+	
+	i=0;
+	count = 0;
 	while (str[i])
 	{
 		if (*str[i] == '-' && (ft_check_n(str[i]) == 0))
@@ -57,37 +62,33 @@ void	check_echo_arg(char **str, int i, int count, int fd)
 			ft_putstr_fd(" ", fd);
 		i++;
 	}
+	if (!count)
+		ft_putstr_fd("\n", fd);
 }
 
 void	ft_echo(char **str, int fd)
 {
-	int	i;
-	int	flag;
-	int	count;
-
-	i = 0;
-	flag = 0;
-	count = 0;
 	if (!str || !*str)
 	{
-		flag = 1;
+		// flag = 1;
 		ft_putstr_fd("\n", fd);
 		return ;
 	}
-	check_echo_arg(str, i, count, fd);
-	if (!count)
-		ft_putstr_fd("\n", fd);
+	check_echo_arg(str,fd);
+	
 }
 
 t_node	*ft_empty(void)
 {
 	t_node	*head;
 	char	*pwd;
-
+	static int shlvl = 1;
+	
 	head = NULL;
 	pwd = getcwd(NULL, 0);
 	insert_node(&head, pwd, "PWD");
-	insert_node(&head, "1", "SHLVL");
+	insert_node(&head, ft_itoa(shlvl), "SHLVL");
 	insert_node(&head, "/usr/bin/env", "_");
+	shlvl++;
 	return (head);
 }

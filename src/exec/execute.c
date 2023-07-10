@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 04:52:05 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:43:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	execute_cmd(t_minishell *minishell, char *path)
 		, minishell->list->cmd);
 	if (!path)
 	{
-		perror("path not found");
+		perror("command not found");
 		ft_lstiter(*get_gcollector(), ft_free);
 		exit(0);
 	}
