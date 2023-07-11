@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:44:10 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 00:13:39 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:16:02 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	handle_lastlex_redir(t_lex *last_lex, t_lex *lex,
 		last_lex->flag_infile = O_RDONLY;
 		return (1);
 	}
-	else if (last_lex->type == REDIRECTION_AINPUT)
-		insert_heredoc(last_lex, str);
+	// else if (last_lex->type == REDIRECTION_AINPUT)
+	// 	insert_heredoc(last_lex, str);
 	else if (is_enum_redirection(last_lex->type)
 		&& last_lex->command_name == NULL)
 	{

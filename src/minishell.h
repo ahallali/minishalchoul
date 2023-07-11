@@ -16,7 +16,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-# include "../../libft/libft.h"
+# include "../libft/libft.h"
 # include "parser/parser.h"
 #include <sys/types.h>
 

@@ -6,14 +6,14 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 01:09:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:44:23 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "parser.h"
 
-char	*get_new_line(char *prompt, t_parse_utils *utils,char delimiter)
+char *get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 
 {
 	(void)delimiter;
@@ -25,12 +25,12 @@ char	*get_new_line(char *prompt, t_parse_utils *utils,char delimiter)
 }
 /*
 // if (!ft_strchr(tmp, c))
-//     line = ft_strjoin(tmp, "\n"); 
+//     line = ft_strjoin(tmp, "\n");
 // else
 //     line = tmp;
 */
 
-void	print_token(t_token_info *tok)
+void print_token(t_token_info *tok)
 {
 	if (tok->word)
 		printf("tok word : %s\n", tok->word);
@@ -41,19 +41,19 @@ void	print_token(t_token_info *tok)
 	printf("--------------------\n");
 }
 
-t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
+t_list *parse_prompt(char *prompt, t_parse_utils *utils)
 {
-	t_token_info	*tok;
-	t_list			*result;
+	t_token_info *tok;
+	t_list *result;
 
 	while (validate_quote(prompt))
 		prompt = append_new_line(prompt, minishell->quote_flag);
-	tok = next_word(prompt, "| ");
+	tok = next_word(prompt, "| \t");
 	while (tok)
 	{
 		print_token(tok);
-		minishell->token = tok;
-		if (tok->word && !ft_strchr(" |",*tok->word))
+		// minishell->token = tok;
+		if (tok->word && !ft_strchr(" |\t", *tok->word))
 			insert_to_lexer(tok->word, utils);
 		if (tok->limiter && tok->next_start && ((ft_strchr("|<>", *(tok->limiter)))))
 			insert_to_lexer(tok->limiter, utils);
