@@ -24,7 +24,8 @@ t_token_info	*next_word(char *str, char *delimiter)
 	while (str[i] != '\0')
 	{
 		if (ft_strchr(QUOTES_PARSE, str[i]))
-			skip_quoted(str, &i);
+			if (skip_quoted(str, &i))
+				continue;
 		if (str[i] && (ft_strchr(IO_PARSE, str[i]) != 0))
 			return (token_io(str, &i, info));
 		if (str[i] && ft_strchr(delimiter, str[i]))

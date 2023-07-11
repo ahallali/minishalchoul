@@ -56,7 +56,7 @@ char	*extract_variable(char *str)
 		tmp = ft_substr(str, 0, i + 1);
 		return (tmp);
 	}
-	while (!ft_strchr(" $\"\0", str[i])
+	while (!ft_strchr(" \t$\"\0", str[i])
 		&& (ft_isalpha(str[i]) || str[i] == 95 || ft_isdigit(str[i])))
 		i++;
 	tmp = ft_substr(str, 0, i);

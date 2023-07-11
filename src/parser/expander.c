@@ -77,7 +77,37 @@ char	*convert_path(char *str)
 	return (ft_strdup(&str[i]));
 }
 
-char	*expand_dquotes(char *str, t_minishell *u)
+char *remove_quote(char *str)
+{
+	int		i;
+	int		y;
+	int		len;
+	char	*result;
+	char	flag;
+
+	len = ft_strlen(str);
+	flag = 0;
+	i = 0;
+	y = 0;
+	result = ft_calloc(len, sizeof(char));
+	while (str[i])
+	{
+		if (ft_strchr(QUOTES_PARSE, str[i]) 
+			&& (!i || (i && str[i - 1] != '\\')) && !flag)
+			flag = str[i++];
+		else if (ft_strchr(&flag, str[i]) 
+			&& (!i || (i && str[i - 1] != '\\')) && flag)
+		{
+			flag = 0;
+			i++;
+			continue;
+		}
+		result[y++] = str[i++];
+	}
+	return (result);
+}
+
+char	*expand_dquotes(char *str)
 {
 	int		i;
 	char	*var;
@@ -88,12 +118,13 @@ char	*expand_dquotes(char *str, t_minishell *u)
 	res = str;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && 
+			!ft_strchr(" \t$\"\0", str[i+1])&& str[i + 1] != '\0')
 		{
 			tmp = ft_strdup(str);
 			var = extract_variable(&tmp[i]);
 			printf("var : %s\n", var);
-			if (path_finder(u->env, convert_path(var + 1)))
+			if (path_finder(minishell->env, convert_path(var + 1)))
 				res = ft_str_replace(res, var,
 						path_finder(minishell->env, convert_path(var + 1)));
 			else
@@ -102,6 +133,6 @@ char	*expand_dquotes(char *str, t_minishell *u)
 		i++;
 	}
 	printf("original str : %s\n", str);
-	printf("result : %s\n", res);
-	return (res);
+	printf("result : %s\n", remove_quote(res));
+	return (remove_quote(res));
 }

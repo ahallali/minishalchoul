@@ -81,7 +81,6 @@ static char	**fill_array(const char *s, char c, char **arr, int countw)
 char	**ft_split(char const *s, char c)
 {
 	int		count_words;
-	int		i;
 	char	*str;
 	char	**arr;
 
@@ -90,7 +89,6 @@ char	**ft_split(char const *s, char c)
 	str = ft_strtrim(s, " ");
 	if (!str)
 		return (NULL);
-	i = 0;
 	count_words = get_count_words(str, c);
 	arr = ft_calloc(sizeof(char *), (count_words + 1));
 	if (!arr)
