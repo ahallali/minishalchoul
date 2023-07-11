@@ -51,7 +51,7 @@ char	*append_new_line(char *prompt, char delimiter)
 	return (free(line), free(tmp), prompt);
 }
 
-void	skip_quoted(char *str, int *i)
+int	skip_quoted(char *str, int *i)
 {
 	minishell->quote_flag = str[*i];
 	(*i)++;
@@ -61,11 +61,14 @@ void	skip_quoted(char *str, int *i)
 			&& str[*i - 1] != '\\')
 		{
 			(*i)++;
-			break ;
+			minishell->quote_flag = 0;
+			return (str[*i]);
+			// break ;
 		}
 		else
 			(*i)++;
 	}
+	return (0);
 }
 
 int	is_enum_redirection(int val)

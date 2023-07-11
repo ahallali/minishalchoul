@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 02:01:12 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/11 22:11:04 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int				validate_quote(char *str);
 int				is_valid_variable(char *var);
 char			*add_dollar_sign(char *var);
 char			*extract_variable(char *str);
-void			skip_quoted(char *str, int *i);
+int				skip_quoted(char *str, int *i);
 int				token_redirection(char *str, t_lex *lex,
 					t_lex *last_lex, t_parse_utils *u);
 int				is_enum_redirection(int val);
@@ -123,5 +123,6 @@ t_token_info	*token_io(char *str, int *i, t_token_info *info);
 t_token_info	*token_delim(char *str, int *i, t_token_info *info);
 t_token_info	*token_last(char *str, t_token_info *info);
 int 			get_heredoc_fd(char *limiter);
+char			*expand_dquotes(char *str);
 
 #endif
