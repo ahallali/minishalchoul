@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 16:48:01 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:35:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_n_arg(char *str)
+int check_n_arg(char *str)
 {
-	int	i;
+	int i;
 
 	i = 2;
 	while (str[i])
@@ -26,9 +26,9 @@ int	check_n_arg(char *str)
 	return (0);
 }
 
-int	ft_strwc(char *str)
+int ft_strwc(char *str)
 {
-	int	i ;
+	int i;
 
 	i = 0;
 	while (str[i])
@@ -42,20 +42,20 @@ int	ft_strwc(char *str)
 	return (0);
 }
 
-void	check_echo_arg(char **str, int fd)
+void check_echo_arg(char **str, int fd)
 {
 	int i;
 	int count;
-	
-	i=0;
+
+	i = 0;
 	count = 0;
 	while (str[i])
 	{
-		if (*str[i] == '-' && (ft_check_n(str[i]) == 0))
+		if (*str[i] == '-' && (ft_check_n(str[i]) == 0) && i == 0)
 		{
 			count++;
 			i++;
-			continue ;
+			continue;
 		}
 		ft_putstr_fd(str[i], fd);
 		if (str[i + 1])
@@ -66,24 +66,23 @@ void	check_echo_arg(char **str, int fd)
 		ft_putstr_fd("\n", fd);
 }
 
-void	ft_echo(char **str, int fd)
+void ft_echo(char **str, int fd)
 {
 	if (!str || !*str)
 	{
 		// flag = 1;
 		ft_putstr_fd("\n", fd);
-		return ;
+		return;
 	}
-	check_echo_arg(str,fd);
-	
+	check_echo_arg(str, fd);
 }
 
-t_node	*ft_empty(void)
+t_node *ft_empty(void)
 {
-	t_node	*head;
-	char	*pwd;
+	t_node *head;
+	char *pwd;
 	static int shlvl = 1;
-	
+
 	head = NULL;
 	pwd = getcwd(NULL, 0);
 	insert_node(&head, pwd, "PWD");

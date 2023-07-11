@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:28:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/09 00:26:36 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:25:58 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char **convert_command_args(t_exec_utils *utils)
 	n = utils->args;
 	while (n)
 	{
-		result[tmp++] = ft_strdup((const char *)n->content);
+		result[tmp++] = expand_dquotes(ft_strdup((const char *)n->content));
 		n = n->next;
 	}
 	return (result);
@@ -82,6 +82,6 @@ char **convert_env(t_node *node)
 		i++;
 	}
 	exec_env[i] = NULL;
-	
+
 	return (exec_env);
 }

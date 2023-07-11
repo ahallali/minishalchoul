@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:44:10 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 19:11:47 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/11 22:18:26 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	handle_lastlex_redir(t_lex *last_lex, t_lex *lex,
 	else if (is_enum_redirection(last_lex->type)
 		&& (last_lex->command_name == NULL && (last_lex->filename != last_lex->variable)))
 	{
-		puts("----********------- \n");
+		// puts("----********------- \n");
 
-		print_lex(last_lex);
+		// print_lex(last_lex);
 		lex->type = CMD;
 		lex->command_name = str;
 		last_lex->command_name = str;

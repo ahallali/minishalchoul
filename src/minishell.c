@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 02:56:26 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:39:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **env)
 {
 	char			*line;
 	t_parse_utils	*p_prompt;
-	t_list			**n;
+	// t_list			**n;
 	char			*p_clean;
 
 	(void)ac;
@@ -52,14 +52,14 @@ int	main(int ac, char **av, char **env)
 		}
 		if (line && *line)
 			add_history(line);
-		if (ft_strncmp(line, "exit" , 4) == 0)
-		{
-			n = get_gcollector();
-			ft_lstiter(*n, ft_free);
-			free(n);
-			free(line);
-			break ;
-		}
+		// if (ft_strncmp(line, "exit" , 4) == 0)
+		// {
+		// 	n = get_gcollector();
+		// 	ft_lstiter(*n, ft_free);
+		// 	free(n);
+		// 	free(line);
+		// 	break ;
+		// }
 		p_prompt = ft_calloc(1, sizeof(t_parse_utils));
 		p_clean = ft_strtrim(line, " ");
 		p_prompt->prompt = ft_strdup(p_clean);

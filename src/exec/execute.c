@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 02:30:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 23:21:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	parent(t_minishell *minishell, int *fd, int STDIN)
 void	execute_cmd(t_minishell *minishell, char *path)
 {
 	path = update_path(path_finder(minishell->env, "PATH") \
-		, minishell->list->cmd);
+		, expand_dquotes(minishell->list->cmd));
 		if (execve(path, convert_command_args(minishell->list), \
 			convert_env(minishell->env)) == -1)
 		{
@@ -138,7 +138,6 @@ void	execute_cmd(t_minishell *minishell, char *path)
 				ft_putstr_fd("minishell:No such file or directory\n", 2);
 			else
 				ft_putstr_fd("minishell:execution error\n", 2);
-			// ft_lstiter(*get_gcollector(), ft_free);
 			exit(EXIT_FAILURE);
 		}
 }
