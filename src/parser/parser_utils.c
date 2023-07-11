@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 01:09:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:53:12 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
 		minishell->token = tok;
 		if (tok->word && !ft_strchr(" |",*tok->word))
 			insert_to_lexer(tok->word, utils);
+		// else if (tok->word && minishell->heredoc_flag)
+		// 	insert_to_lexer(tok->word && minishell->heredoc_flag, utils);
 		if (tok->limiter && tok->next_start && ((ft_strchr("|<>", *(tok->limiter)))))
 			insert_to_lexer(tok->limiter, utils);
 		else if (tok->limiter && ((ft_strchr("|<>", *(tok->limiter)))))

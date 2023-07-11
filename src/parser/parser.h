@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 04:57:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:01:12 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ int				insert_command(t_lex *lex, char *str,
 t_token_info	*token_io(char *str, int *i, t_token_info *info);
 t_token_info	*token_delim(char *str, int *i, t_token_info *info);
 t_token_info	*token_last(char *str, t_token_info *info);
-void			insert_heredoc(t_lex *lex, char *str);
+int 			get_heredoc_fd(char *limiter);
 
 #endif

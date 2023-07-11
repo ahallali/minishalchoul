@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 17:36:48 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/11 01:04:53 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 {
 	if (!last_lex)
 		last_lex = lex;
+	printf("added redir\n");
 	if ((*str == '>' || (ft_strlen(str) == 2 && (str[1] == '>')))
 	)
 	{
@@ -31,6 +32,7 @@ int	token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 		if ((ft_strlen(str) == 2 && (str[0] == str[1])))
 		{
 			lex->type = REDIRECTION_AINPUT;
+			minishell->heredoc_flag = 1;
 		}
 		ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
 		return (1);

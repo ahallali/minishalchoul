@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 00:14:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:43:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_lex	*init_lexer_struct(void)
 	lex = ft_calloc(1, sizeof(t_lex));
 	if (!lex)
 		return (lex);
+	lex->type = -1;
 	lex->fd = -1;
 	return (lex);
 }
@@ -68,10 +69,13 @@ int	insert_to_lexer(char *str, t_parse_utils *u)
 	else if (is_enum_redirection(last_lex->type)
 		&& handle_lastlex_redir(last_lex, lex, str, u))
 		return (1);
-	else if (last_lex->type != PIPE && last_lex != lex)
+	// else if (!minishell->heredoc_flag)
+	// {
+	else if ((last_lex->type != PIPE) && last_lex != lex)
 		return (insert_args(lex, last_lex, str, u));
 	else if (last_lex->type == PIPE
-		|| (last_lex->type != ARG && last_lex->type != CMD))
+		&& (last_lex->type != ARG && last_lex->type != CMD))
 		return (insert_command(lex, str, u, &node));
+	// }
 	return (0);
 }

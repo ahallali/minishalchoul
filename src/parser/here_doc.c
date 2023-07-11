@@ -3,52 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 00:50:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:04:10 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+
+
 // void read_heredoc(int fd,)
 
-void insert_heredoc(t_lex *lex, char *str)
+int get_heredoc_fd(char *limiter)
 {
     int fd[2];
     char *line;
 
-
     puts("test\n");
-    if (pipe(fd)<0){
+    if (pipe(fd)<0)
+    {
         perror("pipe error:");
-        return ;
+        return (-1);
     }
-    printf("word ! %s\n",minishell->token->word);
-    if (minishell->token->next_start)
+    while (1)
     {
-        while (1)
-        {
-            line = readline(">");
-            if (!ft_strncmp(minishell->token->word, line, ft_strlen(line)))
-                break;
-        }
-        
+        line = readline(">");
+        if (!ft_strncmp(limiter, line, ft_strlen(line)))
+            break;
+        else
+            ft_putstr_fd(ft_strjoin(line, "\n"), fd[1]);
     }
-    else
-    {
-        while (1)
-        {
-            line = readline(">");
-            if (!ft_strncmp(minishell->token->word, line, ft_strlen(line)))
-                break;
-            else
-                ft_putstr_fd(line, fd[0]);
-        }
-    }
-
-    lex->filename = str;
-    lex->fd = fd[1];
-
-    
+    close(fd[1]);
+    return (fd[0]);
 }
+

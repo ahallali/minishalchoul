@@ -32,7 +32,9 @@ typedef struct s_minishell
 	t_node			*env;
 	t_exec_utils	*list;
 	struct s_list	*list_exec;
+	t_token_info	*token;
 	char			quote_flag;
+	int				heredoc_flag;
 }					t_minishell;
 
 t_minishell *minishell;

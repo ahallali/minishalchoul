@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/10 00:09:59 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:01:50 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ int	open_file(char *filename, int flags)
 
 void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 {
-	if (tmp->filename)
+	if (tmp->filename && tmp->type == 7)
+	{
+		close_last_fd(exec->inputFd);
+		exec->inputFd = get_heredoc_fd(tmp->filename);
+	}
+	else if (tmp->filename)
 	{
 		close_last_fd(exec->inputFd);
 		exec->inputFd = open_file(tmp->filename, tmp->flag_infile);
@@ -97,7 +102,7 @@ t_list	*get_exec(t_parse_utils *u)
 			exec->cmd = tmp->command_name;
 		else if (tmp->type == 2)
 			ft_lstadd_back(&exec->args, ft_lstnew(tmp->variable));
-		else if (tmp->type == 5)
+		else if (tmp->type == 5 || tmp->type == 7)
 			convert_input_redirection(tmp, exec);
 		else if (tmp->type == 6 || tmp->type == 8)
 			convert_output_redirection(tmp, exec);
