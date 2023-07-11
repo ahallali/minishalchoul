@@ -6,7 +6,7 @@
 /*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 00:43:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:59:52 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,20 +127,24 @@ void	execute_cmd(t_minishell *minishell, char *path)
 {
 	path = update_path(path_finder(minishell->env, "PATH") \
 		, minishell->list->cmd);
-	if (!path)
-	{
-		perror("command not found");
-		ft_lstiter(*get_gcollector(), ft_free);
-		exit(0);
-	}
-	else
-	{
+	// if (!path)
+	// {
+	// 	perror("permission denied");
+	// 	ft_lstiter(*get_gcollector(), ft_free);
+	// 	exit(EXIT_FAILURE);
+	// }
+	// else
+	// {
 		if (execve(path, convert_command_args(minishell->list), \
 			convert_env(minishell->env)) == -1)
 		{
-			perror("execve");
+			if (errno == EACCES)
+                ft_putstr_fd("Permission denied\n", 2);
+            else if (errno == ENOENT) 
+                ft_putstr_fd("Command not found\n", 2);
+            else 
+                ft_putstr_fd( "Execution error\n", 2);
 			ft_lstiter(*get_gcollector(), ft_free);
-			exit(0);
+            exit(EXIT_FAILURE);
 		}
-	}
 }
