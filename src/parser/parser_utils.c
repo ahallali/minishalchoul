@@ -51,12 +51,17 @@ t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
 	tok = next_word(prompt, "| ");
 	while (tok)
 	{
+		print_token(tok);
+		minishell->token = tok;
 		if (tok->word && !ft_strchr(" |",*tok->word))
 			insert_to_lexer(tok->word, utils);
-		if (tok->limiter && ((ft_strchr("|<>", *(tok->limiter)))))
+		if (tok->limiter && tok->next_start && ((ft_strchr("|<>", *(tok->limiter)))))
+			insert_to_lexer(tok->limiter, utils);
+		else if (tok->limiter && ((ft_strchr("|<>", *(tok->limiter)))))
 			insert_to_lexer(tok->limiter, utils);
 		tok = next_word(tok->next_start, "|<> ");
 	}
+	ft_lstiter(utils->list_cmds, print_lex);
 	result = get_exec(utils);
 	return (result);
 }
