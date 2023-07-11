@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 01:35:53 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:20:51 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_node	*ft_env(char **env)
 	char	*tmp;
 	char	*value;
 	char	*variable;
+	// static int shlvl ;
 
 	head = NULL;
 	tmp = NULL;
@@ -58,10 +59,18 @@ t_node	*ft_env(char **env)
 	{
 		tmp = ft_strchr(*env, '=');
 		if (tmp != NULL)
+		{
 			*tmp = '\0';
-		value = tmp + 1;
-		variable = *env;
-		insert_node(&head, value, variable);
+			if (!ft_strncmp(*env, "SHLVL=",6))
+			{
+				value = ft_itoa(ft_atoi(tmp));
+				// variable = *env;
+			}
+			else 
+			value = tmp + 1;
+			variable = *env;
+			insert_node(&head, value, variable);
+		}
 		env++;
 	}
 	return (head);

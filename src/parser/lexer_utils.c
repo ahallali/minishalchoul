@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:44:10 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 02:48:16 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/11 19:11:47 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int	handle_lastlex_redir(t_lex *last_lex, t_lex *lex,
 		return (1);
 	}
 	// else if (last_lex->type == REDIRECTION_AINPUT)
-	// {
 	// 	insert_heredoc(last_lex, str);
-	// }
 	else if (is_enum_redirection(last_lex->type)
 		&& (last_lex->command_name == NULL && (last_lex->filename != last_lex->variable)))
 	{

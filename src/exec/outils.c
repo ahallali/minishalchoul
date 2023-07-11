@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 05:18:40 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:36:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,23 +157,26 @@ void	ft_pwd(t_node *head, char *s)
 	{
 		pwd = getcwd(NULL, 0);
 		update_env(head, "PWD", pwd);
+		
 	}
-	else
+	if (!t)
 	{
 		while (t->next)
 		{
 			if (!strcmp(t->variable, s) && t->value )
-				printf("%s\n", t->value);
-			else if (!t->value)
 			{
-				pwd = getcwd(NULL, 0);
-				update_env(head, "PWD", pwd);
+				printf("%s\n", t->value);
 			}
-		t = t->next;
+			t = t->next;
 		}
 	}
+	else 
+	{	
+		pwd = getcwd(NULL, 0);
+		insert_node(&head, pwd, "PWD");
+		printf("%s\n",pwd);
+	}
 }
-
 void	print_list(t_node *head)
 {
 	t_node	*tmp;
@@ -187,17 +190,18 @@ void	print_list(t_node *head)
 	}
 }
 
-void	del(void *ptr)
+void	del(char  *str)
 {
-	(void)ptr;
+	if (str)
+		free(str);
 }
 
-t_node	*ft_unset(t_node *head, char *var)
+t_node	*ft_unset(t_node **head, char *var)
 {
 	t_node	*t;
 	t_node	*tmp;
 
-	t = head;
+	t = *head;
 	if (!head || !var)
 		return (NULL);
 	while (t)
@@ -205,18 +209,28 @@ t_node	*ft_unset(t_node *head, char *var)
 		if (!ft_strncmp(t->variable, var, ft_strlen(var)) \
 			&& ft_strncmp(t->variable, "_", 1))
 		{
-			if (!ft_strncmp(t->variable, head->variable,
-					ft_strlen(t->variable)))
+			if (t==*head)
 			{
-				*head = *t->next;
+				*head = t->next;
 				del(t->variable);
 				del(t->value);
+				free(t);
+				t=*head;
 			}
-			del(t->variable);
-			tmp->next = t->next;
+			else 
+			{
+				tmp->next = t->next;
+				del(t->variable);
+				del(t->value);
+				free(t);
+				t=tmp->next;
+			}
 		}
+		else
+		{
 		tmp = t;
 		t = t->next;
+		}
 	}
 	return (t);
 }
@@ -232,11 +246,13 @@ void	do_builtin(t_minishell *minishell)
 		ft_pwd(minishell->env, "PWD");
 	else if (ft_strncmp(minishell->list->cmd, "unset", 5) == 0 \
 		&& ft_lstsize(minishell->list->args) == 1)
-		ft_unset(minishell->env, convert_args(minishell->list->args)[0]);
+		ft_unset(&minishell->env, convert_args(minishell->list->args)[0]);
 	else if (ft_strncmp(minishell->list->cmd, "echo", 4) == 0)
 		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
 	else if (ft_strncmp(minishell->list->cmd, "exit", 4) == 0)
-		ft_exit(minishell, &convert_args(minishell->list->args)[1]);
+	{
+		ft_exit(minishell, convert_args(minishell->list->args));
+	}
 }
 
 	// else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
