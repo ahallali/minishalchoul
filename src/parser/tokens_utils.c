@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 23:11:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:21:07 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 {
 	if (!last_lex)
 		last_lex = lex;
+	lex->command_name = last_lex->command_name;
 	if ((*str == '>' || (ft_strlen(str) == 2 && (str[1] == '>'))))
 	{
 		lex->type = REDIRECTION_OUTPUT;
