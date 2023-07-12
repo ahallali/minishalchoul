@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 17:20:51 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 01:24:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	insert_node(t_node **head, char *value, char *variable)
 }
 
 // static int shlvl = 1;
-t_node	*ft_env(char **env)
+t_node	*ft_env(char **env,t_minishell *minishell)
 {
 	t_node	*head;
-	char	*tmp;
+	// t_node *exportnode;
+	char 	*tmp;
 	char	*value;
 	char	*variable;
 	// static int shlvl ;
@@ -61,18 +62,20 @@ t_node	*ft_env(char **env)
 		if (tmp != NULL)
 		{
 			*tmp = '\0';
-			if (!ft_strncmp(*env, "SHLVL=",6))
-			{
-				value = ft_itoa(ft_atoi(tmp));
-				// variable = *env;
-			}
-			else 
+			// if (!ft_strncmp(*env, "SHLVL=",6))
+			// {
+			// 	value = ft_itoa(ft_atoi(tmp));
+			// 	// variable = *env;
+			// }
+			// else 
 			value = tmp + 1;
 			variable = *env;
 			insert_node(&head, value, variable);
+			insert_node(&minishell->export,value,variable);
 		}
 		env++;
 	}
+			// minishell->export = exportnode;
 	return (head);
 }
 

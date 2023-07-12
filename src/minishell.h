@@ -11,7 +11,7 @@
 # include <string.h>
 # include <signal.h>
 # include <stdlib.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 # include<stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -30,6 +30,7 @@ typedef struct s_node
 typedef struct s_minishell
 {
 	t_node			*env;
+	t_node 			*export;
 	t_exec_utils	*list;
 	struct s_list	*list_exec;
 	t_token_info	*token;
@@ -40,7 +41,7 @@ typedef struct s_minishell
 extern t_minishell *minishell;
 void execute_one(t_minishell *minishell, pid_t pid);
 t_node *ft_list_remove_if(t_node **head, char *data, int (*cmp)());
-t_node *ft_env(char **env);
+t_node *ft_env(char **env, t_minishell *minishell);
 char *ft_strtok(char *str, const char *delimiters, char *skip) ;
 void ft_echo(char **str,int fd);
 void print_list(t_node *head);
@@ -51,7 +52,7 @@ void insert_node(t_node **head, char *value, char *variable);
 char *path_finder(t_node *head, char *var);
 t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
-void ft_export(t_node **env, char **args);
+void ft_export(t_minishell *minishell, char **args);
 t_node *ft_unset(t_node **head, char *var);
 void execute(t_minishell *minishell);
 void ft_exec(void *content);
@@ -72,4 +73,5 @@ void ft_exit(t_minishell *minishell, char **cmd);
 int check_cmd_num(char *cmd);
 void handler(int signal);
 void check_echo_arg(char **str, int fd);
+int check_key(char *str);
 #endif

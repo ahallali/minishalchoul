@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 23:21:09 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 00:52:46 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,13 @@ void	execute(t_minishell *minishell)
 	}
 	close(old);
 	close(old_out);
-	while (waitpid(-1, NULL, 0) != -1)
+	int  STATUS;
+	while (waitpid(-1, &STATUS, 0) != -1)
 		;
+	if (WIFEXITED(STATUS)){
+		int exitstatus = WEXITSTATUS(STATUS);
+		printf("%d",exitstatus);
+	}
 }
 
 void	child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
@@ -131,13 +136,17 @@ void	execute_cmd(t_minishell *minishell, char *path)
 			convert_env(minishell->env)) == -1)
 		{
 			if (errno == EACCES)
-                ft_putstr_fd("minishell:Permission denied\n", 2);
+                {
+				ft_putstr_fd("minishell:Permission denied\n", 2);
+				exit (126);
+				}
+				
             else if (errno == ENOENT) 
                 ft_putstr_fd("minishell:Command not found\n", 2);
-            else if (errno == 14)
-				ft_putstr_fd("minishell:No such file or directory\n", 2);
+            // else if (errno == )
+				// ft_putstr_fd("minishell:No such file or directory\n", 2);
 			else
-				ft_putstr_fd("minishell:execution error\n", 2);
-			exit(EXIT_FAILURE);
+				ft_putstr_fd("minishell:Command not found\n", 2);
+			exit(127);
 		}
 }

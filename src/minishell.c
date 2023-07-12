@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 22:39:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 01:25:33 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **env)
 	if (!minishell)
 		return (0);
 	if (*env)
-		minishell->env = ft_env(env);
+		minishell->env = ft_env(env,minishell);
 	else
 		minishell->env = ft_empty();
 	rl_catch_signals = 0;

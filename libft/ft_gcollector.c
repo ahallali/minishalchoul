@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:06:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 22:18:09 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 01:07:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void set_gcollector(t_list *gcol)
 	gcollector = get_gcollector();
 	*gcollector = gcol;
 }
-
+ 
 void add_gcol(void *ptr)
 {
 	t_list	*node;

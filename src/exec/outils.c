@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 22:46:00 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 06:56:33 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,96 @@ void do_builtin(t_minishell *minishell)
 		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
 	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "exit", 4) == 0)
 		ft_exit(minishell, convert_args(minishell->list->args));
+	else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
+	   ft_export(minishell, convert_args(minishell->list->args));
 }
 
-// else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
-//    ft_export(&minishell->env, convert_args(minishell->list->args));
+int end_key (char * str,char c)
+{
+	int i = 0;
+	// int count =0;
+	if (!str || !*str)
+	   return (0);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+char * key_value(char **arg)
+{
+	int i = 0;
+	// int j;
+	int tmp = 0;
+	char *key;
+	// int count;
+	while (arg[i])
+	{
+		// if (ft_strchr(arg[i],'+')!=NULL) 
+		// {
+		// 	if (arg[i] =='=')
+		// 	puts("test");
+		// 		tmp = end_key(arg[i],'=');
+		// 	key = ft_substr(arg[i], 0, tmp - 2);
+		// }
+	   	if (ft_strchr(arg[i],'=') != NULL && !arg[i+1])
+		{
+			
+	   		tmp = end_key(arg[i], '=');
+			key = ft_substr(arg[i], 0, tmp+1);
+			if (check_key(key))
+			return (key);
+		}
+		else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
+		{
+			tmp = end_key(arg[i])
+		}
+		else if (check_key(arg[i]))
+
+		i++;
+	}
+	return (key);
+}
+
+int check_key (char *str)
+{
+	int i = 1;
+	int size = ft_strlen(str);
+	if (isalpha(str[0])|| str[0] == '_')
+	{
+		while (i<size-1)
+		{
+			if (!ft_isalnum(str[i]))
+				return(1);
+			i++;
+		}
+	}
+	return (0);
+}
+
+// check_exist ()
+// int check_operator(char **args)
+// {
+// 	int i =0;
+// 	int j ;
+// 	while (args[i])
+// 	{
+// 		j = 0;
+// 		while (args[i][j])
+// 		{
+// 			if (args)		
+// 		}
+// 	}
+// }
+
+void ft_export(t_minishell *minishell, char **args)
+{
+	(void)minishell;
+	
+	if (!args || !*args)
+	   print_list(minishell->export);
+	else if (!key_value(args))
+	   return;
+}
