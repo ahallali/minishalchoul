@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:19:59 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 23:01:51 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/12 01:02:58 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isspace(int c);
 int		ft_isprint(int c);
+int		ft_strequals(const char *s1, const char *s2);
 size_t	ft_strlen(const char *c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strnchr(const char *s, int c, int n);

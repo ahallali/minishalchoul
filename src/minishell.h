@@ -36,6 +36,7 @@ typedef struct s_minishell
 	t_token_info	*token;
 	char			quote_flag;
 	int				heredoc_flag;
+	int				sigint_flag;
 }					t_minishell;
 
 extern t_minishell *minishell;

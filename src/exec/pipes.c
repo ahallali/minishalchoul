@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 00:54:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:41:24 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void ft_exit(t_minishell *minishell, char **cmd)
 		ft_putstr_fd("minishell>:exit:numeric argument required\n", 2);
 		exit(255);
 	}
-	else if (cmd[1])
-		ft_putstr_fd("minishell>: exit: too many arguments\n", 2);
 	else if (!cmd[1] && cmd[0] && check_cmd_num(cmd[0]))
 		exit(ft_atoi(cmd[0]));
+	else if (cmd[1])
+		ft_putstr_fd("minishell>: exit: too many arguments\n", 2);
 	else
 		exit(0);
 }

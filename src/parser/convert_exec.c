@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 02:01:50 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/12 02:26:42 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ t_list	*get_exec(t_parse_utils *u)
 			exec->cmd = tmp->command_name;
 		else if (tmp->type == 2)
 			ft_lstadd_back(&exec->args, ft_lstnew(tmp->variable));
-		else if (tmp->type == 5 || tmp->type == 7)
+		else if ((tmp->type == 5 || tmp->type == 7) && tmp->filename)
 			convert_input_redirection(tmp, exec);
-		else if (tmp->type == 6 || tmp->type == 8)
+		else if ((tmp->type == 6 || tmp->type == 8) && tmp->filename)
 			convert_output_redirection(tmp, exec);
 		if (!handle_pipe(tmp, l_tmp, &exec, &result))
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 22:36:26 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 00:55:17 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char *remove_quote(char *str)
 	flag = 0;
 	i = 0;
 	y = 0;
-	result = ft_calloc(len, sizeof(char));
+	result = ft_calloc(len + 1, sizeof(char));
 	while (str[i])
 	{
 		if (ft_strchr(QUOTES_PARSE, str[i]) && (!i || (i && str[i - 1] != '\\')) && !flag)

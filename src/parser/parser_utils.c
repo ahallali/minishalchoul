@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 22:27:00 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 02:25:25 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_list *parse_prompt(char *prompt, t_parse_utils *utils)
 			insert_to_lexer(tok->limiter, utils);
 		tok = next_word(tok->next_start, "|<> ");
 	}
-	// ft_lstiter(utils->list_cmds, print_lex);
+	ft_lstiter(utils->list_cmds, print_lex);
 	result = get_exec(utils);
 	return (result);
 }
