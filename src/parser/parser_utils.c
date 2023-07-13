@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/13 22:08:04 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/13 22:11:46 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char *get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 	(void)utils;
 	rl_catch_signals = 1;
 	// signal(SIGINT, SIG_ERR);
+    rl_getc_function = getc;
 	minishell->heredoc_flag = 1;
 	tmp = readline(prompt);
 	minishell->heredoc_flag = 0;
