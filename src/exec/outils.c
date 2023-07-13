@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 06:56:33 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:47:39 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,10 +268,16 @@ int end_key (char * str,char c)
 char * key_value(char **arg)
 {
 	int i = 0;
+	// char **tmp2 = arg;
 	// int j;
 	int tmp = 0;
 	char *key;
-	// int count;
+	// int count = 0;
+	// while (*tmp2)
+	// {	
+	// 	count++;
+	// 	tmp2++;
+	// }
 	while (arg[i])
 	{
 		// if (ft_strchr(arg[i],'+')!=NULL) 
@@ -283,18 +289,11 @@ char * key_value(char **arg)
 		// }
 	   	if (ft_strchr(arg[i],'=') != NULL && !arg[i+1])
 		{
-			
 	   		tmp = end_key(arg[i], '=');
 			key = ft_substr(arg[i], 0, tmp+1);
 			if (check_key(key))
-			return (key);
+			printf("%s",key);
 		}
-		else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
-		{
-			tmp = end_key(arg[i])
-		}
-		else if (check_key(arg[i]))
-
 		i++;
 	}
 	return (key);

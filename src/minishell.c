@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 21:41:16 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/12 21:53:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_minishell	*minishell;
+t_minishell *minishell;
 
 // void f()
 // {
 // 	system("leaks minishell");
 // }
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	char			*line;
-	t_parse_utils	*p_prompt;
+	char *line;
+	t_parse_utils *p_prompt;
 	// t_list			**n;
-	char			*p_clean;
+	char *p_clean;
 
 	(void)ac;
 	(void)av;
-	line = NULL;	
-	
+	line = NULL;
+
 	// atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
 	minishell->env = NULL;
 	if (!minishell)
 		return (0);
 	if (*env)
-		minishell->env = ft_env(env,minishell);
+		minishell->env = ft_env(env, minishell);
 	else
 		minishell->env = ft_empty();
 	rl_catch_signals = 0;

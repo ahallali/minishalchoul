@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 02:47:15 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/12 23:20:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-
 
 // void read_heredoc(int fd,)
 
@@ -26,17 +24,17 @@ int get_heredoc_fd(char *limiter)
     int fd[2];
     char *line;
 
-    puts("test\n");
-    if (pipe(fd)<0)
+    // puts("test\n");
+    if (pipe(fd) < 0)
         return (perror("pipe error:"), -1);
     minishell->heredoc_flag = 1;
-      
+
     while (1 && !minishell->sigint_flag)
     {
-        puts("tet");
-
-        line = readline("> ");
-        printf("line %p : %s", line, line);
+        signal(SIGINT,handler);
+        // puts("tet");
+        line = readline("minishell> ");
+        // printf("line %p : %s", line, line);
         if (ft_strequals(limiter, line) || !line)
             break;
         ft_putstr_fd(ft_strjoin(line, "\n"), fd[1]);
@@ -61,7 +59,7 @@ int get_heredoc_fd(char *limiter)
 //             if (!ft_strncmp(minishell->token->word, line, ft_strlen(line)))
 //                 break;
 //         }
-        
+
 //     }
 //     else
 //     {
@@ -78,5 +76,4 @@ int get_heredoc_fd(char *limiter)
 //     lex->filename = str;
 //     lex->fd = fd[1];
 
-    
 // }
