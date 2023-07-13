@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/12 00:55:17 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/13 02:06:32 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int result_len(char *str, char *find, char *replace)
 	return ((ft_strlen(str) - (ft_strlen(find) * occ) + (ft_strlen(replace) * occ)) + 1);
 }
 
-char *ft_str_replace(char *str, char *find, char *replace)
+char *ft_str_replace(char *str, char *find, char *replace, int start)
 {
 	size_t i;
 	size_t y;
 	int flag;
 	char *result;
 
-	i = 0;
+	i = start;
 	y = 0;
 	flag = 0;
 	result = ft_calloc(result_len(str, find, replace) + 1, sizeof(char));
@@ -115,17 +115,24 @@ char *expand_dquotes(char *str)
 	res = str;
 	while (str[i])
 	{
+		if (ft_strchr(QUOTES_PARSE, str[i]) && (!minishell->quote_flag &&
+			minishell->quote_flag != str[i]))
+			minishell->quote_flag = str[i];
+		else if (ft_strchr(QUOTES_PARSE, str[i]) && ( 
+			minishell->quote_flag == str[i]))
+			minishell->quote_flag = 0;
 		if (str[i] == '$' &&
-			!ft_strchr(" \t$\"\0", str[i + 1]) && str[i + 1] != '\0')
+			!ft_strchr(" \t$\"\0", str[i + 1]) && str[i + 1] != '\0'
+			&& minishell->quote_flag != '\'')
 		{
 			tmp = ft_strdup(str);
 			var = extract_variable(&tmp[i]);
 			// printf("var : %s\n", var);
 			if (path_finder(minishell->env, convert_path(var + 1)))
 				res = ft_str_replace(res, var,
-									 path_finder(minishell->env, convert_path(var + 1)));
+									 path_finder(minishell->env, convert_path(var + 1)), i);
 			else
-				res = ft_str_replace(res, var, "");
+				res = ft_str_replace(res, var, "", i);
 		}
 		i++;
 	}

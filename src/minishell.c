@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 21:41:16 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/13 22:03:17 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int ac, char **av, char **env)
 	char			*line;
 	t_parse_utils	*p_prompt;
 	// t_list			**n;
-	char			*p_clean;
 
 	(void)ac;
 	(void)av;
@@ -39,20 +38,21 @@ int	main(int ac, char **av, char **env)
 		minishell->env = ft_env(env,minishell);
 	else
 		minishell->env = ft_empty();
-	rl_catch_signals = 0;
 	while (0x5ABA)
 	{
+		rl_catch_signals = 0;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, (void *)handler);
 		minishell->sigint_flag = 0;
+    	minishell->heredoc_flag = 0;
 		line = readline("minishell>");
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(0);
 		}
-		if (line && *line)
-			add_history(line);
+		// if (line && *line)
+		// 	add_history(line);
 		// if (ft_strncmp(line, "exit" , 4) == 0)
 		// {
 		// 	n = get_gcollector();
@@ -62,11 +62,11 @@ int	main(int ac, char **av, char **env)
 		// 	break ;
 		// }
 		p_prompt = ft_calloc(1, sizeof(t_parse_utils));
-		p_clean = ft_strtrim(line, " ");
-		p_prompt->prompt = ft_strdup(p_clean);
+		p_prompt->prompt = ft_strdup(line);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		// ft_lstiter(minishell->list_exec, print_exec);
-		execute(minishell);
+		if(!minishell->sigint_flag)
+			execute(minishell);
 		free(line);
 	}
 }

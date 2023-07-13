@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   converter_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:28:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 22:25:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/13 01:32:09 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char **convert_args(t_list *node)
 	n = node;
 	while (n)
 	{
-		result[tmp++] = ft_strdup((const char *)n->content);
+		result[tmp++] = expand_dquotes(ft_strdup((const char *)n->content));
 		n = n->next;
 	}
-	return (result);
+	return ((result));
 }
 
 char **convert_command_args(t_exec_utils *utils)
