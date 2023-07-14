@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 00:52:46 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/14 02:35:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ void	execute_cmd(t_minishell *minishell, char *path)
 				exit (126);
 				}
 				
-            else if (errno == ENOENT) 
-                ft_putstr_fd("minishell:Command not found\n", 2);
+            // else if (errno == ENOENT) 
+            //     ft_putstr_fd("minishell:Command not found\n", 2);
             // else if (errno == )
 				// ft_putstr_fd("minishell:No such file or directory\n", 2);
 			else

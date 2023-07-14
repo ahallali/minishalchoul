@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 23:20:53 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:44:23 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int get_heredoc_fd(char *limiter)
     if (pipe(fd) < 0)
         return (perror("pipe error:"), -1);
     minishell->heredoc_flag = 1;
-
+    if (minishell->heredoc_flag)
+		rl_catch_signals = 1;
+    rl_getc_function = getc;
     while (1 && !minishell->sigint_flag)
     {
-        signal(SIGINT,handler);
         // puts("tet");
-        line = readline("minishell> ");
+
+        line = readline("> ");
         // printf("line %p : %s", line, line);
         if (ft_strequals(limiter, line) || !line)
             break;
@@ -41,6 +43,8 @@ int get_heredoc_fd(char *limiter)
         free(line);
     }
     minishell->heredoc_flag = 0;
+    rl_catch_signals = 0;
+
     close(fd[1]);
     return (fd[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/12 21:47:39 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/14 03:40:30 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void do_builtin(t_minishell *minishell)
 int end_key (char * str,char c)
 {
 	int i = 0;
-	// int count =0;
+
 	if (!str || !*str)
 	   return (0);
 	while (str[i])
@@ -265,55 +265,143 @@ int end_key (char * str,char c)
 	}
 	return (0);
 }
-char * key_value(char **arg)
-{
-	int i = 0;
-	// char **tmp2 = arg;
-	// int j;
-	int tmp = 0;
-	char *key;
-	// int count = 0;
-	// while (*tmp2)
-	// {	
-	// 	count++;
-	// 	tmp2++;
-	// }
-	while (arg[i])
-	{
-		// if (ft_strchr(arg[i],'+')!=NULL) 
-		// {
-		// 	if (arg[i] =='=')
-		// 	puts("test");
-		// 		tmp = end_key(arg[i],'=');
-		// 	key = ft_substr(arg[i], 0, tmp - 2);
-		// }
-	   	if (ft_strchr(arg[i],'=') != NULL && !arg[i+1])
-		{
-	   		tmp = end_key(arg[i], '=');
-			key = ft_substr(arg[i], 0, tmp+1);
-			if (check_key(key))
-			printf("%s",key);
-		}
-		i++;
-	}
-	return (key);
-}
 
-int check_key (char *str)
+
+char *key_value(char **arg, t_minishell *minishell)
 {
-	int i = 1;
-	int size = ft_strlen(str);
-	if (isalpha(str[0])|| str[0] == '_')
+	// printf(" %/s | %s\n", arg[0], arg[1]);
+	// (void)minishell;
+	// (void)arg;
+	int i = -1;
+	// int j = 0;
+	// char	**res;
+	int count = 0;
+	char **tmp = arg;
+	// char **keys;
+		
+	
+	while (tmp[++i])
 	{
-		while (i<size-1)
+		count++;
+		// int x = check_key("^&a=") == 1;
+		if (check_key(tmp[i]) == 1)
+			return (fprintf(stdout, "Failure \n") , NULL);
+	// n_export_and_env;
+		int p = check_value(tmp[i]);
+		if (p)
 		{
-			if (!ft_isalnum(str[i]))
-				return(1);
-			i++;
+			char *value = ft_substr(tmp[i], p+1,ft_strlen(tmp[i]));
+			char *key = ft_substr(tmp[i], 0, p);
+			printf("key = %s\n",key);
+			printf("value = %s\n", value);
+			add_to_export(minishell->export,key, value);
+			
+			
+			
+			// zid envrnmt;
+			// zid export;
+			// storekey(tmp[i]);
 		}
+		// else
+		// 	zid export;
+		/*
+			substr the key and store it in char **
+
+		*/
 	}
 	return (0);
 }
+t_node *add_to_export(t_node **head,char *key ,char * value)
+{
+	t_node **tmp = head;
+	if (!head)
+		return NULL;
+	while (tmp)
+	{
+		if (!strncmp(key,tmp->variable,ft_strlen(key)))
+			tmp->value = value;
+		else 
+			insert_node(&head,value,key);
+		tmp = tmp->next;
+	}
+	print_list(minishell->export);
+	return (head);
+}
+int check_key(char *str)
+{
+	int i = 1;
+	int bk = 0;
+
+	// int size = ft_strlen(str);
+	if (isalpha(str[0]) || str[0] == '_')
+	{
+		while (str[i] && (str[i] != '=') && str[i] != '+')
+		{
+			if (ft_isalnum(str[i]) || str[i] == '_')
+				i++;
+		}
+		if (str[i] == '\0' || str[i] == '=' || (str[i] == '+' && str[i+1] == '='))
+			bk = 1;
+	}
+	if (bk == 1)
+		return (0); // succes
+	return (1); // failure
+}
+
+int check_value(char *str)
+{
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=' && str[i+1])
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+// char * key_value(char **arg,t_minishell * minishell)
+// {
+// 	(void)minishell;
+// 	// int i = 0;
+// 	char **tmp2 = arg;
+// 	// int j;
+// 	// int tmp = 0;
+// 	// char *key;
+// 	// int count = 0;
+// 	// while (*tmp2++)
+// 	// {
+// 	// 	count++;
+// 	// }
+// 	printf("%d | %s | %s\n",count, arg[0], arg[1]);
+// 	// while (i<count)
+// 	// {
+// 	//    	if (ft_strchr(arg[i],'=') != NULL && !arg[i+1])
+// 	// 	{
+// 	//    		tmp = end_key(arg[i], '=');
+// 	// 		key = ft_substr(arg[i], 0, tmp+1);
+// 	// 		if (!check_key(key))
+// 	// 		printf("%s\n",key);
+// 	// 		// insert_to_export(key,minishell);
+// 	// 	}
+// 	// 	// if (ft_strchr(arg[i],'+')!=NULL) 
+// 	// 	// {
+// 	// 	// 	if (arg[i] =='=')
+// 	// 	// 		tmp = end_key(arg[i],'=');
+// 	// 	// 	key = ft_substr(arg[i], 0, tmp - 2);
+// 	// 	// }
+// 	// 	i++;
+// 	// }
+// 	return (0);
+// }
+// void insert_new(char * key,t_minishell * minishell)
+// {
+// 	if (key)
+// 	// update_env(minishell->export,)
+// 	insert_node(&minishell->export,"\"\"",key);
+// 	print_list(minishell->export);
+// 	// else if ()
+// }
 
 // check_exist ()
 // int check_operator(char **args)
@@ -336,6 +424,6 @@ void ft_export(t_minishell *minishell, char **args)
 	
 	if (!args || !*args)
 	   print_list(minishell->export);
-	else if (!key_value(args))
+	else if (!key_value(args,minishell))
 	   return;
 }

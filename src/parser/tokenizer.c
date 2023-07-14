@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 02:43:13 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/12 23:28:39 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,15 @@ int	insert_to_lexer(char *str, t_parse_utils *u)
 	t_lex	*last_lex;
 
 	last_lex = NULL;
+	node = ft_lstlast(u->list_cmds);
+	if (node)
+		last_lex = (t_lex *)node->content;
 	lex = ft_calloc(1, sizeof(t_lex));
 	if (ft_strchr(IO_PARSE, *str))
 		return (token_redirection (str, lex, last_lex, u));
 	node = u->list_cmds;
 	if (verify_exec_node(node, str, lex, u))
 		return (1);
-	node = ft_lstlast(u->list_cmds);
-	last_lex = (t_lex *)node->content;
 	if (*str == '|')
 		return (insert_pipe(lex, u));
 	else if (is_enum_redirection(last_lex->type)
