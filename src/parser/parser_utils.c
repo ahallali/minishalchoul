@@ -54,7 +54,7 @@ t_list *parse_prompt(char *prompt, t_parse_utils *utils)
 
 	while (validate_quote(prompt) && !minishell->sigint_flag)
 		prompt = append_new_line(prompt, minishell->quote_flag);
-	if (!minishell->sigint_flag && prompt && *prompt)
+	if (!minishell->sigint_flag || (prompt && *prompt))
 		add_history(prompt);
 	tok = next_word(prompt, "| \t");
 	while (tok)

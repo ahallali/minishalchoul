@@ -48,8 +48,8 @@ char	*append_new_line(char *prompt, char delimiter)
 	// minishell->heredoc_flag = 1;
 	tmp = get_new_line("> ", NULL, delimiter);
 	line = ft_strjoin(prompt, "\n");
-	free(prompt);
-	prompt = ft_strjoin(line, tmp);
+	if (tmp)
+		return (free(prompt),ft_strjoin(line, tmp));
 	// minishell->heredoc_flag = 0; 
 	return (free(line), free(tmp), prompt);
 }
