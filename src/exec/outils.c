@@ -326,6 +326,13 @@ t_node *add_to_export(t_node *head,char *key ,char * value)
 			insert_node(&head,value,key);
 			break;
 		tmp = tmp->next;
+		// else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
+		// {
+		// 	tmp = end_key(arg[i])
+		// }
+		else if (check_key(arg[i]))
+
+		i++;
 	}
 	// print_list(minishell->export);
 	return (head);

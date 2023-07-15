@@ -47,13 +47,15 @@ char *ft_str_replace(char *str, char *find, char *replace, int start)
 	int flag;
 	char *result;
 
-	i = start;
+	i = 0;
 	y = 0;
 	flag = 0;
 	result = ft_calloc(result_len(str, find, replace) + 1, sizeof(char));
+	// printf("repl %d : %s\n", start, find);
 	while (str[i])
 	{
-		if (!flag && ft_strncmp(&str[i], find, ft_strlen(find)) == 0 && !flag)
+		// printf("fl :	%d	si :	%c	i :	%zu\n", flag, str[i], i);
+		if (!flag && i == (size_t) start && ft_strncmp(&str[i], find, ft_strlen(find)) == 0)
 		{
 			i = i + ft_strlen(find);
 			while (replace && (*replace != '\0'))
@@ -93,7 +95,7 @@ char *remove_quote(char *str)
 	{
 		if (ft_strchr(QUOTES_PARSE, str[i]) && (!i || (i && str[i - 1] != '\\')) && !flag)
 			flag = str[i++];
-		else if (ft_strchr(&flag, str[i]) && (!i || (i && str[i - 1] != '\\')) && flag)
+		if (ft_strchr(&flag, str[i]) && (!i || (i && str[i - 1] != '\\')) && flag)
 		{
 			flag = 0;
 			i++;
@@ -113,30 +115,27 @@ char *expand_dquotes(char *str)
 
 	i = 0;
 	res = str;
-	while (str[i])
+	while (res[i])
 	{
-		if (ft_strchr(QUOTES_PARSE, str[i]) && (!minishell->quote_flag &&
-			minishell->quote_flag != str[i]))
-			minishell->quote_flag = str[i];
-		else if (ft_strchr(QUOTES_PARSE, str[i]) && ( 
-			minishell->quote_flag == str[i]))
+		if (ft_strchr(QUOTES_PARSE, res[i]) && !minishell->quote_flag )
+			minishell->quote_flag = res[i];
+		else if (minishell->quote_flag == res[i])
 			minishell->quote_flag = 0;
-		if (str[i] == '$' &&
-			!ft_strchr(" \t$\"\0", str[i + 1]) && str[i + 1] != '\0'
+		if (res[i] == '$' &&
+			!ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
 			&& minishell->quote_flag != '\'')
 		{
-			tmp = ft_strdup(str);
+			tmp = ft_strdup(res);
 			var = extract_variable(&tmp[i]);
-			// printf("var : %s\n", var);
+			printf("var : %s\n", var);
 			if (path_finder(minishell->env, convert_path(var + 1)))
 				res = ft_str_replace(res, var,
 									 path_finder(minishell->env, convert_path(var + 1)), i);
 			else
 				res = ft_str_replace(res, var, "", i);
+			continue;
 		}
 		i++;
 	}
-	// printf("### original str : %s\n", str);
-	// printf("### result : %s\n", remove_quote(res));
 	return (remove_quote(res));
 }
