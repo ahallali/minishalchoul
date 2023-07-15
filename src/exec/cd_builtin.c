@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/10 01:29:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:23:06 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*path_finder(t_node *head, char *var)
 		return (NULL);
 	while (t->next)
 	{
-		if (!strcmp(t->variable, var))
+		if (ft_strequals(t->variable, var))
 			return (t->value);
 	t = t->next;
 	}

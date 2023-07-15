@@ -3,81 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/13 22:44:23 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/15 21:03:33 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-// void read_heredoc(int fd,)
-
-// void insert_heredoc(t_lex *lex, char *str)
-// {
-//     int fd[2];
-//     char *line;
-
-int get_heredoc_fd(char *limiter)
+char	*expand_hdoc(char *str, int expand)
 {
-    int fd[2];
-    char *line;
+	int		i;
+	char	*var;
+	char	*res;
+	char	*tmp;
 
-    // puts("test\n");
-    if (pipe(fd) < 0)
-        return (perror("pipe error:"), -1);
-    minishell->heredoc_flag = 1;
-    if (minishell->heredoc_flag)
-		rl_catch_signals = 1;
-    rl_getc_function = getc;
-    while (1 && !minishell->sigint_flag)
-    {
-        // puts("tet");
-
-        line = readline("> ");
-        // printf("line %p : %s", line, line);
-        if (ft_strequals(limiter, line) || !line)
-            break;
-        ft_putstr_fd(ft_strjoin(line, "\n"), fd[1]);
-        free(line);
-    }
-    minishell->heredoc_flag = 0;
-    rl_catch_signals = 0;
-
-    close(fd[1]);
-    return (fd[0]);
+	i = 0;
+	res = str;
+	while (res[i])
+	{
+		if (ft_strchr(QUOTES_PARSE, res[i]) && !minishell->quote_flag)
+			minishell->quote_flag = res[i];
+		else if (minishell->quote_flag == res[i])
+			minishell->quote_flag = 0;
+		if (res[i] == '$'
+			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
+			&& expand)
+		{
+			tmp = ft_strdup(res);
+			var = extract_variable(&tmp[i]);
+			res = do_replace(res, var, i);
+			continue ;
+		}
+		i++;
+	}
+	return (res);
 }
 
-//     puts("test\n");
-//     if (pipe(fd)<0){
-//         perror("pipe error:");
-//         return ;
-//     }
-//     printf("word ! %s\n",minishell->token->word);
-//     if (minishell->token->next_start)
-//     {
-//         while (1)
-//         {
-//             line = readline(">");
-//             if (!ft_strncmp(minishell->token->word, line, ft_strlen(line)))
-//                 break;
-//         }
 
-//     }
-//     else
-//     {
-//         while (1)
-//         {
-//             line = readline(">");
-//             if (!ft_strncmp(minishell->token->word, line, ft_strlen(line)))
-//                 break;
-//             else
-//                 ft_putstr_fd(line, fd[0]);
-//         }
-//     }
+int	get_heredoc_fd(char *limiter)
+{
+	int		fd[2];
+	char	*line;
+	int		expand;
 
-//     lex->filename = str;
-//     lex->fd = fd[1];
+	expand = !has_valid_quoting(limiter);
+	limiter = remove_quote(limiter);
+	if (pipe(fd) < 0)
+		return (perror("pipe error:"), -1);
+	minishell->heredoc_flag = 1;
+	if (minishell->heredoc_flag)
+		rl_catch_signals = 1;
+	rl_getc_function = getc;
+	while (1 && !minishell->sigint_flag)
+	{
+		line = readline("> ");
+		if (ft_strequals(limiter, line) || !line)
+			break ;
+		ft_putstr_fd(ft_strjoin(expand_hdoc(line, expand), "\n"), fd[1]);
+		free(line);
+	}
+	minishell->heredoc_flag = 0;
+	rl_catch_signals = 0;
+	close(fd[1]);
+	return (fd[0]);
+}
 
-// }

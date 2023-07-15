@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/13 21:47:27 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/14 09:51:49 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	*append_new_line(char *prompt, char delimiter)
 	tmp = get_new_line("> ", NULL, delimiter);
 	line = ft_strjoin(prompt, "\n");
 	if (tmp)
-		return (free(prompt),ft_strjoin(line, tmp));
+		return (ft_free(prompt), ft_strjoin(line, tmp));
 	// minishell->heredoc_flag = 0; 
-	return (free(line), free(tmp), prompt);
+	return (ft_free(line), ft_free(tmp), prompt);
 }
 
 int	skip_quoted(char *str, int *i)

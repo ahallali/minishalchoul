@@ -78,5 +78,6 @@ int check_key(char *str);
 void insert_to_export(char *key, t_minishell *minishell);
 int check_value(char *str);
 t_node *add_to_export(t_node *head, char *key, char *value);
+void	add_value(char *arg);
 
 #endif

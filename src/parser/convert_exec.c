@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/12 02:26:42 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/15 21:05:57 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 	if (tmp->filename && tmp->type == 7)
 	{
 		close_last_fd(exec->inputFd);
-		exec->inputFd = get_heredoc_fd(remove_quote(tmp->filename));
+		exec->inputFd = get_heredoc_fd(tmp->filename);
 	}
 	else if (tmp->filename)
 	{
 		close_last_fd(exec->inputFd);
-		exec->inputFd = open_file(expand_dquotes(tmp->filename), tmp->flag_infile);
+		exec->inputFd = open_file(expand_dquotes(tmp->filename),
+				tmp->flag_infile);
 	}
 	else if (tmp->fd != -1)
 	{
@@ -58,7 +59,8 @@ void	convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 	if (tmp->filename)
 	{
 		close_last_fd(exec->outputFd);
-		exec->outputFd = open_file(expand_dquotes(tmp->filename), tmp->flag_outfile);
+		exec->outputFd = open_file(expand_dquotes(tmp->filename),
+				tmp->flag_outfile);
 	}
 	else if (tmp->fd != -1)
 	{
@@ -74,14 +76,14 @@ void	convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 int	handle_pipe(t_lex *tmp, t_list *l_tmp,
 	t_exec_utils **exec, t_list **result)
 {
+	if (tmp->type == PIPE && !l_tmp->next)
+		return (perror("Syntax Error: Expected command after pipe"), 0);
 	if (tmp->type == PIPE)
 	{
 		ft_lstadd_back(result, ft_lstnew(*exec));
 		*exec = init_exec_utils();
 		return (1);
 	}
-	if (tmp->type == PIPE && !l_tmp->next)
-		return (perror("Syntax Error: Expected command after pipe"), 0);
 	return (1);
 }
 

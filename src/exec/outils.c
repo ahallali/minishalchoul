@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/15 20:58:31 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:04:02 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ t_node *ft_unset(t_node **head, char *var)
 		return (NULL);
 	while (t)
 	{
-		if (!ft_strncmp(t->variable, var, ft_strlen(var)) && ft_strncmp(t->variable, "_", 1))
+		if (!ft_strncmp(t->variable, var, ft_strlen(t->variable)) && ft_strncmp(t->variable, "_", 1))
 		{
 			if (t == *head)
 			{
@@ -268,102 +268,106 @@ int end_key (char * str,char c)
 }
 
 
-char *key_value(char **arg, t_minishell *minishell)
-{
-	// printf(" %/s | %s\n", arg[0], arg[1]);
-	(void)minishell;
-	// (void)arg;
-	int i = -1;
-	// int j = 0;
-	// char	**res;
-	int count = 0;
-	char **tmp = arg;
-	// char **keys;
+// char *key_value(char **arg, t_minishell *minishell)
+// {
+// 	// printf(" %/s | %s\n", arg[0], arg[1]);
+// 	(void)minishell;
+// 	// (void)arg;
+// 	int i = -1;
+// 	// int j = 0;
+// 	// char	**res;
+// 	int count = 0;
+// 	char **tmp = arg;
+// 	// char **keys;
 		
 	
-	while (tmp[++i])
-	{
-		count++;
-		// int x = check_key("^&a=") == 1;
-		if (check_key(tmp[i]) == 1)
-			return (fprintf(stdout, "Failure \n") , NULL);
-	// n_export_and_env;
-		int p = check_value(tmp[i]);
-		if (p) //if the value exist
-		{
-			if (ft_strchr(tmp[i],'+'))
-			{
-			char *value = ft_substr(tmp[i], p+1,ft_strlen(tmp[i])); //the valid value to add
-			char *key = ft_substr(tmp[i], 0, p-1);//the valid key to add
-			printf("%s\n", key);
-			printf("%s\n", value);
-			add_to_export(minishell->export, key, value); // add to export linked list
-			add_to_export(minishell->env,key,value);//add to env linked list
-			}
-		}
-			// else 
-			// add_to_export(minishell->export,key);
-		// {
+// 	while (tmp[++i])
+// 	{
+// 		count++;
+// 		// int x = check_key("^&a=") == 1;
+// 		if (check_key(tmp[i]) == 1)
+// 			return (fprintf(stdout, "Failure \n") , NULL);
+// 	// n_export_and_env;
+// 		int p = check_value(tmp[i]);
+// 		if (p) //if the value exist
+// 		{
+// 			if (ft_strchr(tmp[i],'+'))
+// 			{
+// 			char *value = ft_substr(tmp[i], p+1,ft_strlen(tmp[i])); //the valid value to add
+// 			char *key = ft_substr(tmp[i], 0, p-1);//the valid key to add
+// 			printf("%s\n", key);
+// 			printf("%s\n", value);
+// 			add_to_export(minishell->export, key, value); // add to export linked list
+// 			add_to_export(minishell->env,key,value);//add to env linked list
+// 			}
+// 		}
+// 			// else 
+// 			// add_to_export(minishell->export,key);
+// 		// {
 
-		// }
-		// else 
-		// 	check_valid_key(tmp[i]);
-			// zid envrnmt;
-			// zid export;
-			// storekey(tmp[i]);
-		// else
-		// 	zid export;
-		/*
-			substr the key and store it in char **
-			check_
-		*/
-	}
-	return (0);
-}
-t_node *add_to_export(t_node *head,char *key ,char * value)
-{
-	(void)minishell;
-	t_node *tmp = head;
-	if (!head)
-		return NULL;
-	while (tmp)
-		{
-			printf("%s\n",key);
-			printf("%s\n",tmp->variable);
-			if (ft_strncmp(key,tmp->variable,ft_strlen(key))==0)
-			{
-				puts("hna");
-				tmp->value = ft_strjoin(tmp->value,value);
-			}
-			else
-			{
-				puts("hna2");
-				insert_node(&head,value,key);
-				break;
-			}
-			tmp=tmp->next;
-		// }
-		// {		
-		// while (tmp)
-		// {
-		// 	if (!ft_strncmp(key,tmp->variable,ft_strlen(key)))
-		// 		tmp->value = value;
-		// 	else
-		// 		insert_node(&head,value,key);
-		// 	break;
-		// tmp = tmp->next;
-		// // else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
-		// // {
-		// // 	tmp = end_key(arg[i])
-		// // }
-		// // else if (check_key(arg[i]))
+// 		// }
+// 		// else 
+// 		// 	check_valid_key(tmp[i]);
+// 			// zid envrnmt;
+// 			// zid export;
+// 			// storekey(tmp[i]);
+// 		// else
+// 		// 	zid export;
+// 		/*
+// 			substr the key and store it in char **
+// 			check_
+// 		*/
+// 	}
+// 	return (0);
+// }
+// t_node *add_to_export(t_node *head,char *key ,char * value)
+// {
+// 	(void)minishell;
+// 	t_node *tmp = head;
+// 	if (!head)
+// 		return NULL;
+// 	while (tmp)
+// 		{
+// 			printf("%s\n",key);
+// 			printf("%s\n",tmp->variable);
+// 			if (ft_strncmp(key,tmp->variable,ft_strlen(key))==0)
+// 			{
+// 				puts("hna");
+// 				tmp->value = ft_strjoin(tmp->value,value);
+// 			}
+// 			else
+// 			{
+// 				puts("hna2");
+// 				insert_node(&head,value,key);
+// 				break;
+// 			}
+// 			tmp=tmp->next;
+// 		// }
+// 		// {		
+// 		// while (tmp)
+// 		// {
+// 		// 	if (!ft_strncmp(key,tmp->variable,ft_strlen(key)))
+// 		// 		tmp->value = value;
+// 		// 	else
+// 		// 		insert_node(&head,value,key);
+// 		// 	break;
+// 		// tmp = tmp->next;
+// 		// // else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
+// 		// // {
+// 		// // 	tmp = end_key(arg[i])
+// 		// // }
+// 		// // else if (check_key(arg[i]))
 
-		// // i++;
-		// }
-	// print_list(minishell->export);
-		}
-	return (head);
-}
+// 		// // i++;
+// 		// }
+// 		// else if (check_key(arg[i]))
+
+// 		// i++;
+// 	// }
+// 	// print_list(minishell->export);
+// 		}
+// 	return (head);
+// }
 int check_key(char *str)
 {
 	int i = 1;
@@ -465,12 +469,19 @@ int check_valid_key(char*str)
 // 	}
 // }
 
+
+
 void ft_export(t_minishell *minishell, char **args)
 {
 	(void)minishell;
+	int	x;
 	
+	x = 0;
 	if (!args || !*args)
 	   print_list(minishell->export);
-	else if (!key_value(args,minishell))
+	while (args && args[x])
+		add_value(args[x++]);
+		
+	// else if (!key_value(args,minishell))
 	   return;
 }
