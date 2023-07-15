@@ -29,12 +29,12 @@ void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 	if (tmp->filename && tmp->type == 7)
 	{
 		close_last_fd(exec->inputFd);
-		exec->inputFd = get_heredoc_fd(tmp->filename);
+		exec->inputFd = get_heredoc_fd(remove_quote(tmp->filename));
 	}
 	else if (tmp->filename)
 	{
 		close_last_fd(exec->inputFd);
-		exec->inputFd = open_file(tmp->filename, tmp->flag_infile);
+		exec->inputFd = open_file(expand_dquotes(tmp->filename), tmp->flag_infile);
 	}
 	else if (tmp->fd != -1)
 	{
@@ -58,7 +58,7 @@ void	convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 	if (tmp->filename)
 	{
 		close_last_fd(exec->outputFd);
-		exec->outputFd = open_file(tmp->filename, tmp->flag_outfile);
+		exec->outputFd = open_file(expand_dquotes(tmp->filename), tmp->flag_outfile);
 	}
 	else if (tmp->fd != -1)
 	{
