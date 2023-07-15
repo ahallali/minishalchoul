@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/11 22:11:04 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/15 20:12:41 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,5 @@ t_token_info	*token_delim(char *str, int *i, t_token_info *info);
 t_token_info	*token_last(char *str, t_token_info *info);
 int 			get_heredoc_fd(char *limiter);
 char			*expand_dquotes(char *str);
-
+char *remove_quote(char *str);
 #endif

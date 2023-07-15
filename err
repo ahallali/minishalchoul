@@ -25,3 +25,8 @@ shlvl
 ********
 one fd leak pippe fd heredoc
 *********
+unset __.......
+echo -n -n -n -n  hello 
+***********
+pwd check 
+************

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/14 16:44:43 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:58:31 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,13 +291,21 @@ char *key_value(char **arg, t_minishell *minishell)
 		int p = check_value(tmp[i]);
 		if (p) //if the value exist
 		{
+			if (ft_strchr(tmp[i],'+'))
+			{
 			char *value = ft_substr(tmp[i], p+1,ft_strlen(tmp[i])); //the valid value to add
-			char *key = ft_substr(tmp[i], 0, p);//the valid key to add
-			printf("key = %s\n",key);
-			printf("value = %s\n", value);
-			add_to_export(minishell->export,key, value);//add to export linked list
+			char *key = ft_substr(tmp[i], 0, p-1);//the valid key to add
+			printf("%s\n", key);
+			printf("%s\n", value);
+			add_to_export(minishell->export, key, value); // add to export linked list
 			add_to_export(minishell->env,key,value);//add to env linked list
+			}
 		}
+			// else 
+			// add_to_export(minishell->export,key);
+		// {
+
+		// }
 		// else 
 		// 	check_valid_key(tmp[i]);
 			// zid envrnmt;
@@ -319,22 +327,41 @@ t_node *add_to_export(t_node *head,char *key ,char * value)
 	if (!head)
 		return NULL;
 	while (tmp)
-	{
-		if (!strncmp(key,tmp->variable,ft_strlen(key)))
-			tmp->value = value;
-		else
-			insert_node(&head,value,key);
-			break;
-		tmp = tmp->next;
-		// else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
-		// {
-		// 	tmp = end_key(arg[i])
+		{
+			printf("%s\n",key);
+			printf("%s\n",tmp->variable);
+			if (ft_strncmp(key,tmp->variable,ft_strlen(key))==0)
+			{
+				puts("hna");
+				tmp->value = ft_strjoin(tmp->value,value);
+			}
+			else
+			{
+				puts("hna2");
+				insert_node(&head,value,key);
+				break;
+			}
+			tmp=tmp->next;
 		// }
-		else if (check_key(arg[i]))
+		// {		
+		// while (tmp)
+		// {
+		// 	if (!ft_strncmp(key,tmp->variable,ft_strlen(key)))
+		// 		tmp->value = value;
+		// 	else
+		// 		insert_node(&head,value,key);
+		// 	break;
+		// tmp = tmp->next;
+		// // else if (ft_strchr(arg[i], '=') != NULL && !arg[i - 1] == '+')
+		// // {
+		// // 	tmp = end_key(arg[i])
+		// // }
+		// // else if (check_key(arg[i]))
 
-		i++;
-	}
+		// // i++;
+		// }
 	// print_list(minishell->export);
+		}
 	return (head);
 }
 int check_key(char *str)

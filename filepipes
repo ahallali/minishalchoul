@@ -1,0 +1,24 @@
+total 512
+drwxr-xr-x  23 ahallali  candidate     782 Jul 14 15:26 .
+drwxr-xr-x  19 ahallali  candidate     646 Jul 11 22:16 ..
+-rw-r--r--   1 ahallali  candidate    6148 Jul 11 22:16 .DS_Store
+drwxr-xr-x  15 ahallali  candidate     510 Jul 14 03:41 .git
+-rw-r--r--   1 ahallali  candidate     438 Jul  5 02:03 .gitignore
+drwxr-xr-x   5 ahallali  candidate     170 Jul 11 01:17 .vscode
+-rw-r--r--   1 ahallali  candidate     839 Jul 14 01:16 Makefile
+-rw-r--r--   1 ahallali  candidate    4896 Jul  1 22:48 bulltins.o
+-rw-r--r--   1 ahallali  candidate    9556 Jul  1 22:48 cd_builtin.o
+-rw-r--r--   1 ahallali  candidate    3380 Jul  1 22:48 env.o
+-rw-r--r--   1 ahallali  candidate     127 Jul 14 15:13 err
+-rw-r--r--   1 ahallali  candidate       0 Jul 14 15:28 filepipes
+drwxr-xr-x   2 ahallali  candidate      68 Jul 10 01:25 koko
+-rw-r--r--   1 ahallali  candidate       0 Jul 14 15:07 l
+drwxr-xr-x@ 95 ahallali  candidate    3230 Jul 14 15:21 libft
+-rw-r--r--   1 ahallali  candidate       0 Jul 14 15:26 ls
+-rwxr-xr-x   1 ahallali  candidate  168408 Jul 14 15:21 minishell
+-rw-r--r--   1 ahallali  candidate    8960 Jul  1 22:48 minishell.o
+drwxr-xr-x   5 ahallali  candidate     170 Jul 14 15:21 obj
+-rw-r--r--   1 ahallali  candidate   13800 Jul  1 22:48 parser_utils2.o
+-rw-r--r--   1 ahallali  candidate   11416 Jul  1 22:48 parser_utils3.o
+-rw-r--r--   1 ahallali  candidate      42 Jul 14 15:19 script.py
+drwxr-xr-x   7 ahallali  candidate     238 Jul 13 22:43 src

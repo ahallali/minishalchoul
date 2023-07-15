@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/14 02:35:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/15 21:06:46 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	execute_cmd(t_minishell *minishell, char *path)
 		{
 			if (errno == EACCES)
                 {
-				ft_putstr_fd("minishell:Permission denied\n", 2);
+				perror("minishell");
 				exit (126);
 				}
 				
@@ -145,8 +145,6 @@ void	execute_cmd(t_minishell *minishell, char *path)
             //     ft_putstr_fd("minishell:Command not found\n", 2);
             // else if (errno == )
 				// ft_putstr_fd("minishell:No such file or directory\n", 2);
-			else
-				ft_putstr_fd("minishell:Command not found\n", 2);
 			exit(127);
 		}
 }
