@@ -1,0 +1,27 @@
+<< data cat  
+$USER
+$DATA  
+"expand"
+***************
+echo -nnnnnnnn  $"USER"
+***************
+echo "daataetewwefew$USERgfsgfs$?"
+*****
+msg error unset check _var like export;
+****
+msg error export check_var;
+*******
+# sig
+************
+bash-3.2$ ls >
+bash: syntax error near unexpected token `newline'
+258
+********
+exit | ls
+********
+export
+********
+shlvl
+********
+one fd leak pippe fd heredoc
+*********

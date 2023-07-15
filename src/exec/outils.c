@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/14 03:40:30 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:44:43 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,13 @@ void ft_pwd(t_node *head, char *s)
 
 	pwd = NULL;
 	t = head;
+		puts("here");
 	if (!head)
 	{
 		pwd = getcwd(NULL, 0);
 		update_env(head, "PWD", pwd);
 	}
-	if (!t)
+	if(t)
 	{
 		while (t->next)
 		{
@@ -169,12 +170,12 @@ void ft_pwd(t_node *head, char *s)
 			t = t->next;
 		}
 	}
-	else
-	{
-		pwd = getcwd(NULL, 0);
-		insert_node(&head, pwd, "PWD");
-		printf("%s\n", pwd);
-	}
+	// else
+	// {
+	// 	pwd = getcwd(NULL, 0);
+	// 	update_env(head, "PWD", pwd);
+	// 	printf("%s\n", pwd);
+	// }
 }
 void print_list(t_node *head)
 {
@@ -270,7 +271,7 @@ int end_key (char * str,char c)
 char *key_value(char **arg, t_minishell *minishell)
 {
 	// printf(" %/s | %s\n", arg[0], arg[1]);
-	// (void)minishell;
+	(void)minishell;
 	// (void)arg;
 	int i = -1;
 	// int j = 0;
@@ -288,43 +289,45 @@ char *key_value(char **arg, t_minishell *minishell)
 			return (fprintf(stdout, "Failure \n") , NULL);
 	// n_export_and_env;
 		int p = check_value(tmp[i]);
-		if (p)
+		if (p) //if the value exist
 		{
-			char *value = ft_substr(tmp[i], p+1,ft_strlen(tmp[i]));
-			char *key = ft_substr(tmp[i], 0, p);
+			char *value = ft_substr(tmp[i], p+1,ft_strlen(tmp[i])); //the valid value to add
+			char *key = ft_substr(tmp[i], 0, p);//the valid key to add
 			printf("key = %s\n",key);
 			printf("value = %s\n", value);
-			add_to_export(minishell->export,key, value);
-			
-			
-			
+			add_to_export(minishell->export,key, value);//add to export linked list
+			add_to_export(minishell->env,key,value);//add to env linked list
+		}
+		// else 
+		// 	check_valid_key(tmp[i]);
 			// zid envrnmt;
 			// zid export;
 			// storekey(tmp[i]);
-		}
 		// else
 		// 	zid export;
 		/*
 			substr the key and store it in char **
-
+			check_
 		*/
 	}
 	return (0);
 }
-t_node *add_to_export(t_node **head,char *key ,char * value)
+t_node *add_to_export(t_node *head,char *key ,char * value)
 {
-	t_node **tmp = head;
+	(void)minishell;
+	t_node *tmp = head;
 	if (!head)
 		return NULL;
 	while (tmp)
 	{
 		if (!strncmp(key,tmp->variable,ft_strlen(key)))
 			tmp->value = value;
-		else 
+		else
 			insert_node(&head,value,key);
+			break;
 		tmp = tmp->next;
 	}
-	print_list(minishell->export);
+	// print_list(minishell->export);
 	return (head);
 }
 int check_key(char *str)
@@ -332,7 +335,6 @@ int check_key(char *str)
 	int i = 1;
 	int bk = 0;
 
-	// int size = ft_strlen(str);
 	if (isalpha(str[0]) || str[0] == '_')
 	{
 		while (str[i] && (str[i] != '=') && str[i] != '+')
@@ -360,6 +362,17 @@ int check_value(char *str)
 	return (0);
 }
 
+int check_valid_key(char*str)
+{
+	int i =0;
+	while (str[i])
+	{
+		if (str[i] == '=' && !str[i + 1])
+			return (i);
+		i++;
+	}
+	return (0);
+}
 // char * key_value(char **arg,t_minishell * minishell)
 // {
 // 	(void)minishell;
