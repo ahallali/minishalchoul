@@ -6,17 +6,17 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 00:20:55 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 01:24:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node *get_node(char *key)
+t_node *get_node(t_node *head, char *key)
 {
     t_node *tmp;
 
-    tmp = minishell->env;
+    tmp = head;
     while (tmp)
     {
         if (ft_strequals(tmp->variable, key))
@@ -29,18 +29,23 @@ t_node *get_node(char *key)
 t_node *update_node(char *key, char *value, int append)
 {
     t_node *node;
+    t_node *exp_node;
 
-    node = get_node(key);
+    node = get_node(minishell->env, key);
     if (!node)
     {
         insert_node(&minishell->env, value, key);
-        return (get_node(key));
+        insert_node(&minishell->export, value, key);
+        return (get_node(minishell->env, key));
     }
-    if (!append || !value)
+    if (!append || !value || !node->value)
         node->value = value;
-    else
+    else if (node->value)
         node->value = ft_strjoin(node->value, value);
-    
+    // else
+    //     node->value = value;
+    exp_node = get_node(minishell->export, node->variable);
+    exp_node->value = node->value;
     return (node);
 }
 
@@ -89,6 +94,7 @@ void add_value(char *arg)
 	if (!op)
         update_node(arg, NULL, 0);
     else
+	// printf("val : %s\n", value);
     {
         if (arg != op && *(op - 1) == '+')
             append = 1;
@@ -97,3 +103,4 @@ void add_value(char *arg)
     }
         
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:19:14 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:22:51 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ void	insert_node(t_node **head, char *value, char *variable)
 	}
 }
 
+void fill_export_env(t_node **head)
+{
+	char **keys;
+    t_node *node;
+
+    keys = ft_calloc(count_nodes(*head) + 1, sizeof(char *));
+    fill_keys(keys, *head);
+	sort_tab(keys, count_nodes(*head));
+	while (keys && *keys)
+	{
+		// printf("ex key : %s\n", *keys);
+		node = get_node(*head, *keys++);
+		insert_node(&minishell->export, node->value, node->variable);
+	}
+}
+
 // static int shlvl = 1;
 t_node	*ft_env(char **env, t_minishell *minishell)
 {
@@ -54,7 +70,8 @@ t_node	*ft_env(char **env, t_minishell *minishell)
 	char	*tmp;
 	char	*value;
 	char	*variable;
-
+	// static int shlvl ;
+	(void) minishell;
 	head = NULL;
 	tmp = NULL;
 	while (*env)
@@ -63,10 +80,13 @@ t_node	*ft_env(char **env, t_minishell *minishell)
 		if (tmp != NULL)
 		{
 			*tmp = '\0';
-			value = tmp + 1;
+			if (!ft_strncmp(*env, "SHLVL",6))
+				value = ft_itoa(ft_atoi(tmp+1) + 1);
+			else 
+				value = tmp + 1;
 			variable = *env;
 			insert_node(&head, value, variable);
-			insert_node(&minishell->export, value, variable);
+			// insert_node(&minishell->export,value,variable);
 		}
 		env++;
 	}

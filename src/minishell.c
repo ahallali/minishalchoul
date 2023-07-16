@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/15 23:50:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:21:54 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ int main(int ac, char **av, char **env)
 
 	// atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
-	minishell->env = NULL;
 	if (!minishell)
 		return (0);
 	if (*env)
 		minishell->env = ft_env(env, minishell);
 	else 
-	minishell->env = ft_empty();
+		minishell->env = ft_empty();
+	fill_export_env(&minishell->env);
+
 	minishell->home = get_home(minishell);
 	while (1)
 	{
@@ -67,7 +68,7 @@ int main(int ac, char **av, char **env)
 		p_prompt->prompt = ft_strdup(line);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		// ft_lstiter(minishell->list_exec, print_exec);
-		if(!minishell->sigint_flag)
+		if(!minishell->sigint_flag && minishell->list_exec)
 			execute(minishell);
 		free(line);
 	}

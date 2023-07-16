@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/13 22:11:46 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 03:49:53 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_list *parse_prompt(char *prompt, t_parse_utils *utils)
 		prompt = append_new_line(prompt, minishell->quote_flag);
 	if (!minishell->sigint_flag || (prompt && *prompt))
 		add_history(prompt);
+	utils->prompt = prompt;
 	tok = next_word(prompt, "| \t");
 	while (tok)
 	{
@@ -71,6 +72,8 @@ t_list *parse_prompt(char *prompt, t_parse_utils *utils)
 			insert_to_lexer(tok->limiter, utils);
 		tok = next_word(tok->next_start, "|<> ");
 	}
+	if(!lex_analyze(utils))
+		return (NULL);
 	// ft_lstiter(utils->list_cmds, print_lex);
 	result = get_exec(utils);
 	return (result);

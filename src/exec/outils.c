@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:19:25 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:23:54 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_pwd(t_node *head, char *s)
 
 	pwd = NULL;
 	t = head;
-		// puts("here");
+		puts("here");
 	if (!head)
 	{
 		pwd = getcwd(NULL, 0);
@@ -105,10 +105,13 @@ void do_builtin(t_minishell *minishell)
 	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "pwd", 3) == 0)
 		ft_pwd(minishell->env, "PWD");
 	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "unset", 5) == 0 && ft_lstsize(minishell->list->args) == 1)
+	{
 		ft_unset(&minishell->env, convert_args(minishell->list->args)[0]);
+		ft_unset(&minishell->export, convert_args(minishell->list->args)[0]);
+	}
 	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "echo", 4) == 0)
 		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
-	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "exit", 4) == 0)
+	else if (ft_strequals(expand_dquotes(minishell->list->cmd), "exit"))
 		ft_exit(minishell, convert_args(minishell->list->args));
 	else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
 	   ft_export(minishell, convert_args(minishell->list->args));
@@ -340,7 +343,7 @@ void ft_export(t_minishell *minishell, char **args)
 	
 	x = 0;
 	if (!args || !*args)
-	   print_list(minishell->export);
+	   print_export_list();
 	while (args && args[x])
 		add_value(args[x++]);
 		

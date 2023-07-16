@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/15 23:35:31 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 03:42:53 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,5 @@ int				has_valid_quoting(char *str);
 char			*expand_hdoc(char *str, int expand);
 void			flag_quote(char c);
 char			*do_replace(char *str, char *var, int i);
-
+int				lex_analyze(t_parse_utils *utils);
 #endif

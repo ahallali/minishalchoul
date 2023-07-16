@@ -90,7 +90,12 @@ void insert_to_export(char *key, t_minishell *minishell);
 int check_value(char *str);
 t_node *add_to_export(t_node *head, char *key, char *value);
 void	add_value(char *arg);
-
+void 	print_export_list();
+void fill_keys(char **keys, t_node *head);
+int count_nodes(t_node *head);
+t_node *get_node(t_node *head, char *key);
+void sort_tab(char** arr, int n);
+void fill_export_env(t_node **head);
 char *get_home(t_minishell *minishell);
 void parent_builtin_red(t_minishell *minishell,int old,int old_out);
 void create_pipe(int *fd, int *STDOUT, int *old_stdin);
