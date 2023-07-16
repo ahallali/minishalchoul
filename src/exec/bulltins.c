@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 00:11:04 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:56:12 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	check_echo_arg(char **str, int fd)
 	count = 0;
 	while (str[i])
 	{
-		if (*str[i] == '-' && (ft_check_n(str[i]) == 0) && i == 0)
+		if (ft_check_n(str[i]) && !count)
+			count = -1;
+		if (*str[i] == '-' && (ft_check_n(str[i]) == 0) && count != -1)
 		{
 			count++;
 			i++;
@@ -62,7 +64,7 @@ void	check_echo_arg(char **str, int fd)
 			ft_putstr_fd(" ", fd);
 		i++;
 	}
-	if (!count)
+	if (count <= 0)
 		ft_putstr_fd("\n", fd);
 }
 
