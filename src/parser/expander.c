@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 00:21:07 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 23:13:12 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,12 @@ char	*do_replace(char *str, char *var, int i)
 		res = ft_str_replace(str, var,
 				path_finder(minishell->env, convert_path(var + 1)), i);
 	else
-		res = ft_str_replace(str, var, "", i);
+	{
+		if (ft_strequals(var + 1, "?"))
+			res = ft_str_replace(str, var, ft_itoa(minishell->last_exitstatus), i);
+		else 
+			res = ft_str_replace(str, var, "", i);
+	}
 	return (res);
 }
 

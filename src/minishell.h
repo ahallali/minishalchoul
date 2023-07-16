@@ -47,6 +47,7 @@ typedef struct s_minishell
 	char			*home;
 	int heredoc_flag;
 	int				sigint_flag;
+	int				last_exitstatus;
 }					t_minishell;
 
 extern t_minishell *minishell;

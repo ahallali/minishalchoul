@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:42:13 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 23:14:00 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	wait_and_print_exit_status(void)
 	if (WIFEXITED(status))
 	{
 		exitstatus = WEXITSTATUS(status);
-		printf("%d", exitstatus);
+		minishell->last_exitstatus = exitstatus;
 	}
 }

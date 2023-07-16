@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 01:52:17 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/08 17:36:28 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 23:12:38 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,16 @@ char	*add_dollar_sign(char *var)
 char	*extract_variable(char *str)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	if (!str || !*str || *str != '$')
 		return (NULL);
 	if (ft_isdigit(str[++i]))
-	{
-		tmp = ft_substr(str, 0, i + 1);
-		return (tmp);
-	}
+		return (ft_substr(str, 0, i + 1));
+	if (str[i] == '?')
+		return (ft_substr(str, 0, i + 1));
 	while (!ft_strchr(" \t$\"\0", str[i])
 		&& (ft_isalpha(str[i]) || str[i] == 95 || ft_isdigit(str[i])))
 		i++;
-	tmp = ft_substr(str, 0, i);
-	return (tmp);
+	return (ft_substr(str, 0, i));
 }

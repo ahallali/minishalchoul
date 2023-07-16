@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:21:54 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 23:13:46 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int ac, char **av, char **env)
 	else 
 		minishell->env = ft_empty();
 	fill_export_env(&minishell->env);
-
+	minishell->last_exitstatus = 0;s
 	minishell->home = get_home(minishell);
 	while (1)
 	{
