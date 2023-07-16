@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 03:46:09 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:45:55 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	skip_quoted(char *str, int *i)
 			(*i)++;
 			minishell->quote_flag = 0;
 			return (str[*i]);
-			// break ;
 		}
 		else
 			(*i)++;

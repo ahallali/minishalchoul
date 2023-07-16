@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:11:20 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:42:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ void	parent(t_minishell *minishell, int *fd, int STDIN)
 		close(fd[1]);
 	if (STDIN != -1)
 		close(STDIN);
-	if (minishell->list->inputFd > 2)
-		close(minishell->list->inputFd);
-	if (minishell->list->outputFd > 2)
-		close(minishell->list->outputFd);
+	if (minishell->list->input_fd > 2)
+		close(minishell->list->input_fd);
+	if (minishell->list->output_fd > 2)
+		close(minishell->list->output_fd);
 }
 
 void	setup_parent_process(t_minishell *minishell, \
 	int *fd, int *STDIN, int *old_stdin)
 {
 	parent(minishell, fd, *STDIN);
-	if (minishell->list->inputFd > 2)
-		close(minishell->list->inputFd);
-	if (minishell->list->outputFd > 2)
-		close(minishell->list->outputFd);
+	if (minishell->list->input_fd > 2)
+		close(minishell->list->input_fd);
+	if (minishell->list->output_fd > 2)
+		close(minishell->list->output_fd);
 	*STDIN = *old_stdin;
 }
 

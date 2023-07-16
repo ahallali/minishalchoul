@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/15 21:05:57 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:42:32 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename && tmp->type == 7)
 	{
-		close_last_fd(exec->inputFd);
-		exec->inputFd = get_heredoc_fd(tmp->filename);
+		close_last_fd(exec->input_fd);
+		exec->input_fd = get_heredoc_fd(tmp->filename);
 	}
 	else if (tmp->filename)
 	{
-		close_last_fd(exec->inputFd);
-		exec->inputFd = open_file(expand_dquotes(tmp->filename),
+		close_last_fd(exec->input_fd);
+		exec->input_fd = open_file(expand_dquotes(tmp->filename),
 				tmp->flag_infile);
 	}
 	else if (tmp->fd != -1)
 	{
-		close_last_fd(exec->inputFd);
-		exec->inputFd = tmp->fd;
+		close_last_fd(exec->input_fd);
+		exec->input_fd = tmp->fd;
 	}
 	exec->infiles = tmp->infiles;
 	if (ft_lstsize(exec->infiles))
@@ -58,14 +58,14 @@ void	convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename)
 	{
-		close_last_fd(exec->outputFd);
-		exec->outputFd = open_file(expand_dquotes(tmp->filename),
+		close_last_fd(exec->output_fd);
+		exec->output_fd = open_file(expand_dquotes(tmp->filename),
 				tmp->flag_outfile);
 	}
 	else if (tmp->fd != -1)
 	{
-		close_last_fd(exec->outputFd);
-		exec->outputFd = tmp->fd;
+		close_last_fd(exec->output_fd);
+		exec->output_fd = tmp->fd;
 	}
 	exec->outfiles = tmp->outfiles;
 	if (ft_lstsize(exec->outfiles))

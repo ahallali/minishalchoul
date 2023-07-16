@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/12 23:28:39 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:38:45 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_token_info	*next_word(char *str, char *delimiter)
 	{
 		if (ft_strchr(QUOTES_PARSE, str[i]))
 			if (skip_quoted(str, &i))
-				continue;
+				continue ;
 		if (str[i] && (ft_strchr(IO_PARSE, str[i]) != 0))
 			return (token_io(str, &i, info));
 		if (str[i] && ft_strchr(delimiter, str[i]))
@@ -71,13 +71,10 @@ int	insert_to_lexer(char *str, t_parse_utils *u)
 	else if (is_enum_redirection(last_lex->type)
 		&& handle_lastlex_redir(last_lex, lex, str, u))
 		return (1);
-	// else if (!minishell->heredoc_flag)
-	// {
 	else if ((last_lex->type != PIPE) && last_lex != lex)
 		return (insert_args(lex, last_lex, str, u));
 	else if (last_lex->type == PIPE
 		&& (last_lex->type != ARG && last_lex->type != CMD))
 		return (insert_command(lex, str, u, &node));
-	// }
 	return (0);
 }

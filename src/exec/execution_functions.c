@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:16:51 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:41:54 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
 
 void	redirection(t_minishell *minishell)
 {
-	if (minishell->list->inputFd > 2)
-		dup2(minishell->list->inputFd, 0);
-	if (minishell->list->outputFd > 2)
-		dup2(minishell->list->outputFd, 1);
+	if (minishell->list->input_fd > 2)
+		dup2(minishell->list->input_fd, 0);
+	if (minishell->list->output_fd > 2)
+		dup2(minishell->list->output_fd, 1);
 }
 
 void	execute_cmd(t_minishell *minishell)

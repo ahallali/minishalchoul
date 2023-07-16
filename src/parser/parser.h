@@ -6,20 +6,20 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 01:29:27 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 03:42:53 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:40:56 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h" 
+#include "../minishell.h" 
 
 
 #ifndef PARSER_H
-#define PARSER_H
+# define PARSER_H
 
-#define DELIMS_PARSE "|<>"
-#define _DELIMS_PARSE "|<> \t"
-#define IO_PARSE "<>"
-#define QUOTES_PARSE "\"'"
+# define DELIMS_PARSE "|<>"
+# define _DELIMS_PARSE "|<> \t"
+# define IO_PARSE "<>"
+# define QUOTES_PARSE "\"'"
 
 typedef enum e_lex_type
 {
@@ -70,12 +70,12 @@ typedef struct s_parse_utils
 
 typedef struct s_exec_utils
 {
-	char    *cmd;
-	t_list *args;
+	char	*cmd;
+	t_list	*args;
 	char	*infile;
 	char	*outfile;
-	int		inputFd;
-	int		outputFd;
+	int		input_fd;
+	int		output_fd;
 	t_list	*infiles;
 	int		flag_infile;
 	t_list	*outfiles;
@@ -84,8 +84,9 @@ typedef struct s_exec_utils
 
 void			close_last_fd(int fd);
 t_exec_utils	*init_exec_utils(void);
-char			*get_new_line(char *prompt, t_parse_utils *utils,char  delimiter);
-char			*append_new_line(char *prompt,char delimiter);
+char			*get_new_line(char *prompt,
+					t_parse_utils *utils, char delimiter);
+char			*append_new_line(char *prompt, char delimiter);
 void			print_exec(void *exec);
 void			print_lex(void *lex);
 t_list			*parse_prompt(char *prompt, t_parse_utils *utils);

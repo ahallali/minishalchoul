@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:16:28 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:41:25 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	execute(t_minishell *minishell)
 		if (!minishell->list->cmd)
 			break ;
 		if (is_builtin(minishell) && ft_lstsize(minishell->list_exec) == 1 \
-			&& minishell->list->inputFd)
+			&& minishell->list->input_fd)
 		{
 			parent_builtin_red(minishell, var.old, var.old_out);
 			break ;
@@ -76,21 +76,21 @@ void	close_fd(int *old, int *old_out)
 
 void	parent_builtin_red(t_minishell *minishell, int old, int old_out)
 {
-	if (minishell->list->inputFd != -1 || minishell->list->outputFd != -1)
+	if (minishell->list->input_fd != -1 || minishell->list->output_fd != -1)
 	{
-		if (minishell->list->inputFd != -1)
+		if (minishell->list->input_fd != -1)
 		{
-			dup2(minishell->list->inputFd, 0);
+			dup2(minishell->list->input_fd, 0);
 			do_builtin(minishell);
 			dup2(old, 0);
-			close(minishell->list->inputFd);
+			close(minishell->list->input_fd);
 		}
-		if (minishell->list->outputFd != -1)
+		if (minishell->list->output_fd != -1)
 		{
-			dup2(minishell->list->outputFd, 1);
+			dup2(minishell->list->output_fd, 1);
 			do_builtin(minishell);
 			dup2(old_out, 1);
-			close(minishell->list->outputFd);
+			close(minishell->list->output_fd);
 		}
 	}
 	else

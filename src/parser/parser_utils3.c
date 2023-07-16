@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:00:23 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/08 16:40:26 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:42:50 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	print_exec(void *exec)
 	printf("CMD : %s\n", _exec->cmd);
 	printf("INF : %s\n", _exec->infile);
 	printf("OUT : %s\n", _exec->outfile);
-	printf("IN_FD : %d\n", _exec->inputFd);
-	printf("OUT_FD : %d\n", _exec->outputFd);
+	printf("IN_FD : %d\n", _exec->input_fd);
+	printf("OUT_FD : %d\n", _exec->output_fd);
 	ft_lstiter(_exec->args, print_arg);
 	printf("--------------\n");
 }
@@ -53,7 +53,7 @@ t_exec_utils	*init_exec_utils(void)
 	exec = ft_calloc(1, sizeof(t_exec_utils));
 	if (!exec)
 		return (exec);
-	exec->inputFd = -1;
-	exec->outputFd = -1;
+	exec->input_fd = -1;
+	exec->output_fd = -1;
 	return (exec);
 }
