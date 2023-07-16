@@ -6,15 +6,15 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/11 22:25:01 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:13:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_check_n(char *str)
+int	ft_check_n(char *str)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (!str || !*str)
@@ -28,9 +28,9 @@ int ft_check_n(char *str)
 	return (0);
 }
 
-int check_cmd(char *cmd)
+int	check_cmd(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -42,10 +42,10 @@ int check_cmd(char *cmd)
 	return (0);
 }
 
-char *update_path(char *str, char *cmd)
+char	*update_path(char *str, char *cmd)
 {
-	char **tmp;
-	char *path;
+	char	**tmp;
+	char	*path;
 
 	tmp = NULL;
 	if (!str || !cmd)
@@ -68,9 +68,9 @@ char *update_path(char *str, char *cmd)
 	return (NULL);
 }
 
-void execute_one(t_minishell *minishell, pid_t pid)
+void	execute_one(t_minishell *minishell, pid_t pid)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	pid = fork();
@@ -81,13 +81,12 @@ void execute_one(t_minishell *minishell, pid_t pid)
 	}
 	if (pid == 0)
 	{
-		path = update_path(path_finder(minishell->env,
-									   "PATH"),
-						   expand_dquotes(minishell->list->cmd));
+		path = update_path(path_finder(minishell->env, "PATH"), \
+			expand_dquotes(minishell->list->cmd));
 		if (path)
 		{
-			if (execve(path, convert_command_args(minishell->list),
-					   convert_env(minishell->env)) == -1)
+			if (execve(path, convert_command_args(minishell->list), \
+			convert_env(minishell->env)) == -1)
 				perror("execve");
 		}
 		ft_lstiter(*get_gcollector(), ft_free);

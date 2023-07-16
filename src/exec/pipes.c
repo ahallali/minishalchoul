@@ -6,30 +6,32 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/14 15:49:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:14:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_builtin(t_minishell *minishell)
+int	is_builtin(t_minishell *minishell)
 {
-	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "cd", 3) == 0 ||
-		(ft_strncmp(expand_dquotes(minishell->list->cmd), "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0) || ft_strncmp(expand_dquotes(minishell->list->cmd), "pwd", 3) == 0 || ft_strncmp(expand_dquotes(minishell->list->cmd), "exit", 4) == 0 ||
-		(ft_strncmp(expand_dquotes(minishell->list->cmd), "unset", 5) == 0 &&
-		 ft_lstsize(minishell->list->args)) ||
-		(ft_strncmp(expand_dquotes(minishell->list->cmd), "echo", 4) == 0) ||
+	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "cd", 3) == 0 || \
+		(ft_strncmp(expand_dquotes(minishell->list->cmd), "env", 3) == 0 && \
+		ft_lstsize(minishell->list->args) == 0) || \
+		ft_strncmp(expand_dquotes(minishell->list->cmd), "pwd", 3) == 0 || \
+		ft_strncmp(expand_dquotes(minishell->list->cmd), "exit", 4) == 0 || \
+		(ft_strncmp(expand_dquotes(minishell->list->cmd), "unset", 5) == 0 && \
+			ft_lstsize(minishell->list->args)) || \
+		(ft_strncmp(expand_dquotes(minishell->list->cmd), "echo", 4) == 0) || \
 		(ft_strncmp(expand_dquotes(minishell->list->cmd), "export", 6) == 0))
 		return (1);
 	return (0);
 }
 
-void ft_exit(t_minishell *minishell, char **cmd)
+void	ft_exit(t_minishell *minishell, char **cmd)
 {
 	(void)minishell;
-
 	if (!cmd || !*cmd)
-		return;
+		return ;
 	if (cmd[0] && !check_cmd_num(cmd[0]))
 	{
 		ft_putstr_fd("minishell>:exit:numeric argument required\n", 2);
@@ -43,12 +45,13 @@ void ft_exit(t_minishell *minishell, char **cmd)
 		exit(0);
 }
 
-int check_cmd_num(char *cmd)
+int	check_cmd_num(char *cmd)
 {
-	int i;
+	int	i;
+
+	i = 0;
 	if (!cmd || !*cmd)
 		return (0);
-	i = 0;
 	while (cmd[i])
 	{
 		if (!ft_isdigit(cmd[i]))

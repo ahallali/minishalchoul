@@ -27,6 +27,15 @@ typedef struct s_node
 	struct s_node *next;
 }   t_node;
 
+typedef struct s_std
+{
+	int STDOUT;
+	int STDIN;
+	int old;
+	int old_out;
+	int old_stdin;
+} t_std;
+
 typedef struct s_minishell
 {
 	t_node			*env;
@@ -35,7 +44,8 @@ typedef struct s_minishell
 	struct s_list	*list_exec;
 	t_token_info	*token;
 	char			quote_flag;
-	int				heredoc_flag;
+	char			*home;
+	int heredoc_flag;
 	int				sigint_flag;
 }					t_minishell;
 
@@ -47,7 +57,8 @@ char *ft_strtok(char *str, const char *delimiters, char *skip) ;
 void ft_echo(char **str,int fd);
 void print_list(t_node *head);
 void ft_pwd(t_node *head,char *s);
-t_node * gt(char *str, t_node *head);
+t_node *movetodirectory(char *str, t_node *head);
+void tilda_and_movetodirectory(char **t, t_minishell *head, char *tmp, t_node *new);
 t_node *update_env(t_node *head, char *var, char *data);
 void insert_node(t_node **head, char *value, char *variable);
 char *path_finder(t_node *head, char *var);
@@ -67,7 +78,7 @@ void open_pipes(t_minishell *minishell,int* flag ,int *tmp);
 void parent(t_minishell *minishell, int *fd, int STDIN);
 void do_builtin(t_minishell *minishell);
 int is_builtin(t_minishell *minishell);
-void execute_cmd(t_minishell *minishell, char *path);
+void execute_cmd(t_minishell *minishell);
 void run_builltin(t_minishell *minishell);
 void redirection(t_minishell *minishell);
 void ft_exit(t_minishell *minishell, char **cmd);
@@ -80,4 +91,15 @@ int check_value(char *str);
 t_node *add_to_export(t_node *head, char *key, char *value);
 void	add_value(char *arg);
 
+char *get_home(t_minishell *minishell);
+void parent_builtin_red(t_minishell *minishell,int old,int old_out);
+void create_pipe(int *fd, int *STDOUT, int *old_stdin);
+void close_fd(int *old, int *old_out);
+void exit_status();
+void setup_parent_process(t_minishell *minishell, int *fd, int *STDIN,int *old_stdin);
+void wait_and_print_exit_status();
+void handle_builtin_redirection(t_minishell *minishell, int old, int old_out);
+void setup_child_process(t_minishell *minishell, int *STDIN, int *STDOUT, int *fd);
+void create_fork( t_minishell *minishell,t_std *var,int *fd);
+void init_var(t_std *var);
 #endif

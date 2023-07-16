@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 00:23:06 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 04:19:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*gt(char *str, t_node *head)
+t_node	*movetodirectory(char *str, t_node *head)
 {
 	t_node	*new;
 	char	*t;
@@ -25,7 +25,7 @@ t_node	*gt(char *str, t_node *head)
 		update_env(head, "OLDPWD", oldpwd);
 		if (getcwd(NULL, 0) != NULL)
 		{	
-		t = getcwd(NULL,0);
+		t = getcwd(NULL, 0);
 		new = update_env(head, "PWD", t);
 		}
 		else
@@ -74,30 +74,16 @@ t_node	*ft_cd(t_minishell *head, char **t)
 	t_node	*new;
 	char	*tmp;
 
-	new = NULL;
-	tmp = NULL;
+		new = NULL;
+		tmp = NULL;
 	if (t[0] && *t[0])
-	{
-		if (t[0][0] == '~')
-		{
-			if (path_finder(head->env, "HOME"))
-				tmp = path_finder(head->env, "HOME");
-			if (chdir(tmp) == 0)
-				return (NULL);
-			else
-			{
-			head->env = update_env(head->env, "OLDPWD", \
-				path_finder(head->env, "PWD"));
-			head->env = update_env(head->env, "PWD", tmp);
-			}
-		}
-		else
-			new = gt(t[0], head->env);
-	}
+		tilda_and_movetodirectory(t, head, tmp, new);
 	else if (!t[0] || !*t[0])
 	{
 		if (path_finder(head->env, "HOME"))
 			tmp = path_finder(head->env, "HOME");
+		else
+			tmp = minishell->home;
 		if (chdir(tmp) == 0)
 		{	
 			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
@@ -105,4 +91,29 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		}
 	}
 	return (new);
+}
+
+void	tilda_and_movetodirectory(char **t, t_minishell *head, \
+char *tmp, t_node *new)
+{
+	char	*oldpwd;
+
+	oldpwd = NULL;
+	if (t[0][0] == '~')
+	{
+		oldpwd = path_finder(head->env, "OLDPWD");
+		if (path_finder(head->env, "HOME"))
+			tmp = path_finder(head->env, "HOME");
+		else
+			tmp = minishell->home;
+		if (chdir(tmp) == 0)
+		{
+			head->env = update_env(head->env, "OLDPWD", \
+			oldpwd);
+			head->env = update_env(head->env, "PWD", tmp);
+		}
+		return ;
+	}
+	else
+		new = movetodirectory(t[0], head->env);
 }
