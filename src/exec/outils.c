@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:23:54 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 22:58:51 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,23 @@ t_node	*ft_unset(t_node **head, char *var)
 	return (t);
 }
 
-void do_builtin(t_minishell *minishell)
+void	do_builtin(t_minishell *minishell)
 {
 	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "cd", 2) == 0)
 		ft_cd(minishell, convert_args(minishell->list->args));
-	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "env", 3) == 0 && ft_lstsize(minishell->list->args) == 0)
+	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "env", 3) == 0
+		&& ft_lstsize(minishell->list->args) == 0)
 		print_list(minishell->env);
 	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "pwd", 3) == 0)
 		ft_pwd(minishell->env, "PWD");
-	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "unset", 5) == 0 && ft_lstsize(minishell->list->args) == 1)
+	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "unset", 5) == 0
+		&& ft_lstsize(minishell->list->args) == 1)
 	{
+		if (!is_valid_key(convert_args(minishell->list->args)[0]))
+		{
+			perror("Not a valid identifier");
+			return ;
+		}
 		ft_unset(&minishell->env, convert_args(minishell->list->args)[0]);
 		ft_unset(&minishell->export, convert_args(minishell->list->args)[0]);
 	}
@@ -114,15 +121,16 @@ void do_builtin(t_minishell *minishell)
 	else if (ft_strequals(expand_dquotes(minishell->list->cmd), "exit"))
 		ft_exit(minishell, convert_args(minishell->list->args));
 	else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
-	   ft_export(minishell, convert_args(minishell->list->args));
+		ft_export(minishell, convert_args(minishell->list->args));
 }
 
-int end_key (char * str,char c)
+int	end_key(char * str, char c)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!str || !*str)
-	   return (0);
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == c)
@@ -235,9 +243,11 @@ int end_key (char * str,char c)
 // }
 int check_key(char *str)
 {
-	int i = 1;
-	int bk = 0;
+	int	i;
+	int	bk;
 
+	i = 1;
+	bk = 0;
 	if (isalpha(str[0]) || str[0] == '_')
 	{
 		while (str[i] && (str[i] != '=') && str[i] != '+')
@@ -245,12 +255,13 @@ int check_key(char *str)
 			if (ft_isalnum(str[i]) || str[i] == '_')
 				i++;
 		}
-		if (str[i] == '\0' || str[i] == '=' || (str[i] == '+' && str[i+1] == '='))
+		if (str[i] == '\0' || str[i] == '='
+			|| (str[i] == '+' && str[i+1] == '='))
 			bk = 1;
 	}
 	if (bk == 1)
-		return (0); // succes
-	return (1); // failure
+		return (0);
+	return (1);
 }
 
 int check_value(char *str)
