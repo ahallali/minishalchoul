@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 04:42:32 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/16 22:32:38 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	open_file(char *filename, int flags)
 {
 	int	fd;
 
-	printf("opening with flag : %d\n", flags);
 	fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	printf("fd %d\n", fd);
 	if (fd < 0)
 		perror("Error redirection");
 	return (fd);
