@@ -3,43 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 23:13:46 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 14:52:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_minishell *minishell;
+t_minishell	*minishell;
 
-// void f()
-// {
-// 	system("leaks minishell");
-// }
-
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	char *line;
-	t_parse_utils *p_prompt;
-	// t_list			**n;
-	// char *p_clean;
+	char			*line;
+	t_parse_utils	*p_prompt;
 
 	(void)ac;
 	(void)av;
 	line = NULL;
-
-	// atexit(f);
 	minishell = ft_calloc(1, sizeof(t_minishell));
 	if (!minishell)
 		return (0);
 	if (*env)
 		minishell->env = ft_env(env, minishell);
-	else 
+	else
 		minishell->env = ft_empty();
 	fill_export_env(&minishell->env);
-	minishell->last_exitstatus = 0;s
+	minishell->last_exitstatus = 0;
 	minishell->home = get_home(minishell);
 	while (1)
 	{
@@ -47,34 +38,18 @@ int main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, (void *)handler);
 		minishell->sigint_flag = 0;
-    	minishell->heredoc_flag = 0;
+		minishell->heredoc_flag = 0;
 		line = readline("minishell>");
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(0);
 		}
-		// if (line && *line)
-		// 	add_history(line);
-		// if (ft_strncmp(line, "exit" , 4) == 0)
-		// {
-		// 	n = get_gcollector();
-		// 	ft_lstiter(*n, ft_free);
-		// 	free(n);
-		// 	free(line);
-		// 	break ;
-		// }
 		p_prompt = ft_calloc(1, sizeof(t_parse_utils));
 		p_prompt->prompt = ft_strdup(line);
 		minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
-		// ft_lstiter(minishell->list_exec, print_exec);
-		if(!minishell->sigint_flag && minishell->list_exec)
+		if (!minishell->sigint_flag && minishell->list_exec)
 			execute(minishell);
 		free(line);
 	}
 }
-// print_list(new);
-// CD && PWD && ENV BUILTIN DONE
-//  else if (strcmp(t[0], "exit") == 0)
-//      ft_exit (new,t[1]);
-// any builtin before  pipe executed on child

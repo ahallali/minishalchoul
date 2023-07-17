@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 04:39:36 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 15:16:29 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
+int	token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 {
 	if (!last_lex)
 		last_lex = lex;

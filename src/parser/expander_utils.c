@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:52:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/15 21:03:14 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 15:19:52 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	*convert_path(char *str)
 		i++;
 	return (ft_strdup(&str[i]));
 }
-
 
 int	has_valid_quoting(char *str)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 22:56:12 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 14:53:55 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,5 @@ t_node	*ft_empty(void)
 	insert_node(&head, pwd, "PWD");
 	insert_node(&head, ft_itoa(shlvl), "SHLVL");
 	insert_node(&head, "/usr/bin/env", "_");
-	// shlvl++;
 	return (head);
 }

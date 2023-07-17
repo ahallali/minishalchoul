@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:44:14 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 15:19:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*expand_hdoc(char *str, int expand)
 	return (res);
 }
 
-
 int	get_heredoc_fd(char *limiter)
 {
 	int		fd[2];
@@ -69,4 +68,3 @@ int	get_heredoc_fd(char *limiter)
 	close(fd[1]);
 	return (fd[0]);
 }
-

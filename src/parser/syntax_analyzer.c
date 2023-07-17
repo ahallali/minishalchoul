@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 03:03:19 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 04:38:31 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 15:16:37 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
 
 int	lex_analyze(t_parse_utils *utils)
 {

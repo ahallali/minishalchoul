@@ -65,7 +65,7 @@ void insert_node(t_node **head, char *value, char *variable);
 char *path_finder(t_node *head, char *var);
 t_node *ft_cd(t_minishell *head, char **t);
 t_node *sort_var(t_node *head, char *s);
-void ft_export(t_minishell *minishell, char **args);
+void ft_export(char **args);
 t_node *ft_unset(t_node **head, char *var);
 void execute(t_minishell *minishell);
 void ft_exec(void *content);

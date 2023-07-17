@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 23:13:12 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 15:19:19 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ char	*do_replace(char *str, char *var, int i)
 	else
 	{
 		if (ft_strequals(var + 1, "?"))
-			res = ft_str_replace(str, var, ft_itoa(minishell->last_exitstatus), i);
-		else 
+			res = ft_str_replace(str, var, \
+			ft_itoa(minishell->last_exitstatus), i);
+		else
 			res = ft_str_replace(str, var, "", i);
 	}
 	return (res);

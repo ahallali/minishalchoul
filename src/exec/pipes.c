@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:23:42 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 14:46:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_builtin(t_minishell *minishell)
 void	ft_exit(t_minishell *minishell, char **cmd)
 {
 	if (!minishell->list->cmd || !*minishell->list->cmd)
-		return;
+		return ;
 	if (!cmd || !*cmd)
 		exit(0);
 	else if (cmd[0] && !check_cmd_num(cmd[0]) && !cmd[1])

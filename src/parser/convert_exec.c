@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 22:32:38 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 15:20:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,33 +83,4 @@ int	handle_pipe(t_lex *tmp, t_list *l_tmp,
 		return (1);
 	}
 	return (1);
-}
-
-t_list	*get_exec(t_parse_utils *u)
-{
-	t_lex			*tmp;
-	t_list			*l_tmp;
-	t_list			*result;
-	t_exec_utils	*exec;
-
-	l_tmp = u->list_cmds;
-	exec = init_exec_utils();
-	result = NULL;
-	while (l_tmp && exec)
-	{
-		tmp = l_tmp->content;
-		if (tmp->type == 1)
-			exec->cmd = tmp->command_name;
-		else if (tmp->type == 2)
-			ft_lstadd_back(&exec->args, ft_lstnew(tmp->variable));
-		else if ((tmp->type == 5 || tmp->type == 7) && tmp->filename)
-			convert_input_redirection(tmp, exec);
-		else if ((tmp->type == 6 || tmp->type == 8) && tmp->filename)
-			convert_output_redirection(tmp, exec);
-		if (!handle_pipe(tmp, l_tmp, &exec, &result))
-			return (NULL);
-		l_tmp = l_tmp->next;
-	}
-	ft_lstadd_back(&result, ft_lstnew(exec));
-	return (result);
 }

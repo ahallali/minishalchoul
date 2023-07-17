@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 04:43:41 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:01:55 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// #include "../minishell.h"
 #include "parser.h"
 
 char	*get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 
 {
-	(void)delimiter;
 	char	*tmp;
 
+	(void)delimiter;
 	(void)utils;
 	rl_catch_signals = 1;
-	// signal(SIGINT, SIG_ERR);
 	rl_getc_function = getc;
 	minishell->heredoc_flag = 1;
 	tmp = readline(prompt);
@@ -29,12 +28,6 @@ char	*get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 	rl_catch_signals = 0;
 	return (tmp);
 }
-/*
-// if (!ft_strchr(tmp, c))
-//     line = ft_strjoin(tmp, "\n");
-// else
-//     line = tmp;
-*/
 
 void	print_token(t_token_info *tok)
 {
@@ -71,11 +64,6 @@ t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
 	}
 	if (!lex_analyze(utils))
 		return (NULL);
-	// ft_lstiter(utils->list_cmds, print_lex);
 	result = get_exec(utils);
 	return (result);
 }
-
-// ft_lstiter(utils->list_cmds, print_lex);
-// printf("count : %d",ft_lstsize(res));
-// ft_lstiter(res, print_exec);
