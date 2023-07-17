@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:19:59 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:18:59 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:24:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_list
 }					t_list;
 
 void	add_gcol(void *ptr);
-t_list	**get_gcollector();
+t_list	**get_gcollector(void);
 void	set_gcollector(t_list *gcol);
 void	ft_free(void *ptr);
 

@@ -6,23 +6,25 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:41:25 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:51:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	open_file(char *filename, int flags)
+int open_file(char *filename, int flags)
 {
 	int fd;
 
 	fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		perror("Error redirection");
+		return (perror("Error redirection"),
+				g_minishell->last_exitstatus = 1,
+				g_minishell->sigint_flag = 1, -1);
 	return (fd);
 }
 
-void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
+void convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename && tmp->type == 7)
 	{

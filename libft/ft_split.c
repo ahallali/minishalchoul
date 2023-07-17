@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:19:59 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/09 00:34:52 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 17:25:15 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static int	get_count_words(char *s, char c)
 {
 	int	count;
@@ -69,7 +70,6 @@ static char	**fill_array(const char *s, char c, char **arr, int countw)
 				ft_free(arr[x]);
 			return (NULL);
 		}
-		// printf("splt : %p\n",str);
 		arr[x] = str;
 		s += len + 1;
 		x++;

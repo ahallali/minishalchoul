@@ -27,8 +27,6 @@ void	*ft_calloc(size_t count, size_t size)
 	if (!ptr)
 		return (NULL);
 	ft_bzero(ptr, count * size);
-	// printf("cal : %p\n", ptr);
-
 	add_gcol(ptr);
 	return ((void *)ptr);
 }
