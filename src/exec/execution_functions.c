@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 16:18:23 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 20:56:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	setup_child_process(t_minishell *minishell, \
 	int *stdrin, int *stdrout, int *fd)
 {
 	child(minishell, *stdrin, *stdrout, fd);
-	redirection(minishell);
-	execute_cmd(minishell);
+	redirection(g_minishell);
+	execute_cmd(g_minishell);
 	ft_lstiter(*get_gcollector(), ft_free);
 }
 
@@ -73,11 +73,11 @@ void	execute_cmd(t_minishell *minishell)
 		{
 			perror("minishell");
 			exit (126);
-		}	
+		}
+		else if (errno == 14)
+			ft_putstr_fd("minishell:Command not found\n", 2);
+		else if (errno == ENOENT)
+			ft_putstr_fd("minishell:No such file or directory\n", 2);
 		exit(127);
 	}
 }
-			// else if (errno == ENOENT) 
-			//     ft_putstr_fd("minishell:Command not found\n", 2);
-			// else if (errno == )
-				// ft_putstr_fd("minishell:No such file or directory\n", 2);

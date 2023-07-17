@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 17:02:56 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:39:41 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*remove_quote(char *str)
 	i = 0;
 	y = 0;
 	result = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	if (!result)
+		return (NULL);
 	while (str && str[i])
 	{
 		if (ft_strchr(QUOTES_PARSE, str[i]) && (!i

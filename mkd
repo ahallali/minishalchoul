@@ -1,0 +1,5 @@
+minishell>echo $"HOME"
+$HOME
+long long exit 
+./src is a directory
+./bin/ls/jdubkd

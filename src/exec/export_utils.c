@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:30:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 17:00:20 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:43:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	print_export_list(void)
 	int		count;
 
 	count = count_nodes(g_minishell->env);
-	keys = ft_calloc(count + 1, sizeof(char *));
+	keys = ft_calloc (count + 1, sizeof(char *));
+	if (!keys)
+		return ;
 	fill_keys(keys, g_minishell->export);
 	while (keys && *keys)
 	{

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:23:34 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 23:21:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_token_info	*next_word(char *str, char *delimiter)
 	if (!str)
 		return (NULL);
 	info = ft_calloc(1, sizeof(t_token_info));
+	if (!info)
+		return (NULL);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -61,6 +63,8 @@ int	insert_to_lexer(char *str, t_parse_utils *u)
 	if (node)
 		last_lex = (t_lex *)node->content;
 	lex = ft_calloc(1, sizeof(t_lex));
+	if (!lex)
+		return (0);
 	if (ft_strchr(IO_PARSE, *str))
 		return (token_redirection (str, lex, last_lex, u));
 	node = u->list_cmds;

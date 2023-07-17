@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 17:41:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:06:50 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	main(int ac, char **av, char **env)
 			exit(0);
 		}
 		p_prompt = ft_calloc(1, sizeof(t_parse_utils));
+		if (!p_prompt)
+			return (1);
 		p_prompt->prompt = ft_strdup(line);
 		g_minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 		if (!g_minishell->sigint_flag && g_minishell->list_exec)

@@ -1,0 +1,11 @@
+Makefile
+a
+f
+k
+l
+libft
+minishell
+mkd
+obj
+p
+src

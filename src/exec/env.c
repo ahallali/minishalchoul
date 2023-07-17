@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 16:57:54 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:42:40 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	fill_export_env(t_node **head)
 	t_node	*node;
 
 	keys = ft_calloc(count_nodes(*head) + 1, sizeof(char *));
+	if (!keys)
+		return ;
 	fill_keys(keys, *head);
 	sort_tab(keys, count_nodes(*head));
 	while (keys && *keys)

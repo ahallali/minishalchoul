@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 01:52:17 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:23:34 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:04:46 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*add_dollar_sign(char *var)
 
 	len = ft_strlen(var) + 2;
 	res = ft_calloc(len, sizeof(char));
+	if (!res)
+		return (NULL);
 	tmp = res;
 	if (!tmp)
 		return (tmp);

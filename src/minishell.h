@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 17:28:53 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:55:08 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ char							*expand_hdoc(char *str, int expand);
 void							flag_quote(char c);
 char							*do_replace(char *str, char *var, int i);
 int								lex_analyze(t_parse_utils *utils);
-void							execute_one(t_minishell *minishell, pid_t pid);
 t_node							*ft_list_remove_if(t_node **head, \
 									char *data, int (*cmp)());
 t_node							*ft_env(char **env, t_minishell *minishell);
