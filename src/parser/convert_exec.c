@@ -6,25 +6,25 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 17:51:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:54:54 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int open_file(char *filename, int flags)
+int	open_file(char *filename, int flags)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		return (perror("Error redirection"),
-				g_minishell->last_exitstatus = 1,
-				g_minishell->sigint_flag = 1, -1);
+		return (perror("Error redirection"), \
+			g_minishell->last_exitstatus = 1,
+			g_minishell->sigint_flag = 1, -1);
 	return (fd);
 }
 
-void convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
+void	convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename && tmp->type == 7)
 	{
@@ -34,8 +34,8 @@ void convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 	else if (tmp->filename)
 	{
 		close_last_fd(exec->input_fd);
-		exec->input_fd = open_file(expand_dquotes(tmp->filename),
-								   tmp->flag_infile);
+		exec->input_fd = open_file(expand_dquotes(tmp->filename), \
+			tmp->flag_infile);
 	}
 	else if (tmp->fd != -1)
 	{
@@ -48,18 +48,18 @@ void convert_input_redirection(t_lex *tmp, t_exec_utils *exec)
 	exec->flag_infile = tmp->flag_infile;
 }
 
-void close_last_fd(int fd)
+void	close_last_fd(int fd)
 {
 	if (fd != -1)
 		close(fd);
 }
 
-void convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
+void	convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 {
 	if (tmp->filename)
 	{
 		close_last_fd(exec->output_fd);
-		exec->output_fd = open_file(expand_dquotes(tmp->filename),
+		exec->output_fd = open_file(expand_dquotes(tmp->filename), \
 									tmp->flag_outfile);
 	}
 	else if (tmp->fd != -1)
@@ -73,7 +73,7 @@ void convert_output_redirection(t_lex *tmp, t_exec_utils *exec)
 	exec->flag_outfile = tmp->flag_outfile;
 }
 
-int handle_pipe(t_lex *tmp, t_list *l_tmp,
+int	handle_pipe(t_lex *tmp, t_list *l_tmp,
 				t_exec_utils **exec, t_list **result)
 {
 	if (tmp->type == PIPE && !l_tmp->next)
