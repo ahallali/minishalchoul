@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:41:54 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:18:23 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	create_pipe(int *fd, int *STDOUT, int *old_stdin)
+void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 {
 	if (pipe(fd) < 0)
 	{
@@ -21,31 +21,31 @@ void	create_pipe(int *fd, int *STDOUT, int *old_stdin)
 	}
 	else
 	{
-		*STDOUT = fd[1];
-		*old_stdin = fd[0];
+		*stdrout = fd[1];
+		*old_stdrin = fd[0];
 	}
 }
 
 void	setup_child_process(t_minishell *minishell, \
-	int *STDIN, int *STDOUT, int *fd)
+	int *stdrin, int *stdrout, int *fd)
 {
-	child(minishell, *STDIN, *STDOUT, fd);
+	child(minishell, *stdrin, *stdrout, fd);
 	redirection(minishell);
 	execute_cmd(minishell);
 	ft_lstiter(*get_gcollector(), ft_free);
 }
 
-void	child(t_minishell *minishell, int STDIN, int STDOUT, int *fd)
+void	child(t_minishell *minishell, int stdrin, int stdrout, int *fd)
 {
-	if (STDIN != -1)
+	if (stdrin != -1)
 	{
-		dup2(STDIN, 0);
-		close(STDIN);
+		dup2(stdrin, 0);
+		close(stdrin);
 	}
-	if (STDOUT != -1)
+	if (stdrout != -1)
 	{
-		dup2(STDOUT, 1);
-		close(STDOUT);
+		dup2(stdrout, 1);
+		close(stdrout);
 	}
 	if (minishell->list_exec->next)
 		close(fd[0]);

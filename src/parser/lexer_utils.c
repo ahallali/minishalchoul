@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:44:10 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 04:43:58 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:23:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 int	get_output(t_lex *last_lex, char *str)
 {

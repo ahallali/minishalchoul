@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:14:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:01:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	handler(int sig)
 
 	(void)sig;
 	cr = 13;
-	if (minishell->heredoc_flag)
+	if (g_minishell->heredoc_flag)
 		signal(SIGINT, SIG_DFL);
-	if (minishell->heredoc_flag)
+	if (g_minishell->heredoc_flag)
 	{
-		minishell->sigint_flag = 1;
+		g_minishell->sigint_flag = 1;
 		write(STDIN_FILENO, &cr, 1);
 	}
 	write(1, "\n", 1);
 	rl_replace_line("", 1);
 	rl_on_new_line();
-	if (!minishell->heredoc_flag)
+	if (!g_minishell->heredoc_flag)
 		rl_redisplay();
 }
 
@@ -55,7 +55,7 @@ char	*get_home(t_minishell *minishell)
 	// 	minishell->sigint_flag = 1;
 	// 	printf("ctrl c\n");
 	// 	// if(minishell->heredoc_flag)
-	// 	// write(STDIN_FILENO, "\n", 1);
+	// 	// write(stdrin_FILENO, "\n", 1);
 	// 	// if (minishell->heredoc_flag)
 	// 	// close(0);
 	// else write(1, "\n", 1);

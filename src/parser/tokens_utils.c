@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 15:16:29 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:04:52 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 int	token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 {
@@ -31,7 +31,7 @@ int	token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 		if ((ft_strlen(str) == 2 && (str[0] == str[1])))
 		{
 			lex->type = REDIRECTION_AINPUT;
-			minishell->heredoc_flag = 1;
+			g_minishell->heredoc_flag = 1;
 		}
 		ft_lstadd_back(&u->list_cmds, ft_lstnew(lex));
 		return (1);

@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 15:19:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:04:10 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 char	*expand_hdoc(char *str, int expand)
 {
@@ -23,10 +23,10 @@ char	*expand_hdoc(char *str, int expand)
 	res = str;
 	while (res[i])
 	{
-		if (ft_strchr(QUOTES_PARSE, res[i]) && !minishell->quote_flag)
-			minishell->quote_flag = res[i];
-		else if (minishell->quote_flag == res[i])
-			minishell->quote_flag = 0;
+		if (ft_strchr(QUOTES_PARSE, res[i]) && !g_minishell->quote_flag)
+			g_minishell->quote_flag = res[i];
+		else if (g_minishell->quote_flag == res[i])
+			g_minishell->quote_flag = 0;
 		if (res[i] == '$'
 			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
 			&& expand)
@@ -51,11 +51,11 @@ int	get_heredoc_fd(char *limiter)
 	limiter = remove_quote(limiter);
 	if (pipe(fd) < 0)
 		return (perror("pipe error:"), -1);
-	minishell->heredoc_flag = 1;
-	if (minishell->heredoc_flag)
+	g_minishell->heredoc_flag = 1;
+	if (g_minishell->heredoc_flag)
 		rl_catch_signals = 1;
 	rl_getc_function = getc;
-	while (1 && !minishell->sigint_flag)
+	while (1 && !g_minishell->sigint_flag)
 	{
 		line = readline("> ");
 		if (ft_strequals(limiter, line) || !line)
@@ -63,7 +63,7 @@ int	get_heredoc_fd(char *limiter)
 		ft_putstr_fd(ft_strjoin(expand_hdoc(line, expand), "\n"), fd[1]);
 		free(line);
 	}
-	minishell->heredoc_flag = 0;
+	g_minishell->heredoc_flag = 0;
 	rl_catch_signals = 0;
 	close(fd[1]);
 	return (fd[0]);

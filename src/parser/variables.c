@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 01:52:17 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/16 23:12:38 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:23:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 int	is_valid_variable(char *var)
 {

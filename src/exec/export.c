@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 15:09:30 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:59:58 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ t_node	*update_node(char *key, char *value, int append)
 	t_node	*node;
 	t_node	*exp_node;
 
-	node = get_node(minishell->env, key);
+	node = get_node(g_minishell->env, key);
 	if (!node)
 	{
-		insert_node(&minishell->env, value, key);
-		insert_node(&minishell->export, value, key);
-		return (get_node(minishell->env, key));
+		insert_node(&g_minishell->env, value, key);
+		insert_node(&g_minishell->export, value, key);
+		return (get_node(g_minishell->env, key));
 	}
 	if (!append || !value || !node->value)
 		node->value = value;
 	else if (node->value)
 		node->value = ft_strjoin(node->value, value);
-	exp_node = get_node(minishell->export, node->variable);
+	exp_node = get_node(g_minishell->export, node->variable);
 	exp_node->value = node->value;
 	return (node);
 }

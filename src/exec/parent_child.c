@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parent_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 23:14:00 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 17:00:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../minishell.h"
 
-void	parent(t_minishell *minishell, int *fd, int STDIN)
+void	parent(t_minishell *minishell, int *fd, int stdrin)
 {
 	if (minishell->list_exec->next)
 		close(fd[1]);
-	if (STDIN != -1)
-		close(STDIN);
+	if (stdrin != -1)
+		close(stdrin);
 	if (minishell->list->input_fd > 2)
 		close(minishell->list->input_fd);
 	if (minishell->list->output_fd > 2)
@@ -25,14 +25,14 @@ void	parent(t_minishell *minishell, int *fd, int STDIN)
 }
 
 void	setup_parent_process(t_minishell *minishell, \
-	int *fd, int *STDIN, int *old_stdin)
+	int *fd, int *stdrin, int *old_stdrin)
 {
-	parent(minishell, fd, *STDIN);
+	parent(minishell, fd, *stdrin);
 	if (minishell->list->input_fd > 2)
 		close(minishell->list->input_fd);
 	if (minishell->list->output_fd > 2)
 		close(minishell->list->output_fd);
-	*STDIN = *old_stdin;
+	*stdrin = *old_stdrin;
 }
 
 void	wait_and_print_exit_status(void)
@@ -45,6 +45,6 @@ void	wait_and_print_exit_status(void)
 	if (WIFEXITED(status))
 	{
 		exitstatus = WEXITSTATUS(status);
-		minishell->last_exitstatus = exitstatus;
+		g_minishell->last_exitstatus = exitstatus;
 	}
 }

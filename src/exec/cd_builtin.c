@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:22:07 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 17:12:33 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		if (path_finder(head->env, "HOME"))
 			tmp = path_finder(head->env, "HOME");
 		else
-			tmp = minishell->home;
+			tmp = g_minishell->home;
 		if (chdir(tmp) == 0)
 		{	
 			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
@@ -105,7 +105,7 @@ char *tmp, t_node *new)
 		if (path_finder(head->env, "HOME"))
 			tmp = path_finder(head->env, "HOME");
 		else
-			tmp = minishell->home;
+			tmp = g_minishell->home;
 		if (chdir(tmp) == 0)
 		{
 			head->env = update_env(head->env, "OLDPWD", \

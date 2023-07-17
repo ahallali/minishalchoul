@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 15:07:40 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:57:54 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	fill_export_env(t_node **head)
 	while (keys && *keys)
 	{
 		node = get_node(*head, *keys++);
-		insert_node(&minishell->export, node->value, node->variable);
+		insert_node(&g_minishell->export, node->value, node->variable);
 	}
 }
 

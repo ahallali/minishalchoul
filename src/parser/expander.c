@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 15:19:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:02:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 char	*remove_quote(char *str)
 {
@@ -42,24 +42,24 @@ char	*remove_quote(char *str)
 
 void	flag_quote(char c)
 {
-	if (ft_strchr(QUOTES_PARSE, c) && !minishell->quote_flag)
-		minishell->quote_flag = c;
-	else if (minishell->quote_flag == c)
-		minishell->quote_flag = 0;
+	if (ft_strchr(QUOTES_PARSE, c) && !g_minishell->quote_flag)
+		g_minishell->quote_flag = c;
+	else if (g_minishell->quote_flag == c)
+		g_minishell->quote_flag = 0;
 }
 
 char	*do_replace(char *str, char *var, int i)
 {
 	char	*res;
 
-	if (path_finder(minishell->env, convert_path(var + 1)))
+	if (path_finder(g_minishell->env, convert_path(var + 1)))
 		res = ft_str_replace(str, var,
-				path_finder(minishell->env, convert_path(var + 1)), i);
+				path_finder(g_minishell->env, convert_path(var + 1)), i);
 	else
 	{
 		if (ft_strequals(var + 1, "?"))
 			res = ft_str_replace(str, var, \
-			ft_itoa(minishell->last_exitstatus), i);
+			ft_itoa(g_minishell->last_exitstatus), i);
 		else
 			res = ft_str_replace(str, var, "", i);
 	}
@@ -80,7 +80,7 @@ char	*expand_dquotes(char *str)
 		flag_quote(res[i]);
 		if (res[i] == '$'
 			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
-			&& minishell->quote_flag != '\'')
+			&& g_minishell->quote_flag != '\'')
 		{
 			tmp = ft_strdup(res);
 			var = extract_variable(&tmp[i]);

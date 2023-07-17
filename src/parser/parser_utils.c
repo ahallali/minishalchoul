@@ -6,12 +6,12 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:01:55 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:04:44 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../minishell.h"
-#include "parser.h"
+#include"../minishell.h"
 
 char	*get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 
@@ -22,9 +22,9 @@ char	*get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 	(void)utils;
 	rl_catch_signals = 1;
 	rl_getc_function = getc;
-	minishell->heredoc_flag = 1;
+	g_minishell->heredoc_flag = 1;
 	tmp = readline(prompt);
-	minishell->heredoc_flag = 0;
+	g_minishell->heredoc_flag = 0;
 	rl_catch_signals = 0;
 	return (tmp);
 }
@@ -45,9 +45,9 @@ t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
 	t_token_info	*tok;
 	t_list			*result;
 
-	while (validate_quote(prompt) && !minishell->sigint_flag)
-		prompt = append_new_line(prompt, minishell->quote_flag);
-	if (!minishell->sigint_flag || (prompt && *prompt))
+	while (validate_quote(prompt) && !g_minishell->sigint_flag)
+		prompt = append_new_line(prompt, g_minishell->quote_flag);
+	if (!g_minishell->sigint_flag || (prompt && *prompt))
 		add_history(prompt);
 	utils->prompt = prompt;
 	tok = next_word(prompt, "| \t");

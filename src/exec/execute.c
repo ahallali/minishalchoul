@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/16 04:41:25 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:18:23 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	init_var(t_std *var)
 {
-	var->old_stdin = -1;
+	var->old_stdrin = -1;
 	var->old = dup(0);
 	var->old_out = dup(1);
-	var->STDIN = -1;
+	var->stdrin = -1;
 }
 
 void	execute(t_minishell *minishell)
@@ -28,7 +28,7 @@ void	execute(t_minishell *minishell)
 	init_var(&var);
 	while (minishell->list_exec)
 	{
-		var.STDOUT = -1;
+		var.stdrout = -1;
 		minishell->list = (t_exec_utils *)minishell->list_exec->content;
 		if (!minishell->list->cmd)
 			break ;
@@ -39,7 +39,7 @@ void	execute(t_minishell *minishell)
 			break ;
 		}
 		if (minishell->list_exec->next)
-			create_pipe (fd, &var.STDOUT, &var.old_stdin);
+			create_pipe (fd, &var.stdrout, &var.old_stdrin);
 		create_fork(minishell, &var, fd);
 		minishell->list_exec = minishell->list_exec->next;
 	}
@@ -62,10 +62,10 @@ void	create_fork( t_minishell *minishell, t_std *var, int *fd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		close_fd(&var->old, &var->old_out);
-		setup_child_process(minishell, &var->STDIN, &var->STDOUT, fd);
+		setup_child_process(minishell, &var->stdrin, &var->stdrout, fd);
 	}
 	else
-		setup_parent_process(minishell, fd, &var->STDIN, &var->old_stdin);
+		setup_parent_process(minishell, fd, &var->stdrin, &var->old_stdrin);
 }
 
 void	close_fd(int *old, int *old_out)

@@ -29,6 +29,8 @@
         "system_error": "c",
         "tuple": "c",
         "type_traits": "c",
-        "vector": "c"
+        "vector": "c",
+        "wait.h": "c",
+        "fcntl.h": "c"
     }
 }

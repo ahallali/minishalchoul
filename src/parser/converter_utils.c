@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:28:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 15:20:30 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:23:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 char	**convert_args(t_list *node)
 {

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 15:13:01 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:09:32 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_node	*ft_unset(t_node **head, char *var)
 void	do_builtin(t_minishell *minishell)
 {
 	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "cd", 2) == 0)
-		ft_cd(minishell, convert_args(minishell->list->args));
+		ft_cd(g_minishell, convert_args(minishell->list->args));
 	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "env", 3) == 0 \
 	&& ft_lstsize(minishell->list->args) == 0)
 		print_list(minishell->env);

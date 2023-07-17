@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:30:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 15:05:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:00:20 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ void	print_export_list(void)
 	t_node	*node;
 	int		count;
 
-	count = count_nodes(minishell->env);
+	count = count_nodes(g_minishell->env);
 	keys = ft_calloc(count + 1, sizeof(char *));
-	fill_keys(keys, minishell->export);
+	fill_keys(keys, g_minishell->export);
 	while (keys && *keys)
 	{
-		node = get_node(minishell->export,*keys++);
+		node = get_node(g_minishell->export,*keys++);
 		printf("delcare -x %s", node->variable);
 		if (node->value)
 			printf("=\"%s\"", node->value);

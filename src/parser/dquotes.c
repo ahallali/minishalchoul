@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 15:20:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:01:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"../minishell.h"
 
 int	validate_quote(char *str)
 {
@@ -35,7 +35,7 @@ int	validate_quote(char *str)
 		}
 		i++;
 	}
-	minishell->quote_flag = quote;
+	g_minishell->quote_flag = quote;
 	return (quote);
 }
 
@@ -53,15 +53,15 @@ char	*append_new_line(char *prompt, char delimiter)
 
 int	skip_quoted(char *str, int *i)
 {
-	minishell->quote_flag = str[*i];
+	g_minishell->quote_flag = str[*i];
 	(*i)++;
 	while (str[*i])
 	{
-		if (*i > 0 && str[*i] == minishell->quote_flag
+		if (*i > 0 && str[*i] == g_minishell->quote_flag
 			&& str[*i - 1] != '\\')
 		{
 			(*i)++;
-			minishell->quote_flag = 0;
+			g_minishell->quote_flag = 0;
 			return (str[*i]);
 		}
 		else
