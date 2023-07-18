@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:19:59 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 17:24:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:49:12 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	else
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 == *s2++)
+		if (*s1++ == 0)
+			return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)--s2);
 }
 
 int	ft_strequals(const char *s1, const char *s2)

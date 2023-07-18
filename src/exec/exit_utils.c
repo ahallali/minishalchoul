@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:09:20 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/18 21:35:17 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:38:49 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	do_clean_exit(char *error_msg, int fd, int exit_status, int flag)
 		ft_putstr_fd(error_msg, fd);
 	ft_lstiter(*get_gcollector(), ft_free);
 	free(*get_gcollector());
+	free(get_gcollector());
 	if (!flag)
 		ft_putstr_fd("exit\n", fd);
 	if (exit_status >= 0)
