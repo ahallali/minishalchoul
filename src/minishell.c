@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 19:19:18 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 20:16:48 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	return (0);
 }
 
-// 	(void)ac;
-// 	(void)av;
-// 	line = NULL;
-// 	g_minishell = ft_calloc(1, sizeof(t_minishell));
-// 	if (!g_minishell)
-// 		return (0);
-// 	if (*env)
-// 		g_minishell->env = ft_env(env, g_minishell);
-// 	else
-// 	g_minishell->env = ft_empty();
-// 	return (1);
-// }
+
+int	allocation_and_env(char **env)
+{
+	g_minishell = ft_calloc(1, sizeof(t_minishell));
+	if (!g_minishell)
+		return (0);
+	if (*env)
+		g_minishell->env = ft_env(env, g_minishell);
+	else
+	g_minishell->env = ft_empty();
+	return (1);
+}
 
 int	main(int ac, char **av, char **env)
 {

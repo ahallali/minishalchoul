@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 01:37:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:22:10 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute(t_minishell *minishell)
 	t_std	var;
 
 	init_var(&var);
-	ft_lstiter(minishell->list_exec, print_exec);
+	// ft_lstiter(minishell->list_exec, print_exec);
 	while (minishell->list_exec)
 	{
 		var.stdrout = -1;

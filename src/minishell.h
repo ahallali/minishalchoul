@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 19:18:45 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 20:20:32 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ int								is_valid_key(char *var);
 int								is_path_directory(const char *path);
 void							error_exec(char *path);
 void							do_clean_exit(char *error_msg, int fd,
-									int exit_status);
+									int exit_status,int flag);
 
 
 t_token_info					*next_word_nrm(char *str, int *i, \

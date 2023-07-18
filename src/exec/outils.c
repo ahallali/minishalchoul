@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 02:21:32 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:04:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_node	*ft_unset(t_node **head, char *var)
 	return (t);
 }
 
-void builtin_next(t_minishell * minishell)
+void	builtin_next(t_minishell *minishell)
 {
 	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "echo", 4) == 0)
 		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
