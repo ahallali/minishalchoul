@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 02:09:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:18:45 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <errno.h>
 # include "../libft/libft.h"
 # include <sys/types.h>
+# include <sys/stat.h>
 # define DELIMS_PARSE "|<>"
 # define _DELIMS_PARSE "|<> \t"
 # define IO_PARSE "<>"
@@ -256,6 +257,13 @@ void							create_fork(t_minishell *minishell, \
 									t_std *var, int *fd);
 void							init_var(t_std *var);
 int								is_valid_key(char *var);
+
+int								is_path_directory(const char *path);
+void							error_exec(char *path);
+void							do_clean_exit(char *error_msg, int fd,
+									int exit_status);
+
+
 t_token_info					*next_word_nrm(char *str, int *i, \
 									char *delimiter, t_token_info *info);
 int								is_nextword_valid(char *str, int *i, \

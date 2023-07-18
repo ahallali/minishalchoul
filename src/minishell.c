@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 02:39:45 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:18:24 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_minishell	*g_minishell;
+
+void f()
+{
+	system("leaks minishell");
+}
+
+void f()
+{
+	system("leaks minishell");
+}
 
 void	fill_export_minishell(t_minishell *g_minishell)
 {
@@ -42,8 +52,9 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	return (0);
 }
 
-int	allocation_and_env(char **env)
-{
+	(void)ac;
+	(void)av;
+	line = NULL;
 	g_minishell = ft_calloc(1, sizeof(t_minishell));
 	if (!g_minishell)
 		return (0);

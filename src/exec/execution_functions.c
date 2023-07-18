@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 01:09:37 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:18:49 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	redirection(t_minishell *minishell)
 		dup2(minishell->list->output_fd, 1);
 }
 
+
 void	execute_cmd(t_minishell *minishell)
 {
 	char	*path;
@@ -69,15 +70,7 @@ void	execute_cmd(t_minishell *minishell)
 	if (execve(path, convert_command_args(minishell->list), \
 	convert_env(minishell->env)) == -1)
 	{
-		if (errno == EACCES)
-		{
-			perror("minishell");
-			exit (126);
-		}
-		else if (errno == 14)
-			ft_putstr_fd("minishell:Command not found\n", 2);
-		else if (errno == ENOENT)
-			ft_putstr_fd("minishell:No such file or directory\n", 2);
+		error_exec(path);
 		exit(127);
 	}
 }

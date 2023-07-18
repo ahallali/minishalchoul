@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gcollector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:06:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 17:27:10 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:17:56 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_free(void *ptr)
 				first = tmp->next;
 			free(tmp->content);
 			free(tmp);
-			set_gcollector(first);
+			// set_gcollector(first);
 			break ;
 		}
 		else
