@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 21:31:35 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:55:49 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	create_fork(t_minishell *minishell, t_std *var, int *fd)
 {
 	pid_t	pid;
 
-	puts("forking\n");
 	pid = fork();
 	if (pid < 0)
 	{
