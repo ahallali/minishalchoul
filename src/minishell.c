@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 20:16:48 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:42:37 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	fill_export_minishell(t_minishell *g_minishell)
 	fill_export_env(&g_minishell->env);
 	g_minishell->last_exitstatus = 0;
 	g_minishell->home = get_home(g_minishell);
+}
+
+int	allocation_and_env(char **env)
+{
+	g_minishell = ft_calloc(1, sizeof(t_minishell));
+	if (!g_minishell)
+		return (0);
+	if (*env)
+		g_minishell->env = ft_env(env, g_minishell);
+	else
+	g_minishell->env = ft_empty();
+	return (1);
 }
 
 void	signals_and_line(void)
@@ -47,19 +59,6 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	return (0);
 }
 
-
-int	allocation_and_env(char **env)
-{
-	g_minishell = ft_calloc(1, sizeof(t_minishell));
-	if (!g_minishell)
-		return (0);
-	if (*env)
-		g_minishell->env = ft_env(env, g_minishell);
-	else
-	g_minishell->env = ft_empty();
-	return (1);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char			*line;
@@ -69,6 +68,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	p_prompt = NULL;
 	line = NULL;
+	atexit(f);
 	allocation_and_env(env);
 	fill_export_minishell(g_minishell);
 	while (1)
@@ -78,7 +78,7 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);
-			exit(0);
+			do_clean_exit(NULL, 1, 0, 1);
 		}
 		prompt_and_exec(p_prompt, line);
 		free(line);

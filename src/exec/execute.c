@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 19:22:10 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:31:35 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	execute(t_minishell *minishell)
 	t_std	var;
 
 	init_var(&var);
-	// ft_lstiter(minishell->list_exec, print_exec);
 	while (minishell->list_exec)
 	{
 		var.stdrout = -1;
@@ -48,15 +47,16 @@ void	execute(t_minishell *minishell)
 	wait_and_print_exit_status();
 }
 
-void	create_fork( t_minishell *minishell, t_std *var, int *fd)
+void	create_fork(t_minishell *minishell, t_std *var, int *fd)
 {
 	pid_t	pid;
 
+	puts("forking\n");
 	pid = fork();
 	if (pid < 0)
 	{
 		perror("forkerror :");
-		exit(1);
+		do_clean_exit(NULL, 2, 1, 1);
 	}
 	if (pid == 0)
 	{

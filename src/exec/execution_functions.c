@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 19:18:49 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:32:40 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 	if (pipe(fd) < 0)
 	{
 		perror("pipe:");
-		exit(1);
+		do_clean_exit(NULL, 2, 1, 1);
 	}
 	else
 	{
@@ -59,7 +59,6 @@ void	redirection(t_minishell *minishell)
 		dup2(minishell->list->output_fd, 1);
 }
 
-
 void	execute_cmd(t_minishell *minishell)
 {
 	char	*path;
@@ -71,6 +70,6 @@ void	execute_cmd(t_minishell *minishell)
 	convert_env(minishell->env)) == -1)
 	{
 		error_exec(path);
-		exit(127);
+		do_clean_exit(NULL, 2, 127, 1);
 	}
 }
