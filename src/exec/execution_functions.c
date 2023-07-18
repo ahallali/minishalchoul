@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 21:32:40 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 22:14:20 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ void	execute_cmd(t_minishell *minishell)
 	convert_env(minishell->env)) == -1)
 	{
 		error_exec(path);
-		do_clean_exit(NULL, 2, 127, 1);
 	}
 }

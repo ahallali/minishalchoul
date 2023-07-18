@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:06:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/18 21:56:25 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 22:07:43 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	add_gcol(void *ptr)
 
 	gcol = get_gcollector();
 	node = malloc(sizeof(t_list));
+	if (!node)
+		return ;
 	node->content = ptr;
 	node->next = NULL;
 	tmp = *gcol;
@@ -69,14 +71,12 @@ void	ft_free(void *ptr)
 				last->next = tmp->next;
 			else if (first == last)
 				first = tmp->next;
-			// printf("freed : %p\n", ptr);
-			// printf("freed : %p\n", tmp);
 			free(tmp->content);
 			free(tmp);
 			set_gcollector(first);
 			break ;
 		}
-		else
-			tmp = tmp->next;
+		last = tmp;
+		tmp = tmp->next;
 	}
 }
