@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 20:42:37 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:47:18 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);
+			free(line);
 			do_clean_exit(NULL, 1, 0, 1);
 		}
 		prompt_and_exec(p_prompt, line);

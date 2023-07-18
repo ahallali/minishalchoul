@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:30:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 22:43:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:49:17 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sort_tab(char **arr, int n)
 		j = 0;
 		while (j < n - i - 1)
 		{
-			if (strcmp(arr[j], arr[j + 1]) > 0)
+			if (ft_strcmp(arr[j], arr[j + 1]) > 0)
 			{
 				swap(&arr[j], &arr[j + 1]);
 				swapped = 1;

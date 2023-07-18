@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:06:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/18 02:17:56 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:56:25 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ void	ft_free(void *ptr)
 				last->next = tmp->next;
 			else if (first == last)
 				first = tmp->next;
+			// printf("freed : %p\n", ptr);
+			// printf("freed : %p\n", tmp);
 			free(tmp->content);
 			free(tmp);
-			// set_gcollector(first);
+			set_gcollector(first);
 			break ;
 		}
 		else
