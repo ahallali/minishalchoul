@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 22:42:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:11:52 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 		return (new);
 	}
 	else
-	{
-		perror(str);
-		return (NULL);
-	}
+		return (perror(str), NULL);
 }
 
 t_node	*update_env(t_node *head, char *var, char *data)
@@ -77,8 +74,8 @@ t_node	*ft_cd(t_minishell *head, char **t)
 	t_node	*new;
 	char	*tmp;
 
-		new = NULL;
-		tmp = NULL;
+	new = NULL;
+	tmp = NULL;
 	if (t[0] && *t[0])
 		tilda_and_movetodirectory(t, head, tmp, new);
 	else if (!t[0] || !*t[0])

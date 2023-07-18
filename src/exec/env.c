@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 22:42:40 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:12:15 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,30 @@ t_node	*ft_env(char **env, t_minishell *minishell)
 		env++;
 	}
 	return (head);
+}
+
+void	ft_pwd(t_node *head, char *s)
+{
+	t_node	*t;
+	char	*pwd;
+
+	pwd = NULL;
+	t = head;
+	if (!head)
+	{
+		pwd = getcwd(NULL, 0);
+		update_env(head, "PWD", pwd);
+	}
+	if (t)
+	{
+		while (t->next)
+		{
+			if (!strcmp(t->variable, s) && t->value)
+			{
+				ft_putstr_fd(t->value, 1);
+				ft_putstr_fd("\n", 1);
+			}
+			t = t->next;
+		}
+	}
 }

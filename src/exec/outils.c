@@ -6,37 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 17:09:32 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:21:32 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_pwd(t_node *head, char *s)
-{
-	t_node	*t;
-	char	*pwd;
-
-	pwd = NULL;
-	t = head;
-	if (!head)
-	{
-		pwd = getcwd(NULL, 0);
-		update_env(head, "PWD", pwd);
-	}
-	if (t)
-	{
-		while (t->next)
-		{
-			if (!strcmp(t->variable, s) && t->value)
-			{
-				ft_putstr_fd(t->value, 1);
-				ft_putstr_fd("\n", 1);
-			}
-			t = t->next;
-		}
-	}
-}
 
 void	print_list(t_node *head)
 {
@@ -90,6 +64,16 @@ t_node	*ft_unset(t_node **head, char *var)
 	return (t);
 }
 
+void builtin_next(t_minishell * minishell)
+{
+	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "echo", 4) == 0)
+		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
+	else if (ft_strequals(expand_dquotes(minishell->list->cmd), "exit"))
+		ft_exit(minishell, convert_args(minishell->list->args));
+	else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
+		ft_export(convert_args(minishell->list->args));
+}
+
 void	do_builtin(t_minishell *minishell)
 {
 	if (ft_strncmp(expand_dquotes(minishell->list->cmd), "cd", 2) == 0)
@@ -110,10 +94,5 @@ void	do_builtin(t_minishell *minishell)
 		ft_unset(&minishell->env, convert_args(minishell->list->args)[0]);
 		ft_unset(&minishell->export, convert_args(minishell->list->args)[0]);
 	}
-	else if (ft_strncmp(expand_dquotes(minishell->list->cmd), "echo", 4) == 0)
-		ft_echo(convert_args(minishell->list->args), STDOUT_FILENO);
-	else if (ft_strequals(expand_dquotes(minishell->list->cmd), "exit"))
-		ft_exit(minishell, convert_args(minishell->list->args));
-	else if (ft_strncmp(minishell->list->cmd, "export", 6) == 0)
-		ft_export(convert_args(minishell->list->args));
+	builtin_next(minishell);
 }

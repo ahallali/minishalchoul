@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 18:55:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:09:58 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,4 +256,8 @@ void							create_fork(t_minishell *minishell, \
 									t_std *var, int *fd);
 void							init_var(t_std *var);
 int								is_valid_key(char *var);
+t_token_info					*next_word_nrm(char *str, int *i, \
+									char *delimiter, t_token_info *info);
+int								is_nextword_valid(char *str, int *i, \
+									char *delimiter, t_token_info *info);
 #endif

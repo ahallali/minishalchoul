@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 20:37:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 02:13:22 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ char	*update_path(char *str, char *cmd)
 			path = ft_strjoin(*tmp, ft_strjoin("/", cmd));
 			if (!access(path, X_OK | F_OK))
 				return (path);
-			tmp++;
+		tmp++;
 		}
 	}
 	return (NULL);
 }
-// printf("command not found \n");

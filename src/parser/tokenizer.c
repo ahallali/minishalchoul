@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 23:21:34 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/18 01:46:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 t_token_info	*next_word(char *str, char *delimiter)
 {
@@ -28,15 +28,30 @@ t_token_info	*next_word(char *str, char *delimiter)
 		if (ft_strchr(QUOTES_PARSE, str[i]))
 			if (skip_quoted(str, &i))
 				continue ;
-		if (str[i] && (ft_strchr(IO_PARSE, str[i]) != 0))
-			return (token_io(str, &i, info));
-		if (str[i] && ft_strchr(delimiter, str[i]))
-			return (token_delim(str, &i, info));
+		if (is_nextword_valid(str, &i, delimiter, info))
+			return (next_word_nrm(str, &i, delimiter, info));
 		if (str[i])
 			i++;
 		if (!str[i])
 			return (token_last(str, info));
 	}
+	return (NULL);
+}
+
+int	is_nextword_valid(char *str, int *i, char *delimiter, t_token_info *info)
+{
+	(void)info;
+	return ((str[*i] && ft_strchr(IO_PARSE, str[*i]) != 0) || \
+			(str[*i] && ft_strchr(delimiter, str[*i])));
+}
+
+t_token_info	*next_word_nrm(char *str, int *i, \
+	char *delimiter, t_token_info *info)
+{
+	if (str[*i] && (ft_strchr(IO_PARSE, str[*i]) != 0))
+		return (token_io(str, i, info));
+	if (str[*i] && ft_strchr(delimiter, str[*i]))
+		return (token_delim(str, i, info));
 	return (NULL);
 }
 
@@ -66,19 +81,20 @@ int	insert_to_lexer(char *str, t_parse_utils *u)
 	if (!lex)
 		return (0);
 	if (ft_strchr(IO_PARSE, *str))
-		return (token_redirection (str, lex, last_lex, u));
+		return (token_redirection(str, lex, \
+		last_lex, u));
 	node = u->list_cmds;
 	if (verify_exec_node(node, str, lex, u))
 		return (1);
 	if (*str == '|')
 		return (insert_pipe(lex, u));
-	else if (is_enum_redirection(last_lex->type)
-		&& handle_lastlex_redir(last_lex, lex, str, u))
+	else if (is_enum_redirection(last_lex->type) && \
+		handle_lastlex_redir(last_lex, lex, str, u))
 		return (1);
 	else if ((last_lex->type != PIPE) && last_lex != lex)
 		return (insert_args(lex, last_lex, str, u));
-	else if (last_lex->type == PIPE
-		&& (last_lex->type != ARG && last_lex->type != CMD))
+	else if (last_lex->type == PIPE && (last_lex->type \
+		!= ARG && last_lex->type != CMD))
 		return (insert_command(lex, str, u, &node));
 	return (0);
 }
