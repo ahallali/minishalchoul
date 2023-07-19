@@ -6,32 +6,32 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 17:00:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/19 02:27:29 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../minishell.h"
 
-void	parent(t_minishell *minishell, int *fd, int stdrin)
+void	parent(t_minishell *g_minishell, int *fd, int stdrin)
 {
-	if (minishell->list_exec->next)
+	if (g_minishell->list_exec->next)
 		close(fd[1]);
 	if (stdrin != -1)
 		close(stdrin);
-	if (minishell->list->input_fd > 2)
-		close(minishell->list->input_fd);
-	if (minishell->list->output_fd > 2)
-		close(minishell->list->output_fd);
+	if (g_minishell->list->input_fd > 2)
+		close(g_minishell->list->input_fd);
+	if (g_minishell->list->output_fd > 2)
+		close(g_minishell->list->output_fd);
 }
 
-void	setup_parent_process(t_minishell *minishell, \
+void	setup_parent_process(t_minishell *g_minishell, \
 	int *fd, int *stdrin, int *old_stdrin)
 {
-	parent(minishell, fd, *stdrin);
-	if (minishell->list->input_fd > 2)
-		close(minishell->list->input_fd);
-	if (minishell->list->output_fd > 2)
-		close(minishell->list->output_fd);
+	parent(g_minishell, fd, *stdrin);
+	if (g_minishell->list->input_fd > 2)
+		close(g_minishell->list->input_fd);
+	if (g_minishell->list->output_fd > 2)
+		close(g_minishell->list->output_fd);
 	*stdrin = *old_stdrin;
 }
 

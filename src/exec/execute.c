@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 21:55:49 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/19 01:27:59 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,34 @@ void	init_var(t_std *var)
 	var->stdrin = -1;
 }
 
-void	execute(t_minishell *minishell)
+void	execute(t_minishell *g_minishell)
 {
 	int		fd[2];
 	t_std	var;
 
 	init_var(&var);
-	while (minishell->list_exec)
+	while (g_minishell->list_exec)
 	{
 		var.stdrout = -1;
-		minishell->list = (t_exec_utils *)minishell->list_exec->content;
-		if (!minishell->list->cmd)
+		g_minishell->list = (t_exec_utils *)g_minishell->list_exec->content;
+		if (!g_minishell->list->cmd)
 			break ;
-		if (is_builtin(minishell) && ft_lstsize(minishell->list_exec) == 1 \
-			&& minishell->list->input_fd)
+		if (is_builtin(g_minishell) && ft_lstsize(g_minishell->list_exec) == 1 \
+			&& g_minishell->list->input_fd)
 		{
-			parent_builtin_red(minishell, var.old, var.old_out);
+			parent_builtin_red(g_minishell, var.old, var.old_out);
 			break ;
 		}
-		if (minishell->list_exec->next)
+		if (g_minishell->list_exec->next)
 			create_pipe (fd, &var.stdrout, &var.old_stdrin);
-		create_fork(minishell, &var, fd);
-		minishell->list_exec = minishell->list_exec->next;
+		create_fork(g_minishell, &var, fd);
+		g_minishell->list_exec = g_minishell->list_exec->next;
 	}
 	close_fd(&var.old, &var.old_out);
 	wait_and_print_exit_status();
 }
 
-void	create_fork(t_minishell *minishell, t_std *var, int *fd)
+void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 {
 	pid_t	pid;
 
@@ -62,10 +62,10 @@ void	create_fork(t_minishell *minishell, t_std *var, int *fd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		close_fd(&var->old, &var->old_out);
-		setup_child_process(minishell, &var->stdrin, &var->stdrout, fd);
+		setup_child_process(g_minishell, &var->stdrin, &var->stdrout, fd);
 	}
 	else
-		setup_parent_process(minishell, fd, &var->stdrin, &var->old_stdrin);
+		setup_parent_process(g_minishell, fd, &var->stdrin, &var->old_stdrin);
 }
 
 void	close_fd(int *old, int *old_out)
@@ -74,25 +74,25 @@ void	close_fd(int *old, int *old_out)
 	close(*old_out);
 }
 
-void	parent_builtin_red(t_minishell *minishell, int old, int old_out)
+void	parent_builtin_red(t_minishell *g_minishell, int old, int old_out)
 {
-	if (minishell->list->input_fd != -1 || minishell->list->output_fd != -1)
+	if (g_minishell->list->input_fd != -1 || g_minishell->list->output_fd != -1)
 	{
-		if (minishell->list->input_fd != -1)
+		if (g_minishell->list->input_fd != -1)
 		{
-			dup2(minishell->list->input_fd, 0);
-			do_builtin(minishell);
+			dup2(g_minishell->list->input_fd, 0);
+			do_builtin(g_minishell);
 			dup2(old, 0);
-			close(minishell->list->input_fd);
+			close(g_minishell->list->input_fd);
 		}
-		if (minishell->list->output_fd != -1)
+		if (g_minishell->list->output_fd != -1)
 		{
-			dup2(minishell->list->output_fd, 1);
-			do_builtin(minishell);
+			dup2(g_minishell->list->output_fd, 1);
+			do_builtin(g_minishell);
 			dup2(old_out, 1);
-			close(minishell->list->output_fd);
+			close(g_minishell->list->output_fd);
 		}
 	}
 	else
-		do_builtin(minishell);
+		do_builtin(g_minishell);
 }

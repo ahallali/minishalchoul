@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 17:01:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/19 02:25:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	handler(int sig)
 		rl_redisplay();
 }
 
-char	*get_home(t_minishell *minishell)
+char	*get_home(t_minishell *g_minishell)
 {
 	t_node	*tmp;
 	char	*t;
 
 	t = NULL;
-	tmp = minishell->env;
+	tmp = g_minishell->env;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->variable, "HOME", 5))

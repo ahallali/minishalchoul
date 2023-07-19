@@ -1,11 +1,9 @@
+ 
 Makefile
 a
-f
-k
-l
 libft
+ls
 minishell
 mkd
 obj
-p
 src

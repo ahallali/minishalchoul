@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 22:14:20 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/19 02:43:44 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,21 @@ void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 	}
 }
 
-void	setup_child_process(t_minishell *minishell, \
+void	setup_child_process(t_minishell *g_minishell, \
 	int *stdrin, int *stdrout, int *fd)
 {
-	child(minishell, *stdrin, *stdrout, fd);
+	child(g_minishell, *stdrin, *stdrout, fd);
+	// if(is_builtin(g_minishell) && g_minishell->list_exec->next)
+	// {
+	// 	close();
+	// 	do_builtin(g_minishell);
+	// }
 	redirection(g_minishell);
 	execute_cmd(g_minishell);
 	ft_lstiter(*get_gcollector(), ft_free);
 }
 
-void	child(t_minishell *minishell, int stdrin, int stdrout, int *fd)
+void	child(t_minishell *g_minishell, int stdrin, int stdrout, int *fd)
 {
 	if (stdrin != -1)
 	{
@@ -47,27 +52,26 @@ void	child(t_minishell *minishell, int stdrin, int stdrout, int *fd)
 		dup2(stdrout, 1);
 		close(stdrout);
 	}
-	if (minishell->list_exec->next)
+	if (g_minishell->list_exec->next)
 		close(fd[0]);
 }
 
-void	redirection(t_minishell *minishell)
+void	redirection(t_minishell *g_minishell)
 {
-	if (minishell->list->input_fd > 2)
-		dup2(minishell->list->input_fd, 0);
-	if (minishell->list->output_fd > 2)
-		dup2(minishell->list->output_fd, 1);
+	if (g_minishell->list->input_fd > 2)
+		dup2(g_minishell->list->input_fd, 0);
+	if (g_minishell->list->output_fd > 2)
+		dup2(g_minishell->list->output_fd, 1);
 }
 
-void	execute_cmd(t_minishell *minishell)
+void	execute_cmd(t_minishell *g_minishell)
 {
 	char	*path;
 
 	path = NULL;
-	path = update_path(path_finder(minishell->env, "PATH") \
-	, expand_dquotes(minishell->list->cmd));
-	if (execve(path, convert_command_args(minishell->list), \
-	convert_env(minishell->env)) == -1)
+	path = update_path(path_finder(g_minishell->env, "PATH"), expand_dquotes(g_minishell->list->cmd));
+	if (execve(path, convert_command_args(g_minishell->list), \
+	convert_env(g_minishell->env)) == -1)
 	{
 		error_exec(path);
 	}

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 02:12:15 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/19 02:03:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,22 @@ void	ft_pwd(t_node *head, char *s)
 
 	pwd = NULL;
 	t = head;
-	if (!head)
-	{
-		pwd = getcwd(NULL, 0);
-		update_env(head, "PWD", pwd);
-	}
+	// print_list(t);
 	if (t)
 	{
 		while (t->next)
 		{
-			if (!strcmp(t->variable, s) && t->value)
+			if (!ft_strncmp(t->variable, s,ft_strlen(s)) && t->value)
 			{
 				ft_putstr_fd(t->value, 1);
 				ft_putstr_fd("\n", 1);
 			}
 			t = t->next;
 		}
+	}
+	else
+	{
+		pwd = getcwd(NULL, 0);
+		update_env(head, "PWD", pwd);
 	}
 }

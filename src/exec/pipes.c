@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 20:40:16 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/19 02:36:18 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_builtin(t_minishell *minishell)
+int	is_builtin(t_minishell *g_minishell)
 {
-	if (ft_strequals(expand_dquotes(minishell->list->cmd), "cd") || \
-		(ft_strequals(expand_dquotes(minishell->list->cmd), "env") && \
-		ft_lstsize(minishell->list->args) == 0) || \
-		ft_strequals(expand_dquotes(minishell->list->cmd), "pwd") || \
-		ft_strequals(expand_dquotes(minishell->list->cmd), "exit") || \
-		(ft_strequals(expand_dquotes(minishell->list->cmd), "unset") && \
-			ft_lstsize(minishell->list->args)) || \
-		(ft_strequals(expand_dquotes(minishell->list->cmd), "echo")) || \
-		(ft_strequals(expand_dquotes(minishell->list->cmd), "export")))
+	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd") || \
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") && \
+		ft_lstsize(g_minishell->list->args) == 0) || \
+		ft_strequals(expand_dquotes(g_minishell->list->cmd), "pwd") || \
+		ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit") || \
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") && \
+			ft_lstsize(g_minishell->list->args)) || \
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "echo")) || \
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "export")))
 		return (1);
 	return (0);
 }
 
-void	ft_exit(t_minishell *minishell, char **cmd)
+void	ft_exit(t_minishell *g_minishell, char **cmd)
 {
-	if (!minishell->list->cmd || !*minishell->list->cmd)
+	if (!g_minishell->list->cmd || !*g_minishell->list->cmd)
 		return ;
 	if (!cmd || !*cmd)
 		do_clean_exit(NULL, 1, 0, 0);
