@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/19 02:03:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/20 04:25:58 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,14 @@ void	insert_node(t_node **head, char *value, char *variable)
 	else
 	{
 		current = *head;
-		while (current->next != NULL)
+		while (current->next != NULL 
+			|| ft_strequals(current->variable, variable))
 		{
+			if (ft_strequals(current->variable, variable))
+			{
+				current->value = ft_strdup(value);
+				return ;
+			}
 			current = current->next;
 		}
 	current->next = new;
@@ -99,22 +105,20 @@ void	ft_pwd(t_node *head, char *s)
 
 	pwd = NULL;
 	t = head;
-	// print_list(t);
-	if (t)
+	while (t->next)
 	{
-		while (t->next)
+		if (!ft_strncmp(t->variable, s, ft_strlen(s))
+			&& t->value)
 		{
-			if (!ft_strncmp(t->variable, s,ft_strlen(s)) && t->value)
-			{
-				ft_putstr_fd(t->value, 1);
-				ft_putstr_fd("\n", 1);
-			}
-			t = t->next;
+			ft_putstr_fd(t->value, 1);
+			ft_putstr_fd("\n", 1);
+			return ;
 		}
+		t = t->next;
 	}
-	else
-	{
-		pwd = getcwd(NULL, 0);
-		update_env(head, "PWD", pwd);
-	}
+	pwd = getcwd(NULL, 0);
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	insert_node(&g_minishell->env,  pwd, "PWD");
+	insert_node(&g_minishell->export, pwd, "PWD");
 }

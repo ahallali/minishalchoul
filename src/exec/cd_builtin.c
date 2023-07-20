@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 02:11:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/20 04:37:35 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ t_node	*movetodirectory(char *str, t_node *head)
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(str) == 0)
 	{
-		update_env(head, "OLDPWD", oldpwd);
+		insert_node(&g_minishell->env, oldpwd, "OLDPWD");
 		if (getcwd(NULL, 0) != NULL)
 		{	
-		t = getcwd(NULL, 0);
-		new = update_env(head, "PWD", t);
+			t = getcwd(NULL, 0);
+			insert_node(&g_minishell->env, t, "PWD");
 		}
 		else
 		{
@@ -87,7 +87,7 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		if (chdir(tmp) == 0)
 		{	
 			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
-			new = update_env(head->env, "PWD", tmp);
+			insert_node(&g_minishell->env, tmp, "PWD");
 		}
 	}
 	return (new);
@@ -108,9 +108,9 @@ char *tmp, t_node *new)
 			tmp = g_minishell->home;
 		if (chdir(tmp) == 0)
 		{
-			head->env = update_env(head->env, "OLDPWD", \
-			oldpwd);
-			head->env = update_env(head->env, "PWD", tmp);
+			insert_node(&g_minishell->env, oldpwd \
+			,"OLDPWD");
+			insert_node(&g_minishell->env, tmp, "PWD");
 		}
 		return ;
 	}

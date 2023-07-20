@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 02:13:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/20 03:48:28 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,11 @@ char	*update_path(char *str, char *cmd)
 	tmp = ft_split(str, ':');
 	while (tmp && *tmp)
 	{
-		if (!access(cmd, X_OK | F_OK))
-			return (cmd);
-		else
-		{
+		if (cmd && *cmd)
 			path = ft_strjoin(*tmp, ft_strjoin("/", cmd));
-			if (!access(path, X_OK | F_OK))
-				return (path);
+		if (!access(path, X_OK & F_OK))
+			return (path);
 		tmp++;
-		}
 	}
 	return (NULL);
 }

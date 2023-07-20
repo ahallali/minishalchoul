@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/19 02:43:44 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/20 04:01:14 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ void	execute_cmd(t_minishell *g_minishell)
 	char	*path;
 
 	path = NULL;
-	path = update_path(path_finder(g_minishell->env, "PATH"), expand_dquotes(g_minishell->list->cmd));
+	path = update_path(path_finder(g_minishell->env, "PATH"),
+			expand_dquotes(g_minishell->list->cmd));
 	if (execve(path, convert_command_args(g_minishell->list), \
 	convert_env(g_minishell->env)) == -1)
 	{
 		error_exec(path);
 	}
+	do_clean_exit(NULL, 2, 0, 1);
 }
