@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/19 02:25:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:35:24 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ void	handler(int sig)
 
 	(void)sig;
 	cr = 13;
-	if (g_minishell->heredoc_flag)
-		signal(SIGINT, SIG_DFL);
-	if (g_minishell->heredoc_flag)
+	// if (g_minishell->heredoc_flag)
+	// 	signal(SIGINT, SIG_DFL);
+	// printf("sig : %d", sig);
+	if (g_minishell->heredoc_flag && sig == SIGINT)
 	{
 		g_minishell->sigint_flag = 1;
 		write(STDIN_FILENO, &cr, 1);
 	}
-	write(1, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	if (!g_minishell->heredoc_flag)
@@ -42,7 +43,7 @@ char	*get_home(t_minishell *g_minishell)
 	tmp = g_minishell->env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->variable, "HOME", 5))
+		if (ft_strequals(tmp->variable, "HOME"))
 			t = ft_strdup(tmp->value);
 		tmp = tmp->next;
 	}
