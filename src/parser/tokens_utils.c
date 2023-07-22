@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 17:04:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:20:33 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,11 @@ t_token_info	*token_last(char *str, t_token_info *info)
 	info->limiter = NULL;
 	info->next_start = NULL;
 	return (info);
+}
+
+int	is_nextword_valid(char *str, int *i, char *delimiter, t_token_info *info)
+{
+	(void)info;
+	return ((str[*i] && ft_strchr(IO_PARSE, str[*i]) != 0) || \
+			(str[*i] && ft_strchr(delimiter, str[*i])));
 }

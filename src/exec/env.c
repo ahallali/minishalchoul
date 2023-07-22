@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/20 04:25:58 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/22 03:21:24 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	insert_node(t_node **head, char *value, char *variable)
 	else
 	{
 		current = *head;
-		while (current->next != NULL 
+		while (current->next != NULL
 			|| ft_strequals(current->variable, variable))
 		{
 			if (ft_strequals(current->variable, variable))
@@ -119,6 +119,6 @@ void	ft_pwd(t_node *head, char *s)
 	pwd = getcwd(NULL, 0);
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);
-	insert_node(&g_minishell->env,  pwd, "PWD");
+	insert_node(&g_minishell->env, pwd, "PWD");
 	insert_node(&g_minishell->export, pwd, "PWD");
 }

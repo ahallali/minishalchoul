@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 03:30:54 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/18 01:46:45 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:20:41 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ t_token_info	*next_word(char *str, char *delimiter)
 	return (NULL);
 }
 
-int	is_nextword_valid(char *str, int *i, char *delimiter, t_token_info *info)
-{
-	(void)info;
-	return ((str[*i] && ft_strchr(IO_PARSE, str[*i]) != 0) || \
-			(str[*i] && ft_strchr(delimiter, str[*i])));
-}
-
 t_token_info	*next_word_nrm(char *str, int *i, \
 	char *delimiter, t_token_info *info)
 {
@@ -67,17 +60,23 @@ t_lex	*init_lexer_struct(void)
 	return (lex);
 }
 
+void	init_inserter(t_list **node, t_lex **lex,
+	t_lex **last_lex, t_parse_utils *u)
+{
+	*last_lex = NULL;
+	*node = ft_lstlast(u->list_cmds);
+	if (*node)
+		*last_lex = (t_lex *)(*node)->content;
+	*lex = ft_calloc(1, sizeof(t_lex));
+}
+
 int	insert_to_lexer(char *str, t_parse_utils *u)
 {
 	t_list	*node;
 	t_lex	*lex;
 	t_lex	*last_lex;
 
-	last_lex = NULL;
-	node = ft_lstlast(u->list_cmds);
-	if (node)
-		last_lex = (t_lex *)node->content;
-	lex = ft_calloc(1, sizeof(t_lex));
+	init_inserter(&node, &lex, &last_lex, u);
 	if (!lex)
 		return (0);
 	if (ft_strchr(IO_PARSE, *str))

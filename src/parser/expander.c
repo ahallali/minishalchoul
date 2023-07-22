@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 22:39:41 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:16:41 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../minishell.h"
+
+int	is_flag_valid(char *flag, char *str, int i)
+{
+	return (ft_strchr(flag, str[i]) && (!i
+			|| (i && str[i - 1] != '\\')));
+}
 
 char	*remove_quote(char *str)
 {
@@ -27,11 +33,9 @@ char	*remove_quote(char *str)
 		return (NULL);
 	while (str && str[i])
 	{
-		if (ft_strchr(QUOTES_PARSE, str[i]) && (!i
-				|| (i && str[i - 1] != '\\')) && !flag)
+		if (!flag && is_flag_valid(QUOTES_PARSE, str, i))
 			flag = str[i++];
-		if (ft_strchr(&flag, str[i]) && (!i
-				|| (i && str[i - 1] != '\\')) && flag)
+		if (flag && is_flag_valid(&flag, str, i))
 		{
 			flag = 0;
 			i++;

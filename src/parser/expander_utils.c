@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:52:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 21:07:13 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:17:54 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../minishell.h"
-
-int	count_occ(char *str, char *find)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (!ft_strncmp(find, &str[i], ft_strlen(find)))
-		{
-			count++;
-			i += ft_strlen(find);
-		}
-		else
-			i++;
-	}
-	return (count);
-}
 
 int	result_len(char *str, char *find, char *replace)
 {

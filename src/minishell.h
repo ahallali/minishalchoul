@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 20:20:32 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/22 03:17:02 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef struct s_minishell
 	int						last_exitstatus;
 }	t_minishell;
 
-t_minishell				*g_minishell;
+t_minishell						*g_minishell;
 t_exec_utils					*init_exec_utils(void);
 void							close_last_fd(int fd);
 char							*get_new_line(char *prompt,
@@ -209,6 +209,7 @@ void							ft_exec(void *content);
 int								ft_check_n(char *str);
 char							*update_path(char *str, char *cmd);
 char							**convert_env(t_node *node);
+int								is_flag_valid(char *flag, char *str, int i);
 void							child(t_minishell *minishell, int stdrin, \
 									int stdrout, int *fd);
 t_node							*ft_empty(void);
@@ -261,8 +262,9 @@ int								is_valid_key(char *var);
 int								is_path_directory(const char *path);
 void							error_exec(char *path);
 void							do_clean_exit(char *error_msg, int fd,
-									int exit_status,int flag);
-
+									int exit_status, int flag);
+void							init_inserter(t_list **node, t_lex **lex,
+									t_lex **last_lex, t_parse_utils *u);
 
 t_token_info					*next_word_nrm(char *str, int *i, \
 									char *delimiter, t_token_info *info);
