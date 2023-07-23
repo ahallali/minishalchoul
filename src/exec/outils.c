@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/20 04:04:27 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/23 02:45:36 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	print_list(t_node *head)
+void print_list(t_node *head)
 {
-	t_node	*tmp;
+	t_node *tmp;
 
 	tmp = head;
 	while (tmp != NULL)
@@ -25,24 +25,23 @@ void	print_list(t_node *head)
 	}
 }
 
-void	del(char *str)
+void del(char *str)
 {
 	if (str)
 		free(str);
 }
 
-t_node	*ft_unset(t_node **head, char *var)
+t_node *ft_unset(t_node **head, char *var)
 {
-	t_node	*t;
-	t_node	*tmp;
+	t_node *t;
+	t_node *tmp;
 
 	t = *head;
 	if (!head || !var)
 		return (NULL);
 	while (t)
 	{
-		if (!ft_strncmp(t->variable, var, ft_strlen(t->variable))
-			&& ft_strncmp(t->variable, "_", 1))
+		if (!ft_strncmp(t->variable, var, ft_strlen(t->variable)) && ft_strncmp(t->variable, "_", 1))
 		{
 			if (t == *head)
 			{
@@ -64,7 +63,7 @@ t_node	*ft_unset(t_node **head, char *var)
 	return (t);
 }
 
-void	builtin_next(t_minishell *g_minishell)
+void builtin_next(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "echo"))
 		ft_echo(convert_args(g_minishell->list->args), STDOUT_FILENO);
@@ -74,26 +73,24 @@ void	builtin_next(t_minishell *g_minishell)
 		ft_export(convert_args(g_minishell->list->args));
 }
 
-void	do_builtin(t_minishell *g_minishell)
+void do_builtin(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd"))
 		ft_cd(g_minishell, convert_args(g_minishell->list->args));
-	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") \
-	&& ft_lstsize(g_minishell->list->args) == 0)
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") && ft_lstsize(g_minishell->list->args) == 0)
 		print_list(g_minishell->env);
 	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "pwd"))
 		ft_pwd(g_minishell->env, "PWD");
-	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") \
-	&& ft_lstsize(g_minishell->list->args) == 1)
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") && ft_lstsize(g_minishell->list->args) == 1)
 	{
 		if (!is_valid_key(convert_args(g_minishell->list->args)[0]))
 		{
 			perror("Not a valid identifier");
-			return ;
+			return;
 		}
 		ft_unset(&g_minishell->env, convert_args(g_minishell->list->args)[0]);
 		ft_unset(&g_minishell->export,
-			convert_args(g_minishell->list->args)[0]);
+				 convert_args(g_minishell->list->args)[0]);
 	}
 	builtin_next(g_minishell);
 }

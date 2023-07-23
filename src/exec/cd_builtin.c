@@ -3,47 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/20 04:37:35 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/23 02:45:37 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*movetodirectory(char *str, t_node *head)
+t_node *movetodirectory(char *str, t_node *head)
 {
-	t_node	*new;
-	char	*t;
-	char	*oldpwd;
+	t_node *new;
+	char *t;
+	char *oldpwd;
 
 	new = head;
 	oldpwd = getcwd(NULL, 0);
-	if (chdir(str) == 0)
+	if (oldpwd && chdir(str) == 0)
 	{
-		insert_node(&g_minishell->env, oldpwd, "OLDPWD");
-		if (getcwd(NULL, 0) != NULL)
-		{	
-			t = getcwd(NULL, 0);
-			insert_node(&g_minishell->env, t, "PWD");
-		}
-		else
-		{
-			perror("getcwd: cannot access parent directories");
-			g_minishell->last_exitstatus = 258;
-		}
+		update_env(g_minishell->env, "OLDPWD", oldpwd);
+		t = getcwd(NULL, 0);
+		insert_node(&g_minishell->env, t, "PWD");
 		return (new);
 	}
 	else
-		return (perror(str), NULL);
+	{
+
+		g_minishell->last_exitstatus = 258;
+		return (perror("getcwd: cannot access parent directories"), NULL);
+	}
 }
 
-t_node	*update_env(t_node *head, char *var, char *data)
+t_node *update_env(t_node *head, char *var, char *data)
 {
-	t_node	*t;
+	t_node *t;
 
 	t = head;
+	if (!data)
+		return (head);
 	while (t->next)
 	{
 		if (!strcmp(t->variable, var))
@@ -53,9 +51,9 @@ t_node	*update_env(t_node *head, char *var, char *data)
 	return (head);
 }
 
-char	*path_finder(t_node *head, char *var)
+char *path_finder(t_node *head, char *var)
 {
-	t_node	*t;
+	t_node *t;
 
 	t = head;
 	if (!head)
@@ -69,10 +67,10 @@ char	*path_finder(t_node *head, char *var)
 	return (NULL);
 }
 
-t_node	*ft_cd(t_minishell *head, char **t)
+t_node *ft_cd(t_minishell *head, char **t)
 {
-	t_node	*new;
-	char	*tmp;
+	t_node *new;
+	char *tmp;
 
 	new = NULL;
 	tmp = NULL;
@@ -85,7 +83,7 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		else
 			tmp = g_minishell->home;
 		if (chdir(tmp) == 0)
-		{	
+		{
 			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
 			insert_node(&g_minishell->env, tmp, "PWD");
 		}
@@ -93,10 +91,10 @@ t_node	*ft_cd(t_minishell *head, char **t)
 	return (new);
 }
 
-void	tilda_and_movetodirectory(char **t, t_minishell *head, \
-char *tmp, t_node *new)
+void tilda_and_movetodirectory(char **t, t_minishell *head,
+							   char *tmp, t_node *new)
 {
-	char	*oldpwd;
+	char *oldpwd;
 
 	oldpwd = NULL;
 	if (t[0][0] == '~')
@@ -108,11 +106,10 @@ char *tmp, t_node *new)
 			tmp = g_minishell->home;
 		if (chdir(tmp) == 0)
 		{
-			insert_node(&g_minishell->env, oldpwd \
-			,"OLDPWD");
+			insert_node(&g_minishell->env, oldpwd, "OLDPWD");
 			insert_node(&g_minishell->env, tmp, "PWD");
 		}
-		return ;
+		return;
 	}
 	else
 		new = movetodirectory(t[0], head->env);

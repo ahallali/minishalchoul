@@ -6,27 +6,27 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/19 01:33:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/23 02:45:39 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_minishell	*g_minishell;
+t_minishell *g_minishell;
 
 void f()
 {
 	system("leaks minishell");
 }
 
-void	fill_export_minishell(t_minishell *g_minishell)
+void fill_export_minishell(t_minishell *g_minishell)
 {
 	fill_export_env(&g_minishell->env);
 	g_minishell->last_exitstatus = 0;
 	g_minishell->home = get_home(g_minishell);
 }
 
-int	allocation_and_env(char **env)
+int allocation_and_env(char **env)
 {
 	g_minishell = ft_calloc(1, sizeof(t_minishell));
 	if (!g_minishell)
@@ -34,11 +34,11 @@ int	allocation_and_env(char **env)
 	if (*env)
 		g_minishell->env = ft_env(env, g_minishell);
 	else
-	g_minishell->env = ft_empty();
+		g_minishell->env = ft_empty();
 	return (1);
 }
 
-void	signals_and_line(void)
+void signals_and_line(void)
 {
 	rl_catch_signals = 0;
 	signal(SIGQUIT, SIG_IGN);
@@ -47,7 +47,7 @@ void	signals_and_line(void)
 	g_minishell->heredoc_flag = 0;
 }
 
-int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
+int prompt_and_exec(t_parse_utils *p_prompt, char *line)
 {
 	p_prompt = ft_calloc(1, sizeof(t_parse_utils));
 	if (!p_prompt)
@@ -59,10 +59,10 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	char			*line;
-	t_parse_utils	*p_prompt;
+	char *line;
+	t_parse_utils *p_prompt;
 
 	(void)ac;
 	(void)av;

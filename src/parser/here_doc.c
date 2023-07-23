@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/18 20:27:36 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/23 03:13:05 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
-char	*expand_hdoc(char *str, int expand)
+char *expand_hdoc(char *str, int expand)
 {
-	int		i;
-	char	*var;
-	char	*res;
-	char	*tmp;
+	int i;
+	char *var;
+	char *res;
+	char *tmp;
 
 	i = 0;
 	res = str;
@@ -27,14 +27,12 @@ char	*expand_hdoc(char *str, int expand)
 			g_minishell->quote_flag = res[i];
 		else if (g_minishell->quote_flag == res[i])
 			g_minishell->quote_flag = 0;
-		if (res[i] == '$'
-			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
-			&& expand)
+		if (res[i] == '$' && !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0' && expand)
 		{
 			tmp = ft_strdup(res);
 			var = extract_variable(&tmp[i]);
 			res = do_replace(res, var, i);
-			continue ;
+			continue;
 		}
 		i++;
 	}
@@ -45,17 +43,17 @@ int create_hd_file(char *name)
 {
 	(void)name;
 	return (0);
-
 }
 
-int	get_heredoc_fd(char *limiter)
+int get_heredoc_fd(char *limiter)
 {
-	int		fd[2];
-	char	*line;
-	int		expand;
+	int fd[2];
+	char *line;
+	int expand;
+	char *tmpLimiter = limiter;
 
 	expand = !has_valid_quoting(limiter);
-	limiter = remove_quote(limiter);
+	tmpLimiter = remove_quote(limiter);
 	if (pipe(fd) < 0)
 		return (perror("pipe error:"), -1);
 	g_minishell->heredoc_flag = 1;
@@ -65,8 +63,11 @@ int	get_heredoc_fd(char *limiter)
 	while (1 && !g_minishell->sigint_flag)
 	{
 		line = readline("> ");
-		if (ft_strequals(limiter, line) || !line)
-			break ;
+		if (ft_strequals(tmpLimiter, line) || !line)
+		{
+			free(line);
+			break;
+		}
 		ft_putstr_fd(ft_strjoin(expand_hdoc(line, expand), "\n"), fd[1]);
 		free(line);
 	}

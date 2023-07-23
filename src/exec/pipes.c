@@ -6,31 +6,31 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/19 02:36:18 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/23 02:45:35 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_builtin(t_minishell *g_minishell)
+int is_builtin(t_minishell *g_minishell)
 {
-	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd") || \
-		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") && \
-		ft_lstsize(g_minishell->list->args) == 0) || \
-		ft_strequals(expand_dquotes(g_minishell->list->cmd), "pwd") || \
-		ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit") || \
-		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") && \
-			ft_lstsize(g_minishell->list->args)) || \
-		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "echo")) || \
+	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd") ||
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") &&
+		 ft_lstsize(g_minishell->list->args) == 0) ||
+		ft_strequals(expand_dquotes(g_minishell->list->cmd), "pwd") ||
+		ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit") ||
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") &&
+		 ft_lstsize(g_minishell->list->args)) ||
+		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "echo")) ||
 		(ft_strequals(expand_dquotes(g_minishell->list->cmd), "export")))
 		return (1);
 	return (0);
 }
 
-void	ft_exit(t_minishell *g_minishell, char **cmd)
+void ft_exit(t_minishell *g_minishell, char **cmd)
 {
 	if (!g_minishell->list->cmd || !*g_minishell->list->cmd)
-		return ;
+		return;
 	if (!cmd || !*cmd)
 		do_clean_exit(NULL, 1, 0, 0);
 	else if (cmd[0] && !check_cmd_num(cmd[0]) && !cmd[1])
@@ -44,9 +44,9 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		ft_putstr_fd("minishell>: exit: too many arguments\n", 2);
 }
 
-int	check_cmd_num(char *cmd)
+int check_cmd_num(char *cmd)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!cmd || !*cmd)

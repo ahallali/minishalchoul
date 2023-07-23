@@ -11,3 +11,16 @@ cat | env hang
  ls > ' ' fixed
 exit | exit not fixed
  export | cat  fixed
+
+ minishell><<EOF echo "skoksosos" > file1 | echo "skoskos" | echo "Skoskso 
+> ksoksoks
+> ksoksoks
+> EOF
+> "
+> ksoksoskos
+> ksoksoks
+> EOF
+Skoskso
+ksoksoks
+ksoksoks
+EOF
