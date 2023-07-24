@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/23 03:13:05 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 01:22:48 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ int get_heredoc_fd(char *limiter)
 	int fd[2];
 	char *line;
 	int expand;
-	char *tmpLimiter = limiter;
 
 	expand = !has_valid_quoting(limiter);
-	tmpLimiter = remove_quote(limiter);
+	limiter = remove_quote(limiter);
 	if (pipe(fd) < 0)
 		return (perror("pipe error:"), -1);
 	g_minishell->heredoc_flag = 1;
@@ -63,10 +62,10 @@ int get_heredoc_fd(char *limiter)
 	while (1 && !g_minishell->sigint_flag)
 	{
 		line = readline("> ");
-		if (ft_strequals(tmpLimiter, line) || !line)
+		if (ft_strequals(limiter, line) || !line)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		ft_putstr_fd(ft_strjoin(expand_hdoc(line, expand), "\n"), fd[1]);
 		free(line);
