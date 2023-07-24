@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/23 02:45:36 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 01:55:14 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void builtin_next(t_minishell *g_minishell)
 	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit"))
 		ft_exit(g_minishell, convert_args(g_minishell->list->args));
 	else if (ft_strequals(g_minishell->list->cmd, "export"))
-		ft_export(convert_args(g_minishell->list->args));
+		ft_export(convert_args(g_minishell->list->args),g_minishell);
 }
 
 void do_builtin(t_minishell *g_minishell)

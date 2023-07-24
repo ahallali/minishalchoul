@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/22 03:17:02 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/24 01:55:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,8 +202,8 @@ void							insert_node(t_node **head, \
 char							*path_finder(t_node *head, char *var);
 t_node							*ft_cd(t_minishell *head, char **t);
 t_node							*sort_var(t_node *head, char *s);
-void							ft_export(char **args);
-t_node							*ft_unset(t_node **head, char *var);
+void ft_export(char **args, t_minishell *g_minishell);
+	t_node *ft_unset(t_node **head, char *var);
 void							execute(t_minishell *minishell);
 void							ft_exec(void *content);
 int								ft_check_n(char *str);
@@ -233,8 +233,8 @@ void							insert_to_export(char *key, \
 int								check_value(char *str);
 t_node							*add_to_export(t_node *head, \
 									char *key, char *value);
-void							add_value(char *arg);
-void							print_export_list(void);
+void add_value(char *arg, t_minishell *g_minishell);
+void print_export_list(void);
 void							fill_keys(char **keys, t_node *head);
 int								count_nodes(t_node *head);
 t_node							*get_node(t_node *head, char *key);

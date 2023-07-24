@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dquotes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/21 23:05:50 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/24 02:20:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,19 @@ char	*append_new_line(char *prompt, char delimiter)
 {
 	char		*tmp;
 	char		*line;
+	char		*res;
 
 	tmp = get_new_line("> ", NULL, delimiter);
-	line = ft_strjoin(prompt, "\n");
+	res = NULL;
 	if (tmp)
-		return (ft_strjoin(line, tmp));
-	else
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return (tmp);
+	res = ft_strdup(tmp);
+line = ft_strjoin(prompt, "\n");
+if (res)
+	return (free(tmp), ft_strjoin(line, res));
+else
+{
+	write(STDOUT_FILENO, "\n", 1);
+	return (free(tmp), res);
 	}
 	return (prompt);
 }
