@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:39:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/20 03:48:28 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/24 19:07:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*update_path(char *str, char *cmd)
 	char	*path;
 
 	tmp = NULL;
+	if (!access(cmd, F_OK | X_OK))
+		return (cmd);
 	if (!str || !cmd)
 		return (NULL);
 	if (cmd[0] == '/' || cmd[0] == '.' || check_cmd(cmd))

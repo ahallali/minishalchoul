@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 06:23:07 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 19:34:20 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,41 @@ void	ft_pwd(t_node *head, char *s)
 	t_node	*t;
 	char	*pwd;
 
+	
+	
 	pwd = NULL;
 	t = head;
+	if (s || !t)
+	{
+		if (getcwd(NULL, 0)!=NULL)
+		{
+			pwd = getcwd(NULL, 0);
+			g_minishell->pwd_stored = pwd;
+			ft_putstr_fd(pwd, 1);
+			ft_putstr_fd("\n", 1);
+			insert_node(&g_minishell->env, pwd, "PWD");
+			insert_node(&g_minishell->export, pwd, "PWD");
+		}
+		else 
+		{
+			ft_putstr_fd(g_minishell->pwd_stored, 1);
+			ft_putstr_fd("\n", 1);
+			insert_node(&g_minishell->env, g_minishell->pwd_stored, "PWD");
+			insert_node(&g_minishell->export, g_minishell->pwd_stored, "PWD");
+		}
+	}
 	while (t->next)
 	{
 		if (!ft_strncmp(t->variable, s, ft_strlen(s))
 			&& t->value)
 		{
+			g_minishell->pwd_stored = t->value;
 			ft_putstr_fd(t->value, 1);
 			ft_putstr_fd("\n", 1);
 			return ;
 		}
+		
 		t = t->next;
 	}
-	pwd = getcwd(NULL, 0);
-	ft_putstr_fd(pwd, 1);
-	ft_putstr_fd("\n", 1);
 	free(pwd);
-	insert_node(&g_minishell->env, pwd, "PWD");
-	insert_node(&g_minishell->export, pwd, "PWD");
 }

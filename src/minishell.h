@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 02:21:49 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 19:33:11 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_minishell
 	int						heredoc_flag;
 	int						sigint_flag;
 	int						last_exitstatus;
+ 	char 					*pwd_stored;
 }	t_minishell;
 
 t_minishell						*g_minishell;

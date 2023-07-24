@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/17 18:05:02 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 19:08:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ t_node	*ft_empty(void)
 	insert_node(&head, pwd, "PWD");
 	insert_node(&head, ft_itoa(shlvl), "SHLVL");
 	insert_node(&head, "/usr/bin/env", "_");
+	free(pwd);
 	return (head);
 }

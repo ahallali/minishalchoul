@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 06:16:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:13:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,30 @@ t_node	*movetodirectory(char *str, t_node *head)
 				// free(oldpwd);
 				free(t);
 				update_env(g_minishell->env, "PWD", t);
+				g_minishell->pwd_stored = t;
 			}
 			else
 			{
 				perror("cd error retrieving current directory: getcwd: cannot access parent directories:");
-				g_minishell->last_exitstatus = 258;
+				t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
+				insert_node(&g_minishell->env, t, "PWD");
+				g_minishell->pwd_stored = t;
 			}
 		}
 		else
 		{
 			free(oldpwd);
 			perror("cd :");
+			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
+			insert_node(&g_minishell->env, t, "PWD");
+			g_minishell->pwd_stored = t;
 			g_minishell->last_exitstatus = 1;
 			
 		}
 			return (new);
 	}
 	else
-	{
-
-			t = ft_strjoin(oldpwd, ft_strjoin("/", str));
-			g_minishell->last_exitstatus = 258;
-			insert_node(&g_minishell->env, t, "PWD");
-			return (perror("getcwd: cannot access parent directories"), new);
-	}
+			return (perror("getcwd: cannot access parent directory"), new);
 }
 
 t_node	*update_env(t_node *head, char *var, char *data)
@@ -111,6 +111,7 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		{
 			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
 			insert_node(&g_minishell->env, tmp, "PWD");
+			g_minishell->pwd_stored =tmp;
 		}
 		free(tmp);
 	}
@@ -134,6 +135,7 @@ void	tilda_and_movetodirectory(char **t, t_minishell *head,
 		{
 			insert_node(&g_minishell->env, oldpwd, "OLDPWD");
 			insert_node(&g_minishell->env, tmp, "PWD");
+			g_minishell->pwd_stored=tmp;
 		}
 		return ;
 	}

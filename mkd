@@ -28,4 +28,8 @@ EOF
 255 exit 587637856857685765756857685768578576857657685
 
 add exit status to builtins in child
+when directory is removed and am in it : unset pwd then pwd will be empty so cd . will segf
+echo 1 exit status ctrl c ctrl d 
+env have to execute cmd when it empty
+
 
