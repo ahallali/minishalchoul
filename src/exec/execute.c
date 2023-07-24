@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 21:47:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:27:44 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void execute(t_minishell *g_minishell)
 
 }
 
-void create_fork(t_minishell *g_minishell, t_std *var, int *fd)
+void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 {
 	pid_t pid;
 

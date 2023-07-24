@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 19:08:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:25:25 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_echo(char **str, int fd)
 		return ;
 	}
 	check_echo_arg(str, fd);
+	g_minishell->last_exitstatus = 0;
 }
 
 t_node	*ft_empty(void)

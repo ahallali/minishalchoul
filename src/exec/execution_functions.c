@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 21:12:50 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:25:51 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void create_pipe(int *fd, int *stdrout, int *old_stdrin)
+void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 {
 	if (pipe(fd) < 0)
 	{
@@ -27,7 +27,7 @@ void create_pipe(int *fd, int *stdrout, int *old_stdrin)
 }
 
 void setup_child_process(t_minishell *g_minishell,
-						 int *stdrin, int *stdrout, int *fd)
+		int *stdrin, int *stdrout, int *fd)
 {
 	child(g_minishell, *stdrin, *stdrout, fd);
 	// if(is_builtin(g_minishell) && g_minishell->list_exec->next)
@@ -56,7 +56,7 @@ void child(t_minishell *g_minishell, int stdrin, int stdrout, int *fd)
 		close(fd[0]);
 }
 
-void redirection(t_minishell *g_minishell)
+void	redirection(t_minishell *g_minishell)
 {
 	if (g_minishell->list->input_fd > 2)
 		dup2(g_minishell->list->input_fd, 0);
@@ -64,9 +64,9 @@ void redirection(t_minishell *g_minishell)
 		dup2(g_minishell->list->output_fd, 1);
 }
 
-void execute_cmd(t_minishell *g_minishell)
+void	execute_cmd(t_minishell *g_minishell)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	if (is_builtin(g_minishell))
@@ -75,9 +75,9 @@ void execute_cmd(t_minishell *g_minishell)
 		exit(15);
 	}
 	path = update_path(path_finder(g_minishell->env, "PATH"),
-					   expand_dquotes(g_minishell->list->cmd));
+			expand_dquotes(g_minishell->list->cmd));
 	if (execve(path, convert_command_args(g_minishell->list),
-			   convert_env(g_minishell->env)) == -1)
+			convert_env(g_minishell->env)) == -1)
 	{
 		error_exec(path);
 	}

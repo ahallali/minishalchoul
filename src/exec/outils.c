@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 02:23:53 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:52:05 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void del(char *str)
 		free(str);
 }
 
-t_node *ft_unset(t_node **head, char *var)
+t_node	*ft_unset(t_node **head, char *var)
 {
 	t_node *t;
 	t_node *tmp;
@@ -70,8 +70,9 @@ void	builtin_next(t_minishell *g_minishell)
 	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit"))
 		ft_exit(g_minishell, convert_args(g_minishell->list->args));
 	else if (ft_strequals(g_minishell->list->cmd, "export"))
-		ft_export(convert_args(g_minishell->list->args),g_minishell);
+		ft_export(convert_args(g_minishell->list->args), g_minishell);
 }
+
 void	ft_unset_args(t_list *l_args)
 {
 	char	**args;
@@ -91,7 +92,8 @@ void	ft_unset_args(t_list *l_args)
 		i++;
 	}
 }
-void do_builtin(t_minishell *g_minishell)
+
+void	do_builtin(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd"))
 		ft_cd(g_minishell, convert_args(g_minishell->list->args));
