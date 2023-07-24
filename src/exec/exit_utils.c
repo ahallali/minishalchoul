@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:09:20 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/24 05:07:10 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:49:36 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	error_exec(char *path)
 	else if (errno == ENOENT)
 		ft_putstr_fd("minishell:No such file or directory\n", 2);
 	else
-		perror("minishell"); 
-		do_clean_exit(NULL,2,126,1);
+		perror("minishell");
+	do_clean_exit(NULL, 2, 126, 1);
 }
 
 void	do_clean_exit(char *error_msg, int fd, int exit_status, int flag)

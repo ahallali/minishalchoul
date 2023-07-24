@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 19:33:11 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:25:18 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ t_token_info					*token_delim(char *str, int *i, \
 									t_token_info *info);
 t_token_info					*token_last(char *str, t_token_info *info);
 int								get_heredoc_fd(char *limiter);
+int								io_heredoc(char *limiter, int expand, int fd);
 char							*expand_dquotes(char *str);
 char							*remove_quote(char *str);
 char							*ft_str_replace(char *str, char *find, \
@@ -203,8 +204,8 @@ void							insert_node(t_node **head, \
 char							*path_finder(t_node *head, char *var);
 t_node							*ft_cd(t_minishell *head, char **t);
 t_node							*sort_var(t_node *head, char *s);
-void ft_export(char **args, t_minishell *g_minishell);
-	t_node *ft_unset(t_node **head, char *var);
+void							ft_export(char **args, t_minishell *g_minishell);
+									t_node *ft_unset(t_node **head, char *var);
 void							execute(t_minishell *minishell);
 void							ft_exec(void *content);
 int								ft_check_n(char *str);
