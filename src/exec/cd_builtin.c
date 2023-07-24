@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 21:13:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:15:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,13 @@ t_node	*movetodirectory(char *str, t_node *head)
 	{
 		if (chdir(str) == 0)
 		{
-			puts("test1");
 			update_env(g_minishell->env, "OLDPWD", oldpwd);
 			t = getcwd(NULL, 0);
 			if (t)
 			{
-				// free(oldpwd);
-				free(t);
 				update_env(g_minishell->env, "PWD", t);
 				g_minishell->pwd_stored = t;
+				free(t);
 			}
 			else
 			{
@@ -46,7 +44,6 @@ t_node	*movetodirectory(char *str, t_node *head)
 		}
 		else
 		{
-			free(oldpwd);
 			perror("cd :");
 			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 			insert_node(&g_minishell->env, t, "PWD");
@@ -54,10 +51,8 @@ t_node	*movetodirectory(char *str, t_node *head)
 			g_minishell->last_exitstatus = 1;
 			
 		}
-			return (new);
 	}
-	else
-			return (perror("getcwd: cannot access parent directory"), new);
+	return (new);
 }
 
 t_node	*update_env(t_node *head, char *var, char *data)

@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS =-Wall -Werror -Wextra -I /Users/ahallali/goinfre/.brew/opt/readline/include
+CFLAGS =-Wall -Werror -Wextra -I /Users/ahallali/goinfre/.brew/opt/readline/include 
 LDFLAGS = -lreadline
 SRCDIR = src
 OBJDIR = obj

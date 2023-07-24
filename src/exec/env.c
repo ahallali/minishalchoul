@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 19:34:20 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:31:48 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_pwd(t_node *head, char *s)
 	
 	pwd = NULL;
 	t = head;
+	puts("here");
 	if (s || !t)
 	{
 		if (getcwd(NULL, 0)!=NULL)

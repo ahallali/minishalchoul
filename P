@@ -1,0 +1,12 @@
+1
+Makefile
+P
+a
+file1
+libft
+minishell
+mkd
+obj
+ook
+src
+lalalaalaal

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 02:27:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:47:19 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void execute(t_minishell *g_minishell)
 	signal(SIGINT, SIG_IGN);
 	wait_and_print_exit_status();
 	signal(SIGINT, handler);
+
 }
 
 void create_fork(t_minishell *g_minishell, t_std *var, int *fd)
