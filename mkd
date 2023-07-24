@@ -8,9 +8,9 @@ long long exit
 
 unset PWD and print it
 cat | env hang
- ls > ' ' fixed
+ls > ' ' fixed
 exit | exit not fixed
- export | cat  fixed
+export | cat  fixed
 
  minishell><<EOF echo "skoksosos" > file1 | echo "skoskos" | echo "Skoskso 
 > ksoksoks
@@ -24,3 +24,8 @@ Skoskso
 ksoksoks
 ksoksoks
 EOF
+
+255 exit 587637856857685765756857685768578576857657685
+
+add exit status to builtins in child
+

@@ -31,6 +31,10 @@
         "type_traits": "c",
         "vector": "c",
         "wait.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "complex": "c",
+        "array": "c",
+        "istream": "c",
+        "utility": "c"
     }
 }

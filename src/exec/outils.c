@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 02:22:21 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 02:23:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,25 @@ void	builtin_next(t_minishell *g_minishell)
 	else if (ft_strequals(g_minishell->list->cmd, "export"))
 		ft_export(convert_args(g_minishell->list->args),g_minishell);
 }
+void	ft_unset_args(t_list *l_args)
+{
+	char	**args;
+	int		i;
 
+	i = 0;
+	args = convert_args(l_args);
+	while (args[i])
+	{
+		if (!is_valid_key(args[i]))
+		{
+			perror("Not a valid identifier");
+			return ;
+		}
+		ft_unset(&g_minishell->env, args[i]);
+		ft_unset(&g_minishell->export, args[i]);
+		i++;
+	}
+}
 void do_builtin(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd"))

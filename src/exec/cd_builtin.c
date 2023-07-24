@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 01:23:56 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/24 06:16:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,41 @@ t_node	*movetodirectory(char *str, t_node *head)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 			oldpwd = get_node(g_minishell->env, "PWD")->value;
-	if (oldpwd && chdir(str) == 0)
+	if (oldpwd)
 	{
-		update_env(g_minishell->env, "OLDPWD", oldpwd);
-		t = getcwd(NULL, 0);
-		update_env(g_minishell->env, "PWD",t);
-		free(oldpwd);
-		free(t);
-		return (new);
+		if (chdir(str) == 0)
+		{
+			puts("test1");
+			update_env(g_minishell->env, "OLDPWD", oldpwd);
+			t = getcwd(NULL, 0);
+			if (t)
+			{
+				// free(oldpwd);
+				free(t);
+				update_env(g_minishell->env, "PWD", t);
+			}
+			else
+			{
+				perror("cd error retrieving current directory: getcwd: cannot access parent directories:");
+				g_minishell->last_exitstatus = 258;
+			}
+		}
+		else
+		{
+			free(oldpwd);
+			perror("cd :");
+			g_minishell->last_exitstatus = 1;
+			
+		}
+			return (new);
 	}
 	else
 	{
-		t = ft_strjoin(oldpwd, ft_strjoin("/", str));
-		g_minishell->last_exitstatus = 258;
-		insert_node(&g_minishell->env, t, "PWD");
-		return (perror("getcwd: cannot access parent directories"), new);
+
+			t = ft_strjoin(oldpwd, ft_strjoin("/", str));
+			g_minishell->last_exitstatus = 258;
+			insert_node(&g_minishell->env, t, "PWD");
+			return (perror("getcwd: cannot access parent directories"), new);
 	}
 }
 
