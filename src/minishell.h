@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 01:55:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 02:21:49 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,4 +270,6 @@ t_token_info					*next_word_nrm(char *str, int *i, \
 									char *delimiter, t_token_info *info);
 int								is_nextword_valid(char *str, int *i, \
 									char *delimiter, t_token_info *info);
+void							ft_unset_args(t_list *l_args);
+
 #endif

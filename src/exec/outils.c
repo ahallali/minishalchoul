@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 01:55:14 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 02:22:21 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_node *ft_unset(t_node **head, char *var)
 	return (t);
 }
 
-void builtin_next(t_minishell *g_minishell)
+void	builtin_next(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "echo"))
 		ft_echo(convert_args(g_minishell->list->args), STDOUT_FILENO);
@@ -77,20 +77,13 @@ void do_builtin(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd"))
 		ft_cd(g_minishell, convert_args(g_minishell->list->args));
-	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") && ft_lstsize(g_minishell->list->args) == 0)
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "env")
+		&& ft_lstsize(g_minishell->list->args) == 0)
 		print_list(g_minishell->env);
 	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "pwd"))
 		ft_pwd(g_minishell->env, "PWD");
-	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") && ft_lstsize(g_minishell->list->args) == 1)
-	{
-		if (!is_valid_key(convert_args(g_minishell->list->args)[0]))
-		{
-			perror("Not a valid identifier");
-			return;
-		}
-		ft_unset(&g_minishell->env, convert_args(g_minishell->list->args)[0]);
-		ft_unset(&g_minishell->export,
-				 convert_args(g_minishell->list->args)[0]);
-	}
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset")
+		&& ft_lstsize(g_minishell->list->args) >= 1)
+		ft_unset_args(g_minishell->list->args);
 	builtin_next(g_minishell);
 }
