@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 03:03:19 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:23:34 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 00:55:16 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ for matching `\"'\n", STDERR_FILENO), 0);
 		if (is_enum_redirection(lex->type) && !lex->filename)
 			return (ft_putstr_fd("Syntax error: unexpcted token \
 after redirection\n", STDERR_FILENO), 0);
-		else if (lex->type == PIPE && !n->next)
+		else if (lex->type == PIPE && (!n->next || n == utils->list_cmds))
 			return (ft_putstr_fd("Syntax error: expected token \
 after pipe\n", STDERR_FILENO), 0);
 		n = n->next;

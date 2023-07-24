@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 16:59:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 01:18:02 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	is_valid_key(char *var)
 	int	i;
 
 	i = 0;
-	if (!var[i] || ft_isdigit(var[i++]))
+	if (!var[i]
+		|| !((ft_isalpha(var[i]) || var[i] == 95) || ft_isdigit(var[i++])))
 		return (0);
 	while (ft_isalpha(var[i]) || var[i] == 95 || ft_isdigit(var[i]))
 		i++;
 	if (!var[i] || var[i] == '=' || (var[i] == '+' && var[i + 1] == '='))
 		return (1);
-	printf("var %c\n", var[i]);
 	return (0);
 }
 
@@ -80,7 +80,7 @@ void	add_value(char *arg)
 	append = 0;
 	if (!is_valid_key(arg))
 	{
-		perror("not a valid identifier");
+		printf("export `%s': not a valid identifier\n", arg);
 		return ;
 	}
 	op = ft_strchr(arg, '=');

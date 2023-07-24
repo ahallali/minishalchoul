@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 01:04:40 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/24 01:16:37 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	insert_node(t_node **head, char *value, char *variable)
 	t_node	*new;
 	t_node	*current;
 
+	if (!variable)
+		return ;
 	new = create_node(value, variable);
 	if (*head == NULL)
 		*head = new;
@@ -49,7 +51,7 @@ void	insert_node(t_node **head, char *value, char *variable)
 			}
 			current = current->next;
 		}
-	current->next = new;
+		current->next = new;
 	}
 }
 
