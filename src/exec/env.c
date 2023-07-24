@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/22 03:21:24 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/24 01:04:40 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	ft_pwd(t_node *head, char *s)
 	pwd = getcwd(NULL, 0);
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);
+	free(pwd);
 	insert_node(&g_minishell->env, pwd, "PWD");
 	insert_node(&g_minishell->export, pwd, "PWD");
 }
