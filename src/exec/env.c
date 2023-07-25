@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 23:31:48 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:48:50 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,14 @@ void	ft_pwd(t_node *head, char *s)
 	
 	pwd = NULL;
 	t = head;
-	puts("here");
+	
+			pwd = getcwd(NULL, 0);
 	if (s || !t)
 	{
-		if (getcwd(NULL, 0)!=NULL)
+		if (pwd!=NULL)
 		{
-			pwd = getcwd(NULL, 0);
-			g_minishell->pwd_stored = pwd;
+			
+			g_minishell->pwd_stored = ft_strdup(pwd);
 			ft_putstr_fd(pwd, 1);
 			ft_putstr_fd("\n", 1);
 			insert_node(&g_minishell->env, pwd, "PWD");
@@ -134,6 +135,7 @@ void	ft_pwd(t_node *head, char *s)
 		if (!ft_strncmp(t->variable, s, ft_strlen(s))
 			&& t->value)
 		{
+			// printf("g3 = %s\n",g_minishell->pwd_stored);
 			g_minishell->pwd_stored = t->value;
 			ft_putstr_fd(t->value, 1);
 			ft_putstr_fd("\n", 1);
@@ -142,5 +144,4 @@ void	ft_pwd(t_node *head, char *s)
 		
 		t = t->next;
 	}
-	free(pwd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/19 02:27:29 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:28:05 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ void	wait_and_print_exit_status(void)
 	{
 		exitstatus = WEXITSTATUS(status);
 		g_minishell->last_exitstatus = exitstatus;
+	}
+	else if (WIFSIGNALED(status)) {
+		exitstatus = WTERMSIG(status);
+		g_minishell->last_exitstatus = 128+exitstatus;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 21:51:07 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:22:13 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	handler(int sig)
 		g_minishell->sigint_flag = 1;
 		write(STDIN_FILENO, &cr, 1);
 	}
-	// g_minishell->last_exitstatus = 130;
 	g_minishell->last_exitstatus = 1;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 1);

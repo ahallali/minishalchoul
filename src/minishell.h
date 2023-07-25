@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 23:25:18 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/25 13:58:10 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct s_minishell
  	char 					*pwd_stored;
 }	t_minishell;
 
-t_minishell						*g_minishell;
+extern t_minishell						*g_minishell;
 t_exec_utils					*init_exec_utils(void);
 void							close_last_fd(int fd);
 char							*get_new_line(char *prompt,

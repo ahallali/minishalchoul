@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/25 00:15:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:09:58 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 			if (t)
 			{
 				update_env(g_minishell->env, "PWD", t);
-				g_minishell->pwd_stored = t;
+				g_minishell->pwd_stored = ft_strdup(t);
 				free(t);
 			}
 			else
@@ -39,7 +39,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 				perror("cd error retrieving current directory: getcwd: cannot access parent directories:");
 				t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 				insert_node(&g_minishell->env, t, "PWD");
-				g_minishell->pwd_stored = t;
+				g_minishell->pwd_stored = ft_strdup(t);
 			}
 		}
 		else
@@ -47,7 +47,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 			perror("cd :");
 			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 			insert_node(&g_minishell->env, t, "PWD");
-			g_minishell->pwd_stored = t;
+			g_minishell->pwd_stored = ft_strdup(t);
 			g_minishell->last_exitstatus = 1;
 			
 		}
