@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/25 14:09:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 03:16:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 				update_env(g_minishell->env, "PWD", t);
 				g_minishell->pwd_stored = ft_strdup(t);
 				free(t);
+				free(oldpwd);
 			}
 			else
 			{
@@ -49,7 +50,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 			insert_node(&g_minishell->env, t, "PWD");
 			g_minishell->pwd_stored = ft_strdup(t);
 			g_minishell->last_exitstatus = 1;
-			
+			free(oldpwd);
 		}
 	}
 	return (new);
@@ -108,7 +109,7 @@ t_node	*ft_cd(t_minishell *head, char **t)
 			insert_node(&g_minishell->env, tmp, "PWD");
 			g_minishell->pwd_stored =tmp;
 		}
-		free(tmp);
+		// free(tmp);
 	}
 	return (new);
 }

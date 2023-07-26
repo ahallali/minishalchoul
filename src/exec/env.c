@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/25 14:48:50 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 03:05:43 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	insert_node(t_node **head, char *value, char *variable)
 		{
 			if (ft_strequals(current->variable, variable))
 			{
-				current->value = ft_strdup(value);
+				current->value = value;
 				return ;
 			}
 			current = current->next;
@@ -110,7 +110,7 @@ void	ft_pwd(t_node *head, char *s)
 	pwd = NULL;
 	t = head;
 	
-			pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, 0);
 	if (s || !t)
 	{
 		if (pwd!=NULL)
@@ -121,6 +121,7 @@ void	ft_pwd(t_node *head, char *s)
 			ft_putstr_fd("\n", 1);
 			insert_node(&g_minishell->env, pwd, "PWD");
 			insert_node(&g_minishell->export, pwd, "PWD");
+			free(pwd);
 		}
 		else 
 		{
@@ -130,18 +131,20 @@ void	ft_pwd(t_node *head, char *s)
 			insert_node(&g_minishell->export, g_minishell->pwd_stored, "PWD");
 		}
 	}
+	else
+	{
+
 	while (t->next)
 	{
 		if (!ft_strncmp(t->variable, s, ft_strlen(s))
 			&& t->value)
 		{
-			// printf("g3 = %s\n",g_minishell->pwd_stored);
-			g_minishell->pwd_stored = t->value;
 			ft_putstr_fd(t->value, 1);
 			ft_putstr_fd("\n", 1);
+			g_minishell->pwd_stored = ft_strdup(t->value);
 			return ;
 		}
-		
 		t = t->next;
 	}
+	} 
 }
