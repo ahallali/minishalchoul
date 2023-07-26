@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/25 14:21:39 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:15:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void execute(t_minishell *g_minishell)
 		g_minishell->list_exec = g_minishell->list_exec->next;
 	}
 	close_fd(&var.old, &var.old_out);
-	signal(SIGINT, SIG_IGN);
-
+	g_minishell->runned = 1;
+	// if (g_minishell->runned)
+		// ft_putstr_fd("\n",1);
+	// signal(SIGINT, SIG_IGN);
 	wait_and_print_exit_status();
-	signal(SIGINT, handler);
+	// signal(SIGINT, handler);
 
 }
 
@@ -64,8 +66,8 @@ void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 	}
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		g_minishell->last_exitstatus=130;
+		// signal(SIGINT, SIG_DFL);
+		// g_minishell->last_exitstatus=130;
 		signal(SIGQUIT, SIG_DFL);
 		close_fd(&var->old, &var->old_out);
 		setup_child_process(g_minishell, &var->stdrin, &var->stdrout, fd);

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 03:18:43 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:32:13 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int allocation_and_env(char **env)
 void signals_and_line(void)
 {
 	rl_catch_signals = 0;
+	// g_minishell->last_exitstatus = 0;
+	;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, (void *)handler);
 	g_minishell->sigint_flag = 0;
@@ -55,7 +57,11 @@ int prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	p_prompt->prompt = ft_strdup(line);
 	g_minishell->list_exec = parse_prompt(p_prompt->prompt, p_prompt);
 	if (!g_minishell->sigint_flag && g_minishell->list_exec)
-		execute(g_minishell);
+	{
+	g_minishell->runned = 1;
+	execute(g_minishell);
+	}
+	g_minishell->runned=0;
 	return (0);
 }
 
@@ -71,9 +77,9 @@ int main(int ac, char **av, char **env)
 	// atexit(f);
 	allocation_and_env(env);
 	fill_export_minishell(g_minishell);
+		signals_and_line();
 	while (1)
 	{
-		signals_and_line();
 		line = readline("minishell>");
 		if (!line)
 		{

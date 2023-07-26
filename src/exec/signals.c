@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/25 14:22:13 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:26:26 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	handler(int sig)
 
 	(void)sig;
 	cr = 13;
-	// if (g_minishell->heredoc_flag)
-	// 	signal(SIGINT, SIG_DFL);
-	// printf("sig : %d", sig);
+	
 	if (g_minishell->heredoc_flag && sig == SIGINT)
 	{
 		g_minishell->sigint_flag = 1;
 		write(STDIN_FILENO, &cr, 1);
 	}
+	if (g_minishell->runned)
+		return;
 	g_minishell->last_exitstatus = 1;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 1);

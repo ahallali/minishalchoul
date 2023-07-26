@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/24 02:29:45 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:37:08 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
 		add_history(prompt);
 	utils->prompt = prompt;
 	tok = next_word(prompt, "| \t");
+	if(!tok)
+		return(NULL);
 	while (tok)
 	{
 		inserter_to_lexer(tok, utils);
@@ -80,3 +82,4 @@ t_list	*parse_prompt(char *prompt, t_parse_utils *utils)
 	result = get_exec(utils);
 	return (result);
 }
+//

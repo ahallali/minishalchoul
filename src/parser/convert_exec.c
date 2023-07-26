@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:21:53 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 20:45:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:37:33 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	handle_pipe(t_lex *tmp, t_list *l_tmp,
 				t_exec_utils **exec, t_list **result)
 {
 	if (tmp->type == PIPE && !l_tmp->next)
-		return (perror("Syntax Error: Expected command after pipe"), 0);
+		return (perror("Syntax Error: Expected command after pipe"), g_minishell->last_exitstatus = 258, 0);
 	if (tmp->type == PIPE)
 	{
 		ft_lstadd_back(result, ft_lstnew(*exec));

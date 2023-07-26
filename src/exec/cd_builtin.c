@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 03:16:56 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:53:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ t_node	*movetodirectory(char *str, t_node *head)
 
 	new = head;
 	oldpwd = getcwd(NULL, 0);
+	if (!str)
+		return (NULL);
 	if (!oldpwd)
-			oldpwd = get_node(g_minishell->env, "PWD")->value;
+		oldpwd = get_node(g_minishell->env, "PWD")->value;
 	if (oldpwd)
 	{
 		if (chdir(str) == 0)
@@ -48,7 +50,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 			perror("cd :");
 			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 			insert_node(&g_minishell->env, t, "PWD");
-			g_minishell->pwd_stored = ft_strdup(t);
+			g_minishell->pwd_stored = t;
 			g_minishell->last_exitstatus = 1;
 			free(oldpwd);
 		}
@@ -109,7 +111,6 @@ t_node	*ft_cd(t_minishell *head, char **t)
 			insert_node(&g_minishell->env, tmp, "PWD");
 			g_minishell->pwd_stored =tmp;
 		}
-		// free(tmp);
 	}
 	return (new);
 }
