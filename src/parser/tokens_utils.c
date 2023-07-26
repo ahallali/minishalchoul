@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 14:36:51 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:35:57 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 int	token_redirection(char *str, t_lex *lex, t_lex *last_lex, t_parse_utils *u)
 {
@@ -48,7 +48,8 @@ t_token_info	*token_io(char *str, int *i, t_token_info *info)
 	if ((ft_strnchr(IO_PARSE, str[*i + 1], 1)
 			&& ft_strnchr(IO_PARSE, str[*i + 2], 1))
 		|| (str[*i] == IO_PARSE[1] && str[*i + 1] == IO_PARSE[0]))
-		return (perror("Syntax error : unexpected token found"), g_minishell->last_exitstatus = 258,NULL);
+		return (perror("Syntax error : unexpected token found"), \
+			g_minishell->last_exitstatus = 258, NULL);
 	while (str[*i + 1] == *c && !ft_strchr("<>", *c))
 		(*i)++;
 	if (str[*i] == str[*i + 1])
@@ -67,7 +68,8 @@ t_token_info	*token_delim(char *str, int *i, t_token_info *info)
 	info->word = ft_substr(str, 0, *i);
 	if (ft_strnchr(DELIMS_PARSE, str[*i], 2)
 		&& ft_strnchr(DELIMS_PARSE, str[*i + 1], 1))
-		return (perror("Syntax error : unexpected token found2"), g_minishell->last_exitstatus = 258, NULL);
+		return (perror("Syntax error : unexpected token found2"), \
+		g_minishell->last_exitstatus = 258, NULL);
 	info->limiter = &str[*i];
 	info->next_start = &str[*i + 1];
 	return (info);

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 14:55:02 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:39:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define _DELIMS_PARSE "|<> \t"
 # define IO_PARSE "<>"
 # define QUOTES_PARSE "\"'"
+# define ERRCD "cd error retrieving current directory: \
+getcwd:cannot access parent directories"
 
 typedef enum e_lex_type
 {
@@ -123,8 +125,8 @@ typedef struct s_minishell
 	int						heredoc_flag;
 	int						sigint_flag;
 	int						last_exitstatus;
- 	char 					*pwd_stored;
-	int 					runned;
+	char					*pwd_stored;
+	int						runned;
 }	t_minishell;
 
 extern t_minishell						*g_minishell;
@@ -205,8 +207,9 @@ void							insert_node(t_node **head, \
 char							*path_finder(t_node *head, char *var);
 t_node							*ft_cd(t_minishell *head, char **t);
 t_node							*sort_var(t_node *head, char *s);
-void							ft_export(char **args, t_minishell *g_minishell);
-									t_node *ft_unset(t_node **head, char *var);
+void							ft_export(char **args, \
+								t_minishell *g_minishell);
+void							ft_unset(t_node **head, char *var);
 void							execute(t_minishell *minishell);
 void							ft_exec(void *content);
 int								ft_check_n(char *str);
@@ -236,8 +239,8 @@ void							insert_to_export(char *key, \
 int								check_value(char *str);
 t_node							*add_to_export(t_node *head, \
 									char *key, char *value);
-void add_value(char *arg, t_minishell *g_minishell);
-void print_export_list(void);
+void							add_value(char *arg, t_minishell *g_minishell);
+void							print_export_list(void);
 void							fill_keys(char **keys, t_node *head);
 int								count_nodes(t_node *head);
 t_node							*get_node(t_node *head, char *key);
@@ -274,5 +277,10 @@ t_token_info					*next_word_nrm(char *str, int *i, \
 int								is_nextword_valid(char *str, int *i, \
 									char *delimiter, t_token_info *info);
 void							ft_unset_args(t_list *l_args);
-
+void							update_directory(char *str, char *oldpwd, \
+								char *t);
+t_node							*init_variables(t_node **head, char *var);
+void							get_pwd(char *pwd);
+void							search_in_env(t_node *t, char *s);
+void							builtin_next(t_minishell *g_minishell);
 #endif

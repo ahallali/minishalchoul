@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 01:54:30 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:44:24 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_valid_key(char *str)
 	return (0);
 }
 
-void	ft_export(char **args,t_minishell * g_minishell)
+void	ft_export(char **args, t_minishell *g_minishell)
 {
 	int	x;
 
@@ -87,6 +87,6 @@ void	ft_export(char **args,t_minishell * g_minishell)
 	if (!args || !*args)
 		print_export_list();
 	while (args && args[x])
-		add_value(args[x++],g_minishell);
+		add_value(args[x++], g_minishell);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 02:57:30 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:58:02 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,16 @@ void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 	}
 }
 
-void setup_child_process(t_minishell *g_minishell,
+void	setup_child_process(t_minishell *g_minishell,
 		int *stdrin, int *stdrout, int *fd)
 {
 	child(g_minishell, *stdrin, *stdrout, fd);
-	// if(is_builtin(g_minishell) && g_minishell->list_exec->next)
-	// {
-	// 	close();
-	// 	do_builtin(g_minishell);
-	// }
 	redirection(g_minishell);
 	execute_cmd(g_minishell);
-	// ft_lstiter(*get_gcollector(), ft_free);
 }
+	// ft_lstiter(*get_gcollector(), ft_free);
 
-void child(t_minishell *g_minishell, int stdrin, int stdrout, int *fd)
+void	child(t_minishell *g_minishell, int stdrin, int stdrout, int *fd)
 {
 	if (stdrin != -1)
 	{

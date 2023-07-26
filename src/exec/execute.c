@@ -6,13 +6,13 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 15:15:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:29:31 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void init_var(t_std *var)
+void	init_var(t_std *var)
 {
 	var->old_stdrin = -1;
 	var->old = dup(0);
@@ -20,24 +20,25 @@ void init_var(t_std *var)
 	var->stdrin = -1;
 }
 
-void execute(t_minishell *g_minishell)
+void	execute(t_minishell *g_minishell)
 {
-	int fd[2];
-	t_std var;
-	size_t size = ft_lstsize(g_minishell->list_exec);
+	int		fd[2];
+	t_std	var;
+	size_t	size;
 
+	size = ft_lstsize(g_minishell->list_exec);
 	init_var(&var);
 	while (g_minishell->list_exec)
 	{
 		var.stdrout = -1;
 		g_minishell->list = (t_exec_utils *)g_minishell->list_exec->content;
 		if (!g_minishell->list->cmd)
-			break;
-		if (size == 1 &&
-			is_builtin(g_minishell) && g_minishell->list->input_fd)
+			break ;
+		if (size == 1 && \
+			is_builtin(g_minishell))
 		{
 			parent_builtin_red(g_minishell, var.old, var.old_out);
-			break;
+			break ;
 		}
 		if (g_minishell->list_exec->next)
 			create_pipe(fd, &var.stdrout, &var.old_stdrin);
@@ -46,17 +47,11 @@ void execute(t_minishell *g_minishell)
 	}
 	close_fd(&var.old, &var.old_out);
 	g_minishell->runned = 1;
-	// if (g_minishell->runned)
-		// ft_putstr_fd("\n",1);
-	// signal(SIGINT, SIG_IGN);
-	wait_and_print_exit_status();
-	// signal(SIGINT, handler);
-
 }
 
 void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
@@ -66,8 +61,6 @@ void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 	}
 	if (pid == 0)
 	{
-		// signal(SIGINT, SIG_DFL);
-		// g_minishell->last_exitstatus=130;
 		signal(SIGQUIT, SIG_DFL);
 		close_fd(&var->old, &var->old_out);
 		setup_child_process(g_minishell, &var->stdrin, &var->stdrout, fd);
@@ -76,13 +69,13 @@ void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 		setup_parent_process(g_minishell, fd, &var->stdrin, &var->old_stdrin);
 }
 
-void close_fd(int *old, int *old_out)
+void	close_fd(int *old, int *old_out)
 {
 	close(*old);
 	close(*old_out);
 }
 
-void parent_builtin_red(t_minishell *g_minishell, int old, int old_out)
+void	parent_builtin_red(t_minishell *g_minishell, int old, int old_out)
 {
 	if (g_minishell->list->input_fd != -1 || g_minishell->list->output_fd != -1)
 	{

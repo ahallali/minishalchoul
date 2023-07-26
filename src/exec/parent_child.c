@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 15:13:28 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:34:01 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 void	parent(t_minishell *g_minishell, int *fd, int stdrin)
 {
@@ -38,27 +38,28 @@ void	setup_parent_process(t_minishell *g_minishell, \
 void	wait_and_print_exit_status(void)
 {
 	int	status;
-	int	exitstatus=0;
+	int	exitstatus;
+
+	exitstatus = 0;
 	while (waitpid(-1, &status, 0) != -1)
- 	if (WIFSIGNALED(status))
 	{
-		if (WTERMSIG(status) == SIGINT)
+		if (WIFSIGNALED(status))
 		{
-			ft_putstr_fd("\n",1);
-			g_minishell->last_exitstatus = 128 + WTERMSIG(status);
-
+			if (WTERMSIG(status) == SIGINT)
+			{
+				ft_putstr_fd("\n", 1);
+				g_minishell->last_exitstatus = 128 + WTERMSIG(status);
+			}
+			if (WTERMSIG(status) == SIGQUIT)
+			{
+				ft_putstr_fd("Quit: 3\n", 1);
+				g_minishell->last_exitstatus = 128 + WTERMSIG(status);
+			}
 		}
-		 if (WTERMSIG(status) == SIGQUIT)
+		else if (WIFEXITED(status))
 		{
-			ft_putstr_fd("Quit: 3\n",1);
-			g_minishell->last_exitstatus = 128 + WTERMSIG(status);
+			exitstatus = WEXITSTATUS(status);
+			g_minishell->last_exitstatus = exitstatus;
 		}
 	}
-	else if  (WIFEXITED(status))
-	{
-		// puts("sd");
-		exitstatus = WEXITSTATUS(status);
-		g_minishell->last_exitstatus = exitstatus;
-	}
-
 }

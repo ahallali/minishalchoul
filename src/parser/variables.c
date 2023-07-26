@@ -6,11 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 01:52:17 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/17 21:04:46 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:40:54 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 int	is_valid_variable(char *var)
 {

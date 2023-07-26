@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dquotes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/24 18:47:40 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/26 16:41:46 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 int	validate_quote(char *str)
 {
@@ -48,7 +48,7 @@ char	*append_new_line(char *prompt, char delimiter)
 	tmp = get_new_line("> ", NULL, delimiter);
 	res = NULL;
 	if (tmp)
-	res = ft_strdup(tmp);
+		res = ft_strdup(tmp);
 	line = ft_strjoin(prompt, "\n");
 	if (res)
 		return (free(tmp), ft_strjoin(line, res));

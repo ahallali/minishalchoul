@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/24 23:24:25 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/26 16:43:35 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	parse_key_value(char *arg, char *op, int append)
 	update_node(key, expand_dquotes(value), append);
 }
 
-void	add_value(char *arg,t_minishell * g_minishell)
+void	add_value(char *arg, t_minishell *g_minishell)
 {
 	char	*op;
 	int		append;

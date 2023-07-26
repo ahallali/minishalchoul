@@ -6,27 +6,25 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 15:26:26 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:13:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-	// rl_catch_signals = 1;
 void	handler(int sig)
 {
 	char	cr;
 
 	(void)sig;
 	cr = 13;
-	
 	if (g_minishell->heredoc_flag && sig == SIGINT)
 	{
 		g_minishell->sigint_flag = 1;
 		write(STDIN_FILENO, &cr, 1);
 	}
 	if (g_minishell->runned)
-		return;
+		return ;
 	g_minishell->last_exitstatus = 1;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 1);
@@ -49,4 +47,32 @@ char	*get_home(t_minishell *g_minishell)
 		tmp = tmp->next;
 	}
 	return (t);
+}
+
+void	do_builtin(t_minishell *g_minishell)
+{
+	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "cd"))
+		ft_cd(g_minishell, convert_args(g_minishell->list->args));
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "env") \
+		&& ft_lstsize(g_minishell->list->args) == 0)
+		print_list(g_minishell->env);
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "pwd"))
+		ft_pwd(g_minishell->env, "PWD");
+	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "unset") \
+	&& ft_lstsize(g_minishell->list->args) >= 1)
+		ft_unset_args(g_minishell->list->args);
+	builtin_next(g_minishell);
+}
+
+void	print_list(t_node *head)
+{
+	t_node	*tmp;
+
+	tmp = head;
+	while (tmp != NULL)
+	{
+		if (tmp->value)
+			printf("%s=%s\n", tmp->variable, tmp->value);
+		tmp = tmp->next;
+	}
 }
