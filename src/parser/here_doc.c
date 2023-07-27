@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 19:00:10 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/27 20:02:06 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	get_heredoc_fd(char *limiter)
 	int		fd[2];
 	int		expand;
 
-	expand = !has_valid_quoting(limiter);
+	if (ft_strchr(QUOTES_PARSE, *limiter))
+		expand = 0;
 	limiter = remove_quote(limiter);
 	if (pipe(fd) < 0)
 		return (perror("pipe error:"), -1);
