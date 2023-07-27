@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/27 19:11:21 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/27 19:55:40 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	for_norm(char *t, char *str, char *oldpwd)
 {
-	perror("cd :");
+	perror("cd : ");
 	t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 	insert_node(&g_minishell->env, t, "PWD");
 	g_minishell->pwd_stored = t;
@@ -38,9 +38,12 @@ void	update_directory(char *str, char *oldpwd, char *t)
 		else
 		{
 			perror(ERRCD);
+			if (check_str(str))
+			{
 			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 			insert_node(&g_minishell->env, t, "PWD");
 			g_minishell->pwd_stored = ft_strdup(t);
+			}
 		}
 	}
 	else
@@ -63,6 +66,14 @@ void	search_in_env(t_node *t, char *s)
 	}
 }
 
+int check_str (char *str)
+{
+	int i = 0;
+	if (str[i] == '.' || str[i] == '.' && str[i+1] == '.')
+		return (1);
+	return (0);
+}
+
 void	get_pwd(char *pwd)
 {
 	if (pwd != NULL)
@@ -81,4 +92,27 @@ void	get_pwd(char *pwd)
 		insert_node(&g_minishell->env, g_minishell->pwd_stored, "PWD");
 		insert_node(&g_minishell->export, g_minishell->pwd_stored, "PWD");
 	}
+}
+
+
+
+char * join_cmd_err(char *str)
+{
+	int i = 0;
+	int j = 0;
+	char *t;
+	char *res;
+	while (str[i])
+	{
+		if (str[i] == ':')
+		{
+
+			j = i;
+			break;
+		}
+		i++;
+	}
+	t = ft_strjoin(ft_substr(str, 0, j+1),ft_strjoin(" ",expand_dquotes(g_minishell->list->cmd)));
+	res = ft_strjoin(t,ft_substr(str,j, ft_strlen(str)));
+	return (res);
 }

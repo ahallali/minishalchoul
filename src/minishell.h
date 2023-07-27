@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 17:39:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:39:58 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,8 @@ void							create_fork(t_minishell *minishell, \
 									t_std *var, int *fd);
 void							init_var(t_std *var);
 int								is_valid_key(char *var);
-
+void							update_directory(char *str, char *oldpwd, \
+								char *t);
 int								is_path_directory(const char *path);
 void							error_exec(char *path);
 void							do_clean_exit(char *error_msg, int fd,
@@ -283,4 +284,8 @@ t_node							*init_variables(t_node **head, char *var);
 void							get_pwd(char *pwd);
 void							search_in_env(t_node *t, char *s);
 void							builtin_next(t_minishell *g_minishell);
+t_node							*update_env(t_node *head, char *var, \
+								char *data);
+int						check_str(char *str);
+char *join_cmd_err(char *str);
 #endif
