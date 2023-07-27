@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/27 19:54:12 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/28 00:07:51 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ char	*remove_quote(char *str)
 	flag = 0;
 	i = 0;
 	y = 0;
+	if (!ft_strlen(str))
+		return (NULL);
+	else if (ft_strlen(str) == 1 && *str == '~' && g_minishell->home)
+		return (ft_strdup(g_minishell->home));
 	result = ft_calloc(ft_strlen(str) + 1, sizeof(char));
 	if (!result)
 		return (NULL);
