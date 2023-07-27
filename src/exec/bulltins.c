@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/24 23:25:25 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/27 19:17:27 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	check_echo_arg(char **str, int fd)
 	{
 		if (ft_check_n(str[i]) && !count)
 			count = -1;
-		if (*str[i] == '-' && (ft_check_n(str[i]) == 0) && count != -1)
+		if (*str[i] == '-' && ft_strlen(str[i]) > 1
+			&& (ft_check_n(str[i]) == 0) && count != -1)
 		{
 			count++;
 			i++;

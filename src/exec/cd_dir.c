@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 17:57:44 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:11:21 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	for_norm(char *t, char *str, char *oldpwd)
 	insert_node(&g_minishell->env, t, "PWD");
 	g_minishell->pwd_stored = t;
 	g_minishell->last_exitstatus = 1;
-	free(oldpwd);
+	ft_free(oldpwd);
 }
 
 void	update_directory(char *str, char *oldpwd, char *t)
@@ -32,8 +32,8 @@ void	update_directory(char *str, char *oldpwd, char *t)
 		{
 			update_env(g_minishell->env, "PWD", t);
 			g_minishell->pwd_stored = ft_strdup(t);
-			free(t);
-			free(oldpwd);
+			ft_free(t);
+			ft_free(oldpwd);
 		}
 		else
 		{
@@ -72,7 +72,7 @@ void	get_pwd(char *pwd)
 		ft_putstr_fd("\n", 1);
 		insert_node(&g_minishell->env, pwd, "PWD");
 		insert_node(&g_minishell->export, pwd, "PWD");
-		free(pwd);
+		ft_free(pwd);
 	}
 	else
 	{
