@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/27 19:22:50 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:39:58 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,4 +287,5 @@ void							builtin_next(t_minishell *g_minishell);
 t_node							*update_env(t_node *head, char *var, \
 								char *data);
 int						check_str(char *str);
+char *join_cmd_err(char *str);
 #endif

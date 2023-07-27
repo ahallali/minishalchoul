@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:06:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/18 22:07:43 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/27 19:08:26 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ void	ft_free(void *ptr)
 			free(tmp->content);
 			free(tmp);
 			set_gcollector(first);
-			break ;
+			return ;
 		}
 		last = tmp;
 		tmp = tmp->next;
 	}
+	free(ptr);
 }
