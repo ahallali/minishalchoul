@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:52:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 16:41:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:54:02 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,17 @@ int	has_valid_quoting(char *str)
 		i++;
 	}
 	return (valid);
+}
+
+int	flag_setter_quotes(char *flag, char *str, int *i)
+{
+	if (!*flag && is_flag_valid(QUOTES_PARSE, str, *i))
+		*flag = str[(*i)++];
+	if (*flag && is_flag_valid(flag, str, *i))
+	{
+		*flag = 0;
+		i++;
+		return (1);
+	}
+	return (0);
 }
