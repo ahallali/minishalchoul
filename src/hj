@@ -1,4 +1,0 @@
-minishell>mkdir -p 1/2/3
-minishell>cd 1/2/3/
-minishell>rm -rf ../../../1
-minishell>pwd
