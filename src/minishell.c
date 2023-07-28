@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 17:57:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:23:04 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	alo = open("alo.txt", O_CREAT | O_APPEND | O_RDWR, 0644);
 	p_prompt = NULL;
 	line = NULL;
 	allocation_and_env(env);
@@ -80,6 +81,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell>");
+		g_minishell->sigint_flag = 0;
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);

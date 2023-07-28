@@ -6,20 +6,22 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 16:52:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:25:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*movetodirectory(char *str, t_node *head)
+t_node *movetodirectory(char *str, t_node *head)
 {
-	t_node	*new;
-	char	*t;
-	char	*oldpwd;
+	t_node *new;
+	char *t;
+	char *oldpwd;
 
 	new = head;
 	oldpwd = getcwd(NULL, 0);
+	if (oldpwd)
+		add_gcol(oldpwd);
 	if (!str)
 		return (NULL);
 	if (!oldpwd)
@@ -29,9 +31,9 @@ t_node	*movetodirectory(char *str, t_node *head)
 	return (new);
 }
 
-t_node	*update_env(t_node *head, char *var, char *data)
+t_node *update_env(t_node *head, char *var, char *data)
 {
-	t_node	*t;
+	t_node *t;
 
 	t = head;
 	if (!data)
@@ -45,9 +47,9 @@ t_node	*update_env(t_node *head, char *var, char *data)
 	return (head);
 }
 
-char	*path_finder(t_node *head, char *var)
+char *path_finder(t_node *head, char *var)
 {
-	t_node	*t;
+	t_node *t;
 
 	t = head;
 	if (!head)
@@ -61,10 +63,10 @@ char	*path_finder(t_node *head, char *var)
 	return (NULL);
 }
 
-t_node	*ft_cd(t_minishell *head, char **t)
+t_node *ft_cd(t_minishell *head, char **t)
 {
-	t_node	*new;
-	char	*tmp;
+	t_node *new;
+	char *tmp;
 
 	new = NULL;
 	tmp = NULL;
@@ -86,10 +88,10 @@ t_node	*ft_cd(t_minishell *head, char **t)
 	return (new);
 }
 
-void	tilda_and_movetodirectory(char **t, t_minishell *head,
-								char *tmp, t_node *new)
+void tilda_and_movetodirectory(char **t, t_minishell *head,
+							   char *tmp, t_node *new)
 {
-	char	*oldpwd;
+	char *oldpwd;
 
 	oldpwd = NULL;
 	if (t[0][0] == '~')
@@ -105,7 +107,7 @@ void	tilda_and_movetodirectory(char **t, t_minishell *head,
 			insert_node(&g_minishell->env, tmp, "PWD");
 			g_minishell->pwd_stored = tmp;
 		}
-		return ;
+		return;
 	}
 	else
 		new = movetodirectory(t[0], head->env);

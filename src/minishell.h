@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/27 19:39:58 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:07:48 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # define ERRCD "cd error retrieving current directory: \
 getcwd:cannot access parent directories"
 
+
+
+int alo;
 typedef enum e_lex_type
 {
 	PIPE = 0,
@@ -287,5 +290,6 @@ void							builtin_next(t_minishell *g_minishell);
 t_node							*update_env(t_node *head, char *var, \
 								char *data);
 int						check_str(char *str);
+int	flag_setter_quotes(char *flag, char *str, int *i);
 char *join_cmd_err(char *str);
 #endif

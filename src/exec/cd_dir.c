@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/27 19:55:40 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:25:03 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 void	for_norm(char *t, char *str, char *oldpwd)
 {
-	perror("cd : ");
+	perror(join_cmd_err("minishell: "));
+	g_minishell->last_exitstatus = 1;
+	if (check_str(str))
+	{
 	t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
 	insert_node(&g_minishell->env, t, "PWD");
 	g_minishell->pwd_stored = t;
 	g_minishell->last_exitstatus = 1;
 	ft_free(oldpwd);
+	}
 }
 
 void	update_directory(char *str, char *oldpwd, char *t)

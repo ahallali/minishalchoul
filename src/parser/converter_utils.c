@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:28:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 16:41:18 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:02:37 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,17 @@ t_list	*get_exec(t_parse_utils *u)
 		else if (tmp->type == 2)
 			ft_lstadd_back(&exec->args, ft_lstnew(tmp->variable));
 		else if ((tmp->type == 5 || tmp->type == 7) && tmp->filename)
+		{
 			convert_input_redirection(tmp, exec);
+			if (exec->input_fd == -1)
+				return (NULL);
+		}
 		else if ((tmp->type == 6 || tmp->type == 8) && tmp->filename)
+		{
 			convert_output_redirection(tmp, exec);
+			if (exec->output_fd == -1)
+				return (NULL);
+		}
 		if (!handle_pipe(tmp, l_tmp, &exec, &result))
 			return (NULL);
 		l_tmp = l_tmp->next;

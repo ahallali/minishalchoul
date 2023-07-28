@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 18:35:15 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:35:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	child(t_minishell *g_minishell, int stdrin, int stdrout, int *fd)
 		close(stdrout);
 	}
 	if (g_minishell->list_exec->next)
+	{
 		close(fd[0]);
+	}
 }
 
 void	redirection(t_minishell *g_minishell)
@@ -72,7 +74,7 @@ void	execute_cmd(t_minishell *g_minishell)
 	path = update_path(path_finder(g_minishell->env, "PATH"),
 			expand_dquotes(g_minishell->list->cmd));
 	if (execve(path, convert_command_args(g_minishell->list),
-			convert_env(g_minishell->env)) == -1)
+			   convert_env(g_minishell->env)) == -1)
 	{
 		error_exec(path);
 	}
