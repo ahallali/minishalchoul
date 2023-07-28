@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:09:20 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/27 23:10:29 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:24:18 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@ void	error_exec(char *path)
 		do_clean_exit(NULL, 2, 126, 1);
 	}
 	else if (errno == EACCES)
-	{
-		perror("minishell");
-		do_clean_exit(NULL, 2, 126, 1);
-	}
+		do_clean_exit(join_cmd_err("minishell: Permission denied\n"), 2, 126, 1);
 	else if (errno == EISDIR)
 		do_clean_exit(join_cmd_err("minishell:is a directory\n"), 2,126,1);
 	else if (errno == 14)
 		do_clean_exit(join_cmd_err("minishell: command not found\n"), 2, 127, 1);
 	else if (errno == ENOENT)
-		do_clean_exit(join_cmd_err ("minishell:No such file or directory\n"), 2,1,1);
+		do_clean_exit(join_cmd_err ("minishell:No such file or directory\n"), 2,127,1);
 	else
 		perror("minishell");
 	do_clean_exit(NULL, 2, 126, 1);

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 17:57:23 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:55:15 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	ft_unset_args(t_list *l_args)
 		if (!is_valid_key(args[i]))
 		{
 			perror("Not a valid identifier");
-			return ;
+			g_minishell->last_exitstatus = 1;
+			return;
 		}
 		ft_unset(&g_minishell->env, args[i]);
 		ft_unset(&g_minishell->export, args[i]);
