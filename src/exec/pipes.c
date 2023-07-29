@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 19:07:09 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:28:57 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,15 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 	int flag = 0;
 	if (!g_minishell->list->cmd || !*g_minishell->list->cmd)
 		return ;
-	if (!cmd || !*cmd)
-		do_clean_exit(NULL, 1, 0, 0);
-		printf("%d\n",check_cmd_num(cmd[0]));
+	if (!cmd[0] || !*cmd[0])
+		exit(0);
 	if (check_cmd_num(cmd[0]) && !cmd[1])
 	{
 		ft_putstr_fd("exit\n",2);
 		ft_putstr_fd("minishell>: exit: ", 2);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		do_clean_exit(NULL, 2, 255, 1);
+		exit(255);
 	}
 	else if (is_inside_range(cmd[0]))
 	{

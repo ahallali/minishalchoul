@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:09:20 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 17:52:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:20:21 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ void	do_clean_exit(char *error_msg, int fd, int exit_status, int flag)
 	ft_lstiter(*node, ft_free);
 	if (!flag)
 		ft_putstr_fd("exit\n", fd);
-	if (exit_status)
-		exit(exit_status);
+	exit(exit_status);
 }

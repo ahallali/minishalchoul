@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 19:33:46 by lilnex           ###   ########.fr       */
+/*   Updated: 2023/07/29 20:43:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*remove_quote(char *str)
 	flag = 0;
 	i = 0;
 	y = 0;
-	if (!ft_strlen(str))
+	if (!str || !*str || !ft_strlen(str))
 		return (NULL);
 	else if (ft_strlen(str) == 1 && *str == '~' && g_minishell->home)
 		return (ft_strdup(g_minishell->home));
@@ -49,7 +49,8 @@ char	*remove_quote(char *str)
 void	flag_quote(char c, char *flag)
 {
 	char	*final_flag;
-
+	if (!flag)
+		return;
 	final_flag = &g_minishell->quote_flag;
 	if (flag)
 		final_flag = flag;
@@ -63,15 +64,17 @@ char	*do_replace(char *str, char *var, int i)
 {
 	char	*res;
 
-	// printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
+	//  printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
 	if (path_finder(g_minishell->env, convert_path(var + 1)))
 		res = ft_str_replace(str, var,
 				path_finder(g_minishell->env, convert_path(var + 1)), i);
 	else
 	{
 		if (ft_strequals(var + 1, "?"))
+		{
 			res = ft_str_replace(str, var, \
 			ft_itoa(g_minishell->last_exitstatus), i);
+		}
 		else
 			res = ft_str_replace(str, var, "", i);
 	}
@@ -109,9 +112,10 @@ char	*expand_dquotes(char *str)
 	char	*res;
 	char	*tmp;
 
+	if (!str || !*str)
+		return (NULL);
 	i = 0;
 	res = str;
-	printf("res : %s\n", res);
 	while (res && res[i])
 	{
 		flag_quote(res[i], NULL);

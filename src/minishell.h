@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 01:07:48 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:42:32 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,8 @@ char							*ft_str_replace(char *str, char *find, \
 char							*convert_path(char *str);
 int								has_valid_quoting(char *str);
 char							*expand_hdoc(char *str, int expand);
-void							flag_quote(char c);
-char							*do_replace(char *str, char *var, int i);
+void flag_quote(char c, char *flag) ;
+char *do_replace(char *str, char *var, int i);
 int								lex_analyze(t_parse_utils *utils);
 t_node							*ft_list_remove_if(t_node **head, \
 									char *data, int (*cmp)());
@@ -229,7 +229,8 @@ void							parent(t_minishell *minishell, \
 									int *fd, int stdrin);
 void							do_builtin(t_minishell *minishell);
 int								is_builtin(t_minishell *minishell);
-void							execute_cmd(t_minishell *minishell);
+void execute_cmd(char *cmd, t_minishell *g_minishell);
+
 void							run_builltin(t_minishell *minishell);
 void							redirection(t_minishell *minishell);
 void							ft_exit(t_minishell *minishell, char **cmd);
@@ -292,4 +293,5 @@ t_node							*update_env(t_node *head, char *var, \
 int						check_str(char *str);
 int	flag_setter_quotes(char *flag, char *str, int *i);
 char *join_cmd_err(char *str);
+char *expand_export(char *str);
 #endif

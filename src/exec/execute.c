@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 01:35:43 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:44:52 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ void	execute(t_minishell *g_minishell)
 	{
 		var.stdrout = -1;
 		g_minishell->list = (t_exec_utils *)g_minishell->list_exec->content;
+		printf("%s\n", g_minishell->list->cmd);
 		if (!g_minishell->list->cmd)
+		{
+			g_minishell->last_exitstatus = 0;
 			break ;
+		}
 		if (size == 1 && \
 			is_builtin(g_minishell))
 		{
@@ -72,7 +76,7 @@ void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 void	close_fd(int *old, int *old_out)
 {
 	close(*old);
-	close(*old_out);
+	close(*old_out);,
 }
 
 void	parent_builtin_red(t_minishell *g_minishell, int old, int old_out)

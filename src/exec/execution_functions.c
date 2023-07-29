@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 16:52:34 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:43:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 void	setup_child_process(t_minishell *g_minishell,
 		int *stdrin, int *stdrout, int *fd)
 {
+	char *cmd;
+
+	cmd = expand_dquotes(g_minishell->list->cmd);
 	child(g_minishell, *stdrin, *stdrout, fd);
 	redirection(g_minishell);
-	execute_cmd(g_minishell);
+	if (!cmd)
+		do_clean_exit(NULL, 2, 0, 1);
+	execute_cmd(cmd, g_minishell);
 }
 	// ft_lstiter(*get_gcollector(), ft_free);
 
@@ -61,7 +66,7 @@ void	redirection(t_minishell *g_minishell)
 		dup2(g_minishell->list->output_fd, 1);
 }
 
-void	execute_cmd(t_minishell *g_minishell)
+void	execute_cmd(char *cmd, t_minishell *g_minishell)
 {
 	char	*path;
 
@@ -72,7 +77,7 @@ void	execute_cmd(t_minishell *g_minishell)
 		exit(0);
 	}
 	path = update_path(path_finder(g_minishell->env, "PATH"),
-			expand_dquotes(g_minishell->list->cmd));
+			cmd);
 	if (execve(path, convert_command_args(g_minishell->list),
 			   convert_env(g_minishell->env)) == -1)
 	{
