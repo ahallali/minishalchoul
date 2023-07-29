@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 17:17:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:33:34 by lilnex           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	parse_key_value(char *arg, char *op, int append)
 
 	key = ft_substr(arg, 0, op - arg - append);
 	value = ft_substr(arg, op - arg + 1, ft_strlen(arg));
-	update_node(key, expand_dquotes(value), append);
+	update_node(key, expand_export(value), append);
 }
 
 void	add_value(char *arg, t_minishell *g_minishell)
@@ -80,10 +80,8 @@ void	add_value(char *arg, t_minishell *g_minishell)
 	append = 0;
 	if (!is_valid_key(arg))
 	{
-		printf("export `%s': not a valid identifier\n", arg);
 		g_minishell->last_exitstatus = 1;
-		printf("%d\n", g_minishell->last_exitstatus);
-		 return;
+		return ;
 	}
 	op = ft_strchr(arg, '=');
 	if (!op)
@@ -95,5 +93,3 @@ void	add_value(char *arg, t_minishell *g_minishell)
 		parse_key_value(arg, op, append);
 	}
 }
-
-

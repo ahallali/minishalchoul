@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/28 01:34:25 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:33:46 by lilnex           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,24 @@ char	*remove_quote(char *str)
 	return (result);
 }
 
-void	flag_quote(char c)
+void	flag_quote(char c, char *flag)
 {
-	if (ft_strchr(QUOTES_PARSE, c) && !g_minishell->quote_flag)
-		g_minishell->quote_flag = c;
-	else if (g_minishell->quote_flag == c)
-		g_minishell->quote_flag = 0;
+	char	*final_flag;
+
+	final_flag = &g_minishell->quote_flag;
+	if (flag)
+		final_flag = flag;
+	if (ft_strchr(QUOTES_PARSE, c) && !*final_flag)
+		*final_flag = c;
+	else if (*final_flag == c)
+		*final_flag = 0;
 }
 
 char	*do_replace(char *str, char *var, int i)
 {
 	char	*res;
 
+	// printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
 	if (path_finder(g_minishell->env, convert_path(var + 1)))
 		res = ft_str_replace(str, var,
 				path_finder(g_minishell->env, convert_path(var + 1)), i);
@@ -72,6 +78,30 @@ char	*do_replace(char *str, char *var, int i)
 	return (res);
 }
 
+char *expand_export(char *str)
+{
+	int i;
+	char *res;
+	char	flag;
+
+	i = 0;
+	flag = 0;
+	res = str;
+	while (res && res[i])
+	{
+		flag_quote(res[i], &flag);
+		if (flag == '\'' && res[i] == '$'
+			&& (i && res[i - 1] != '\\'))
+		{
+			res = ft_str_replace(res, "$", "\\$", i);
+			i+=2;
+			continue ;
+		}
+		i++;
+	}
+	return (expand_dquotes(res));
+}
+
 char	*expand_dquotes(char *str)
 {
 	int		i;
@@ -81,16 +111,19 @@ char	*expand_dquotes(char *str)
 
 	i = 0;
 	res = str;
+	printf("res : %s\n", res);
 	while (res && res[i])
 	{
-		flag_quote(res[i]);
+		flag_quote(res[i], NULL);
 		if (res[i] == '$'
 			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
-			&& g_minishell->quote_flag != '\'')
+			&& (g_minishell->quote_flag != '\''
+				&& (!(i && res[i - 1] == '\\') )))
 		{
 			tmp = ft_strdup(res);
 			var = extract_variable(&tmp[i]);
 			res = do_replace(res, var, i);
+			i += ft_strlen(var);
 			continue ;
 		}
 		i++;
