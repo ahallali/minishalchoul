@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 16:43:35 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 03:06:23 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	parse_key_value(char *arg, char *op, int append)
 
 	key = ft_substr(arg, 0, op - arg - append);
 	value = ft_substr(arg, op - arg + 1, ft_strlen(arg));
+	printf("value : %s\n", value);
+	printf("value exp : %s\n", expand_dquotes(value));
 	update_node(key, expand_dquotes(value), append);
 }
 

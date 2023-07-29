@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 13:08:13 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 02:17:32 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	update_directory(char *str, char *oldpwd, char *t)
 			perror(ERRCD);
 			if (check_str(str))
 			{
-			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
-			insert_node(&g_minishell->env, t, "PWD");
-			g_minishell->pwd_stored = ft_strdup(t);
+				t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
+				insert_node(&g_minishell->env, t, "PWD");
+				g_minishell->pwd_stored = ft_strdup(t);
 			}
 		}
 	}

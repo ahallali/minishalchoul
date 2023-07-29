@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 13:55:15 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 02:32:38 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	builtin_next(t_minishell *g_minishell)
 	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit"))
 		ft_exit(g_minishell, convert_args(g_minishell->list->args));
 	else if (ft_strequals(g_minishell->list->cmd, "export"))
-		ft_export(convert_args(g_minishell->list->args), g_minishell);
+		ft_export(g_minishell->list->args, g_minishell);
 }
 
 void	ft_unset_args(t_list *l_args)
@@ -83,7 +83,7 @@ void	ft_unset_args(t_list *l_args)
 		{
 			perror("Not a valid identifier");
 			g_minishell->last_exitstatus = 1;
-			return;
+			return ;
 		}
 		ft_unset(&g_minishell->env, args[i]);
 		ft_unset(&g_minishell->export, args[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 17:52:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 02:17:15 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	setup_child_process(t_minishell *g_minishell,
 	redirection(g_minishell);
 	execute_cmd(g_minishell);
 }
-	// ft_lstiter(*get_gcollector(), ft_free);
 
 void	child(t_minishell *g_minishell, int stdrin, int stdrout, int *fd)
 {

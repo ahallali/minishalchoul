@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 01:23:04 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 02:49:44 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int	main(int ac, char **av, char **env)
 			free(line);
 			do_clean_exit(NULL, 1, 0, 1);
 		}
+		if (!ft_strcmp(line, "pg")){
+			printf("g_quote flag :	%d\n", g_minishell->quote_flag);
+		}else
 		prompt_and_exec(p_prompt, line);
 		free(line);
 	}

@@ -32,3 +32,9 @@ test | echobalalala   cmd not found same exit status just the msg err false
 ////////// norme \\\\\\\\\\\\\\\\
 finish
 
+
+
+
+export foo='    bonjour $foo    ' -- trim and dont expand
+
+echo $foo
