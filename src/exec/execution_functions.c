@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 17:52:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:52:34 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	execute_cmd(t_minishell *g_minishell)
 	if (is_builtin(g_minishell))
 	{
 		do_builtin(g_minishell);
-		exit(15);
+		exit(0);
 	}
 	path = update_path(path_finder(g_minishell->env, "PATH"),
 			expand_dquotes(g_minishell->list->cmd));

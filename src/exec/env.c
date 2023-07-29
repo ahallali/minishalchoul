@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/27 23:23:24 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:04:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void ft_pwd(t_node *head, char *s)
 		get_pwd(pwd);
 	else
 		search_in_env(t, s);
+	exit(0);
 }

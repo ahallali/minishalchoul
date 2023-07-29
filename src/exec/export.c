@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 16:43:35 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:17:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	add_value(char *arg, t_minishell *g_minishell)
 	{
 		printf("export `%s': not a valid identifier\n", arg);
 		g_minishell->last_exitstatus = 1;
-		return ;
+		printf("%d\n", g_minishell->last_exitstatus);
+		 return;
 	}
 	op = ft_strchr(arg, '=');
 	if (!op)
@@ -94,3 +95,5 @@ void	add_value(char *arg, t_minishell *g_minishell)
 		parse_key_value(arg, op, append);
 	}
 }
+
+
