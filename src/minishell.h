@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 05:03:18 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/30 18:59:14 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,15 +189,16 @@ char							*ft_str_replace(char *str, char *find, \
 char							*convert_path(char *str);
 int								has_valid_quoting(char *str);
 char							*expand_hdoc(char *str, int expand);
-void flag_quote(char c, char *flag) ;
-char *do_replace(char *str, char *var, int i);
+void							check_echo_arg(t_list *node, int fd);
+void							flag_quote(char c, char *flag) ;
+char							*do_replace(char *str, char *var, int i);
 int								lex_analyze(t_parse_utils *utils);
 t_node							*ft_list_remove_if(t_node **head, \
 									char *data, int (*cmp)());
 t_node							*ft_env(char **env, t_minishell *minishell);
 char							*ft_strtok(char *str, \
 									const char *delimiters, char *skip);
-void							ft_echo(char **str, int fd);
+void							ft_echo(t_list *args, int fd);
 void							print_list(t_node *head);
 void							ft_pwd(t_node *head, char *s);
 t_node							*movetodirectory(char *str, t_node *head);
@@ -230,14 +231,15 @@ void							parent(t_minishell *minishell, \
 									int *fd, int stdrin);
 void							do_builtin(t_minishell *minishell);
 int								is_builtin(t_minishell *minishell);
-void execute_cmd(char *cmd, t_minishell *g_minishell);
-
+void							execute_cmd(char *cmd, \
+									t_minishell *g_minishell);
+int								print_echo_arg(t_list *node, int *count, \
+									int *flag, int fd);
 void							run_builltin(t_minishell *minishell);
 void							redirection(t_minishell *minishell);
 void							ft_exit(t_minishell *minishell, char **cmd);
 int								check_cmd_num(char *cmd);
 void							handler(int signal);
-void							check_echo_arg(char **str, int fd);
 int								check_key(char *str);
 void							insert_to_export(char *key, \
 									t_minishell *minishell);
