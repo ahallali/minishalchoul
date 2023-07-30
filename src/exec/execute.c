@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 21:44:52 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:02:44 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 void	close_fd(int *old, int *old_out)
 {
 	close(*old);
-	close(*old_out);,
+	close(*old_out);
 }
 
 void	parent_builtin_red(t_minishell *g_minishell, int old, int old_out)

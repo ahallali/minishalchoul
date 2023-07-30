@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 21:42:32 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:03:18 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,8 +210,9 @@ void							insert_node(t_node **head, \
 char							*path_finder(t_node *head, char *var);
 t_node							*ft_cd(t_minishell *head, char **t);
 t_node							*sort_var(t_node *head, char *s);
-void							ft_export(char **args, \
-								t_minishell *g_minishell);
+void							ft_export(t_list *args, \
+									t_minishell *g_minishell);
+
 void							ft_unset(t_node **head, char *var);
 void							execute(t_minishell *minishell);
 void							ft_exec(void *content);

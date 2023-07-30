@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_fcts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/26 16:44:24 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:02:38 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,23 @@ int	check_valid_key(char *str)
 	return (0);
 }
 
-void	ft_export(char **args, t_minishell *g_minishell)
+void	ft_export(t_list *args, t_minishell *g_minishell)
 {
 	int	x;
+	t_list *node;
 
 	x = 0;
-	if (!args || !*args)
+	node = args;
+	if (!node)
 		print_export_list();
-	while (args && args[x])
-		add_value(args[x++], g_minishell);
+	else
+	{
+		while (node)
+		{
+			if (node && node->content)
+				add_value((char *)node->content, g_minishell);
+			node = node->next;
+		}
+	}
 	return ;
 }

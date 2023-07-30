@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/27 23:25:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:09:20 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_node *update_env(t_node *head, char *var, char *data)
 		return (head);
 	while (t->next)
 	{
-		if (!strcmp(t->variable, var))
+		if (!ft_strcmp(t->variable, var))
 			t->value = data;
 		t = t->next;
 	}

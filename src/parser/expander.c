@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 20:43:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:08:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ char	*remove_quote(char *str)
 	{
 		if (flag_setter_quotes(&flag, str, &i) == 1)
 			continue ;
-		if (str[i] == '\\' && str[i + 1] == flag)
+		if (str[i] == '\\' && str[i + 1] == flag
+			|| (str[i] == '\\' && str[i + 1] == '$'
+				&& flag != '\''))
 			i++;
 		result[y++] = str[i++];
 	}
@@ -49,8 +51,9 @@ char	*remove_quote(char *str)
 void	flag_quote(char c, char *flag)
 {
 	char	*final_flag;
+	
 	if (!flag)
-		return;
+		return ;
 	final_flag = &g_minishell->quote_flag;
 	if (flag)
 		final_flag = flag;
