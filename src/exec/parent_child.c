@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 17:13:02 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:09:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,53 @@ void	parent(t_minishell *g_minishell, int *fd, int stdrin)
 	}
 }
 
-void	setup_parent_process(t_minishell *g_minishell, \
-	int *fd, int *stdrin, int *old_stdrin)
+void	setup_parent_process(t_minishell *g_minishell,
+						int *fd, int *stdrin, int *old_stdrin)
 {
 	parent(g_minishell, fd, *stdrin);
 	if (g_minishell->list->input_fd > 2)
 	{
-
 		close(g_minishell->list->input_fd);
 	}
 	if (g_minishell->list->output_fd > 2)
 	{
-
 		close(g_minishell->list->output_fd);
 	}
 	*stdrin = *old_stdrin;
+}
+
+void	check_signal(int status, int *flag)
+{
+	if (WTERMSIG(status) == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		g_minishell->last_exitstatus = 128 + WTERMSIG(status);
+	}
+	if (WTERMSIG(status) == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+		g_minishell->last_exitstatus = 128 + WTERMSIG(status);
+	}
+	*flag = 1;
 }
 
 void	wait_and_print_exit_status(void)
 {
 	int	status;
 	int	exitstatus;
+	int	*flag;
 
-	exitstatus = 0;
+	*flag = 0;
 	while (waitpid(-1, &status, 0) != -1)
 	{
-		if (WIFSIGNALED(status))
+		if (!*flag && WIFSIGNALED(status))
 		{
-			if (WTERMSIG(status) == SIGINT)
-			{
-				ft_putstr_fd("\n", 1);
-				g_minishell->last_exitstatus = 128 + WTERMSIG(status);
-			}
-			if (WTERMSIG(status) == SIGQUIT)
-			{
-				ft_putstr_fd("Quit: 3\n", 1);
-				g_minishell->last_exitstatus = 128 + WTERMSIG(status);
-			}
+			check_signal(status, flag);
 		}
-		else if (WIFEXITED(status))
+		else if (!*flag && WIFEXITED(status))
 		{
-			exitstatus = WEXITSTATUS(status);
-			g_minishell->last_exitstatus = exitstatus;
+			g_minishell->last_exitstatus = WEXITSTATUS(status);
+			*flag = 1;
 		}
 	}
 }

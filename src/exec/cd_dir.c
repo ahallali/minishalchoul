@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/28 13:08:13 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:25:49 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	for_norm(char *t, char *str, char *oldpwd)
 {
 	perror(join_cmd_err("minishell: "));
-	g_minishell->last_exitstatus = 1;
 	if (check_str(str))
 	{
-	t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
-	insert_node(&g_minishell->env, t, "PWD");
-	g_minishell->pwd_stored = t;
-	g_minishell->last_exitstatus = 1;
-	ft_free(oldpwd);
+		t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
+		insert_node(&g_minishell->env, t, "PWD");
+		g_minishell->pwd_stored = t;
+		g_minishell->last_exitstatus = 1;
+		ft_free(oldpwd);
 	}
+	g_minishell->last_exitstatus = 1;
 }
 
 void	update_directory(char *str, char *oldpwd, char *t)
@@ -44,9 +44,9 @@ void	update_directory(char *str, char *oldpwd, char *t)
 			perror(ERRCD);
 			if (check_str(str))
 			{
-			t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
-			insert_node(&g_minishell->env, t, "PWD");
-			g_minishell->pwd_stored = ft_strdup(t);
+				t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
+				insert_node(&g_minishell->env, t, "PWD");
+				g_minishell->pwd_stored = ft_strdup(t);
 			}
 		}
 	}
@@ -70,10 +70,12 @@ void	search_in_env(t_node *t, char *s)
 	}
 }
 
-int check_str (char *str)
+int	check_str(char *str)
 {
-	int i = 0;
-	if (str[i] == '.' || str[i] == '.' && str[i+1] == '.')
+	int	i;
+
+	i = 0;
+	if (str[i] == '.' || str[i] == '.' && str[i + 1] == '.')
 		return (1);
 	return (0);
 }
@@ -98,25 +100,26 @@ void	get_pwd(char *pwd)
 	}
 }
 
-
-
-char * join_cmd_err(char *str)
+char	*join_cmd_err(char *str)
 {
-	int i = 0;
-	int j = 0;
-	char *t;
-	char *res;
+	int		i;
+	int		j;
+	char	*t;
+	char	*res;
+
+	i = 0;
+	j = 0;
 	while (str[i])
 	{
 		if (str[i] == ':')
 		{
-
 			j = i;
-			break;
+			break ;
 		}
 		i++;
 	}
-	t = ft_strjoin(ft_substr(str, 0, j+1),ft_strjoin(" ",expand_dquotes(g_minishell->list->cmd)));
-	res = ft_strjoin(t,ft_substr(str,j, ft_strlen(str)));
+	t = ft_strjoin(ft_substr(str, 0, j + 1), \
+	ft_strjoin(" ", expand_dquotes(g_minishell->list->cmd)));
+	res = ft_strjoin(t, ft_substr(str, j, ft_strlen(str)));
 	return (res);
 }

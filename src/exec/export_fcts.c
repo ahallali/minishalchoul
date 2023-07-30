@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_fcts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:07:48 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 05:02:38 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/30 19:27:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	check_valid_key(char *str)
 
 void	ft_export(t_list *args, t_minishell *g_minishell)
 {
-	int	x;
-	t_list *node;
+	int		x;
+	t_list	*node;
 
 	x = 0;
 	node = args;

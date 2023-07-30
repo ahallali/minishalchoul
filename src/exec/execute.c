@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 05:02:44 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/30 21:03:01 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,8 @@ void	execute(t_minishell *g_minishell)
 	{
 		var.stdrout = -1;
 		g_minishell->list = (t_exec_utils *)g_minishell->list_exec->content;
-		printf("%s\n", g_minishell->list->cmd);
 		if (!g_minishell->list->cmd)
-		{
-			g_minishell->last_exitstatus = 0;
 			break ;
-		}
 		if (size == 1 && \
 			is_builtin(g_minishell))
 		{

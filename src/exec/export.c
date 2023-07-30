@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 19:33:34 by lilnex           ###   ########.fr       */
+/*   Updated: 2023/07/30 19:27:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	add_value(char *arg, t_minishell *g_minishell)
 	if (!is_valid_key(arg))
 	{
 		g_minishell->last_exitstatus = 1;
+		printf("export `%s': not a valid identifier\n", arg);
 		return ;
 	}
 	op = ft_strchr(arg, '=');

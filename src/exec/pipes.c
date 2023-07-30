@@ -6,11 +6,19 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 21:28:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:34:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	print_msg(char **cmd)
+{
+	ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("minishell>: exit: ", 2);
+	ft_putstr_fd(cmd[0], 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+}
 
 int	is_builtin(t_minishell *g_minishell)
 {
@@ -25,86 +33,88 @@ int	is_builtin(t_minishell *g_minishell)
 		return (1);
 	return (0);
 }
-long long custom_atoi(char *str)
+
+long long	custom_atoi(char *str)
 {
-	int i = 0;
-	int sign = 1;
-	long long res = 0;
-	
-	while (str[i] && (str[i]==' ' || str[i]=='\t'))
-	i++;
+	int			i;
+	int			sign;
+	long long	res;
+
+	i = 0;
+	sign = 1;
+	res = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
 	if (str[i] == '-')
 		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i])
 	{
-		res = (res * 10 ) +  (str[i] - 48);
+		res = (res * 10) + (str[i] - 48);
 		i++;
 	}
 	return (sign * res);
 }
-int is_inside_range(char *str)
-{
-	char *llmax = "9223372036854775807";
-	char *llmin = "-9223372036854775807";
 
-	if (ft_strlen(str)> ft_strlen(llmax))
+int	is_inside_range(char *str)
+{
+	char	*llmax;
+	char	*llmin;
+
+	llmax = "9223372036854775807";
+	llmin = "-9223372036854775807";
+	if (ft_strlen(str) > ft_strlen(llmax))
 		return (1);
-	else if (ft_strlen(str)== ft_strlen(llmax))
+	else if (ft_strlen(str) == ft_strlen(llmax))
 	{
-		if (ft_strncmp(str,llmax,ft_strlen(str)) > 0)	
-		return (1);
+		if (ft_strncmp(str, llmax, ft_strlen(str)) > 0)
+			return (1);
 	}
 	if (ft_strlen(str) > ft_strlen(llmin))
 		return (1);
 	else if (ft_strlen(str) == ft_strlen(llmin))
 	{
 		if (ft_strncmp(str, llmin, ft_strlen(str)) > 0)
-		return (1);
+			return (1);
 	}
 	return (0);
 }
+
 void	ft_exit(t_minishell *g_minishell, char **cmd)
 {
-	int flag = 0;
+	int	flag;
+
+	flag = 0;
 	if (!g_minishell->list->cmd || !*g_minishell->list->cmd)
 		return ;
 	if (!cmd[0] || !*cmd[0])
 		exit(0);
 	if (check_cmd_num(cmd[0]) && !cmd[1])
 	{
-		ft_putstr_fd("exit\n",2);
-		ft_putstr_fd("minishell>: exit: ", 2);
-		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		print_msg(cmd);
 		exit(255);
 	}
 	else if (is_inside_range(cmd[0]))
 	{
-		ft_putstr_fd("exit\n",2);
-		ft_putstr_fd("minishell>: exit: ", 2);
-		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		print_msg(cmd);
 		do_clean_exit(NULL, 2, 255, 1);
 	}
 	else if (cmd[0] && cmd[1])
 	{
-		ft_putstr_fd("exit\n",2);
+		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell>: exit: too many arguments\n", 2);
-		g_minishell->last_exitstatus=1;
+		g_minishell->last_exitstatus = 1;
 	}
 	else
-		do_clean_exit(NULL, 1, custom_atoi(cmd[0])%256, 0);
+		do_clean_exit(NULL, 1, custom_atoi(cmd[0]) % 256, 0);
 }
 
-
-
-
-
-int check_numbers(char *str)
+int	check_numbers(char *str)
 {
-	int i = 1;
+	int	i;
+
+	i = 1;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -123,7 +133,7 @@ int	check_cmd_num(char *cmd)
 		return (0);
 	while (cmd[i])
 	{
-		if (cmd[0] == '-' || cmd[0] == '+'  || ft_isdigit(cmd[0]))
+		if (cmd[0] == '-' || cmd[0] == '+' || ft_isdigit(cmd[0]))
 		{
 			if (!check_numbers(&cmd[0]))
 				return (0);
@@ -131,9 +141,10 @@ int	check_cmd_num(char *cmd)
 		else
 		{
 			return (1);
-			break;
+			break ;
 		}
 		i++;
 	}
 	return (1);
 }
+

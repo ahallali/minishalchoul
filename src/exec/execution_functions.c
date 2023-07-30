@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 21:43:53 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:27:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 void	setup_child_process(t_minishell *g_minishell,
 		int *stdrin, int *stdrout, int *fd)
 {
-	char *cmd;
+	char	*cmd;
 
 	cmd = expand_dquotes(g_minishell->list->cmd);
 	child(g_minishell, *stdrin, *stdrout, fd);
@@ -74,14 +74,17 @@ void	execute_cmd(char *cmd, t_minishell *g_minishell)
 	if (is_builtin(g_minishell))
 	{
 		do_builtin(g_minishell);
-		exit(0);
+		exit (g_minishell->last_exitstatus);
 	}
+	if (!path_finder(g_minishell->env, "PATH"))
+		do_clean_exit(join_cmd_err ("minishell:No such file or directory\n"), \
+			2, 127, 1);
 	path = update_path(path_finder(g_minishell->env, "PATH"),
 			cmd);
 	if (execve(path, convert_command_args(g_minishell->list),
-			   convert_env(g_minishell->env)) == -1)
+			convert_env(g_minishell->env)) == -1)
 	{
 		error_exec(path);
 	}
-	do_clean_exit(NULL, 2, 0, 1);
 }
+	// do_clean_exit(NULL, 2, 0, 1);

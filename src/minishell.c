@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/29 21:34:29 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:30:09 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 t_minishell	*g_minishell;
 
-void f()
-{
-	system("leaks minishell");
-}
+// void f()
+// {
+// 	system("leaks minishell");
+// }
 
 void	fill_export_minishell(t_minishell *g_minishell)
 {
@@ -63,16 +63,15 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	g_minishell->runned = 0;
 	return (0);
 }
+// atexit(f);
 
 int	main(int ac, char **av, char **env)
 {
 	char			*line;
 	t_parse_utils	*p_prompt;
 
-	// atexit(f);
 	(void)ac;
 	(void)av;
-	alo = open("alo.txt", O_CREAT | O_APPEND | O_RDWR, 0644);
 	p_prompt = NULL;
 	line = NULL;
 	allocation_and_env(env);
@@ -85,9 +84,7 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			ft_putstr_fd("exit\n", STDIN_FILENO);
-
 			do_clean_exit(NULL, 1, 0, 1);
-			// printf("line : %p\n", line);
 		}
 		prompt_and_exec(p_prompt, line);
 		free(line);

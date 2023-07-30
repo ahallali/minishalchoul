@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:19:59 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 21:16:01 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:12:12 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ char	*ft_strdup(const char *s1)
 {
 	char	*new;
 	int		len;
-	
-	// printf("%s", s1);
+
 	len = ft_strlen((const char *)s1);
 	new = ft_calloc((len + 1), sizeof(char));
 	if (!new)

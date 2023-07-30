@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/30 05:23:12 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/30 19:28:23 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*remove_quote(char *str)
 	flag = 0;
 	i = 0;
 	y = 0;
-	if (!str || !*str || !ft_strlen(str))
+	if (!ft_strlen(str))
 		return (NULL);
 	else if (ft_strlen(str) == 1 && *str == '~' && g_minishell->home)
 		return (ft_strdup(g_minishell->home));
@@ -51,7 +51,7 @@ char	*remove_quote(char *str)
 void	flag_quote(char c, char *flag)
 {
 	char	*final_flag;
-	
+
 	if (!flag)
 		return ;
 	final_flag = &g_minishell->quote_flag;
@@ -63,11 +63,11 @@ void	flag_quote(char c, char *flag)
 		*final_flag = 0;
 }
 
+	// printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
 char	*do_replace(char *str, char *var, int i)
 {
 	char	*res;
 
-	printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
 	if (path_finder(g_minishell->env, convert_path(var + 1)))
 		res = ft_str_replace(str, var,
 				path_finder(g_minishell->env, convert_path(var + 1)), i);
@@ -84,10 +84,10 @@ char	*do_replace(char *str, char *var, int i)
 	return (res);
 }
 
-char *expand_export(char *str)
+char	*expand_export(char *str)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 	char	flag;
 
 	i = 0;
@@ -100,7 +100,7 @@ char *expand_export(char *str)
 			&& (i && res[i - 1] != '\\'))
 		{
 			res = ft_str_replace(res, "$", "\\$", i);
-			i+=2;
+			i += 2;
 			continue ;
 		}
 		i++;
@@ -130,10 +130,11 @@ char	*expand_dquotes(char *str)
 			tmp = ft_strdup(res);
 			var = extract_variable(&tmp[i]);
 			res = do_replace(res, var, i);
-			// i += ft_strlen(var);
 			continue ;
 		}
 		i++;
 	}
 	return (remove_quote(res));
 }
+
+			// i += ft_strlen(var);

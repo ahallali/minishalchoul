@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 16:35:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:09:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token_info	*token_io(char *str, int *i, t_token_info *info)
 	if ((ft_strnchr(IO_PARSE, str[*i + 1], 1)
 			&& ft_strnchr(IO_PARSE, str[*i + 2], 1))
 		|| (str[*i] == IO_PARSE[1] && str[*i + 1] == IO_PARSE[0]))
-		return (perror("Syntax error : unexpected token found"), \
+		return (perror("minishell: syntax error near unexpected token"),
 			g_minishell->last_exitstatus = 258, NULL);
 	while (str[*i + 1] == *c && !ft_strchr("<>", *c))
 		(*i)++;
