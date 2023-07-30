@@ -6,7 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/30 19:28:23 by ahallali         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/30 19:05:04 by ichaiq           ###   ########.fr       */
+>>>>>>> 3a9db069c76bc00b1d3820700603f22f792fbb0d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +27,9 @@ char	*remove_quote(char *str)
 	int		i;
 	int		y;
 	char	*result;
-	char	flag;
+	char	*flag;
 
-	flag = 0;
+	flag = ft_calloc(2, sizeof(char));
 	i = 0;
 	y = 0;
 	if (!ft_strlen(str))
@@ -35,16 +39,19 @@ char	*remove_quote(char *str)
 	result = ft_calloc(ft_strlen(str) + 1, sizeof(char));
 	if (!result)
 		return (NULL);
+	// puts("--------------------\n");
 	while (str && str[i])
 	{
-		if (flag_setter_quotes(&flag, str, &i) == 1)
+		// printf("str : %c, flag : %c\n", str[i], *flag);
+		if (flag_setter_quotes(flag, str, &i) == 1)
 			continue ;
-		if (str[i] == '\\' && str[i + 1] == flag
+		if (str[i] == '\\' && str[i + 1] == *flag
 			|| (str[i] == '\\' && str[i + 1] == '$'
-				&& flag != '\''))
+				&& *flag != '\''))
 			i++;
 		result[y++] = str[i++];
 	}
+	// puts("--------------------\n");
 	return (result);
 }
 
@@ -68,6 +75,10 @@ char	*do_replace(char *str, char *var, int i)
 {
 	char	*res;
 
+<<<<<<< HEAD
+=======
+	// printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
+>>>>>>> 3a9db069c76bc00b1d3820700603f22f792fbb0d
 	if (path_finder(g_minishell->env, convert_path(var + 1)))
 		res = ft_str_replace(str, var,
 				path_finder(g_minishell->env, convert_path(var + 1)), i);

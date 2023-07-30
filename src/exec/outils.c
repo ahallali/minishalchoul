@@ -6,7 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/30 19:14:38 by ahallali         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/30 18:58:24 by ichaiq           ###   ########.fr       */
+>>>>>>> 3a9db069c76bc00b1d3820700603f22f792fbb0d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +67,7 @@ void	ft_unset(t_node **head, char *var)
 void	builtin_next(t_minishell *g_minishell)
 {
 	if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "echo"))
-		ft_echo(convert_args(g_minishell->list->args), STDOUT_FILENO);
+		ft_echo(g_minishell->list->args, STDOUT_FILENO);
 	else if (ft_strequals(expand_dquotes(g_minishell->list->cmd), "exit"))
 		ft_exit(g_minishell, convert_args(g_minishell->list->args));
 	else if (ft_strequals(g_minishell->list->cmd, "export"))
