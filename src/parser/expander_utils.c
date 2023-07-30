@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:52:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/29 20:39:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:47:51 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ char	*ft_str_replace(char *str, char *find, char *replace, int start)
 	i = 0;
 	y = 0;
 	flag = 0;
-	
-	if (!replace  || !*replace)
-		return (NULL);
 	result = ft_calloc(result_len(str, find, replace) + 1, sizeof(char));
 	if (!result)
 		return (NULL);
