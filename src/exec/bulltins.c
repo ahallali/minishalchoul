@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/31 16:41:29 by lilnex           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:12:30 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	check_n_arg(char *str)
 	}
 	return (0);
 }
-
 
 int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 {
@@ -57,10 +56,10 @@ int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 
 void	check_echo_arg(t_list *node, int fd)
 {
-	int	i;
-	int	count;
-	int	flag;
-	t_list *tmp;
+	int		i;
+	int		count;
+	int		flag;
+	t_list	*tmp;
 
 	i = 0;
 	count = 0;
