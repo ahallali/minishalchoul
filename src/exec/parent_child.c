@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 19:09:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:26:17 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	setup_parent_process(t_minishell *g_minishell,
 	*stdrin = *old_stdrin;
 }
 
-void	check_signal(int status, int *flag)
+void	check_signal(int status)
 {
 	if (WTERMSIG(status) == SIGINT)
 	{
@@ -59,26 +59,18 @@ void	check_signal(int status, int *flag)
 		ft_putstr_fd("Quit: 3\n", 1);
 		g_minishell->last_exitstatus = 128 + WTERMSIG(status);
 	}
-	*flag = 1;
 }
 
 void	wait_and_print_exit_status(void)
 {
 	int	status;
 	int	exitstatus;
-	int	*flag;
 
-	*flag = 0;
 	while (waitpid(-1, &status, 0) != -1)
 	{
-		if (!*flag && WIFSIGNALED(status))
-		{
-			check_signal(status, flag);
-		}
-		else if (!*flag && WIFEXITED(status))
-		{
+		if (WIFSIGNALED(status))
+			check_signal(status);
+		else if (WIFEXITED(status))
 			g_minishell->last_exitstatus = WEXITSTATUS(status);
-			*flag = 1;
-		}
 	}
 }

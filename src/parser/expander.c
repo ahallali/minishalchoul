@@ -6,16 +6,16 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/31 17:03:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:24:26 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_flag_valid(char *flag, char *str, int i)
+int	is_quote_escaped(char *str, int i, char *flag)
 {
-	return (ft_strchr(flag, str[i]) && (!i
-			|| (i && str[i - 1] != '\\')));
+	return (str[i] == '\\' && str[i + 1] == *flag || \
+	(str[i] == '\\' && str[i + 1] == '$' && *flag != '\''));
 }
 
 char	*remove_quote(char *str)
@@ -39,9 +39,7 @@ char	*remove_quote(char *str)
 	{
 		if (flag_setter_quotes(flag, str, &i) == 1)
 			continue ;
-		if (str[i] == '\\' && str[i + 1] == *flag
-			|| (str[i] == '\\' && str[i + 1] == '$'
-				&& *flag != '\''))
+		if (is_quote_escaped(str, i, flag))
 			i++;
 		result[y++] = str[i++];
 	}
