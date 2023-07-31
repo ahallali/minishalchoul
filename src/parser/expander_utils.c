@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 20:52:40 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/30 05:47:51 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:37:05 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	flag_setter_quotes(char *flag, char *str, int *i)
 	if (*flag && is_flag_valid(flag, str, *i))
 	{
 		*flag = 0;
-		i++;
+		(*i)++;
 		return (1);
 	}
 	return (0);
