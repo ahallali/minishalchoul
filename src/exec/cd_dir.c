@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 19:25:49 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:14:22 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,28 +98,4 @@ void	get_pwd(char *pwd)
 		insert_node(&g_minishell->env, g_minishell->pwd_stored, "PWD");
 		insert_node(&g_minishell->export, g_minishell->pwd_stored, "PWD");
 	}
-}
-
-char	*join_cmd_err(char *str)
-{
-	int		i;
-	int		j;
-	char	*t;
-	char	*res;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == ':')
-		{
-			j = i;
-			break ;
-		}
-		i++;
-	}
-	t = ft_strjoin(ft_substr(str, 0, j + 1), \
-	ft_strjoin(" ", expand_dquotes(g_minishell->list->cmd)));
-	res = ft_strjoin(t, ft_substr(str, j, ft_strlen(str)));
-	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 19:34:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:11:00 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,42 +109,3 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 	else
 		do_clean_exit(NULL, 1, custom_atoi(cmd[0]) % 256, 0);
 }
-
-int	check_numbers(char *str)
-{
-	int	i;
-
-	i = 1;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_cmd_num(char *cmd)
-{
-	int	i;
-
-	i = 1;
-	if (!cmd || !*cmd)
-		return (0);
-	while (cmd[i])
-	{
-		if (cmd[0] == '-' || cmd[0] == '+' || ft_isdigit(cmd[0]))
-		{
-			if (!check_numbers(&cmd[0]))
-				return (0);
-		}
-		else
-		{
-			return (1);
-			break ;
-		}
-		i++;
-	}
-	return (1);
-}
-

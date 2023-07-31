@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/31 16:44:06 by lilnex           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:03:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@ int	is_flag_valid(char *flag, char *str, int i)
 {
 	return (ft_strchr(flag, str[i]) && (!i
 			|| (i && str[i - 1] != '\\')));
-}
-
-int is_quote_escaped(char *str, int i, char *flag)
-{
-	return (str[i] == '\\' && str[i + 1] == *flag
-	|	|	(str[i] == '\\' && str[i + 1] == '$'
-			&& *flag != '\''));
 }
 
 char	*remove_quote(char *str)
@@ -46,7 +39,9 @@ char	*remove_quote(char *str)
 	{
 		if (flag_setter_quotes(flag, str, &i) == 1)
 			continue ;
-		if (is_quote_escaped(str, i, flag))
+		if (str[i] == '\\' && str[i + 1] == *flag
+			|| (str[i] == '\\' && str[i + 1] == '$'
+				&& *flag != '\''))
 			i++;
 		result[y++] = str[i++];
 	}
@@ -68,7 +63,6 @@ void	flag_quote(char c, char *flag)
 		*final_flag = 0;
 }
 
-	// printf("exp : %s\n", path_finder(g_minishell->env, convert_path(var + 1)));
 char	*do_replace(char *str, char *var, int i)
 {
 	char	*res;
@@ -112,34 +106,3 @@ char	*expand_export(char *str)
 	}
 	return (expand_dquotes(res));
 }
-
-char	*expand_dquotes(char *str)
-{
-	int		i;
-	char	*var;
-	char	*res;
-	char	*tmp;
-
-	if (!str || !*str)
-		return (NULL);
-	i = 0;
-	res = str;
-	while (res && res[i])
-	{
-		flag_quote(res[i], &g_minishell->quote_flag);
-		if (res[i] == '$'
-			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
-			&& (g_minishell->quote_flag != '\''
-				&& (!(i && res[i - 1] == '\\'))))
-		{
-			tmp = ft_strdup(res);
-			var = extract_variable(&tmp[i]);
-			res = do_replace(res, var, i);
-			continue ;
-		}
-		i++;
-	}
-	return (remove_quote(res));
-}
-
-			// i += ft_strlen(var);
