@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/30 19:21:22 by ahallali         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/30 19:07:17 by ichaiq           ###   ########.fr       */
->>>>>>> 3a9db069c76bc00b1d3820700603f22f792fbb0d
+/*   Updated: 2023/07/31 16:41:29 by lilnex           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +26,7 @@ int	check_n_arg(char *str)
 	return (0);
 }
 
+
 int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 {
 	char	*str;
@@ -42,20 +39,17 @@ int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 		str = args[i++];
 	while (str)
 	{
-		if (str)
+		if (*str == '-' && ft_strlen(str) > 1
+			&& (ft_check_n(str) == 0) && *count != -1 && *flag == 0)
 		{
-			if (*str == '-' && ft_strlen(str) > 1
-				&& (ft_check_n(str) == 0) && *count != -1 && *flag == 0)
-			{
-				(*count)++;
-				return (1);
-			}
-			else 
-				*flag = 1;
-			ft_putstr_fd(str, fd);
-			if (args[i] || (node->next && node->next->content))
-				ft_putstr_fd(" ", fd);
+			(*count)++;
+			return (1);
 		}
+		else 
+			*flag = 1;
+		ft_putstr_fd(str, fd);
+		if (args[i] || (node->next && node->next->content))
+			ft_putstr_fd(" ", fd);
 		str = args[i++];
 	}
 	return (0);
