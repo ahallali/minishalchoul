@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilnex <lilnex@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/31 16:44:06 by lilnex           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:08:07 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_flag_valid(char *flag, char *str, int i)
 int is_quote_escaped(char *str, int i, char *flag)
 {
 	return (str[i] == '\\' && str[i + 1] == *flag
-	|	|	(str[i] == '\\' && str[i + 1] == '$'
+		|| (str[i] == '\\' && str[i + 1] == '$'
 			&& *flag != '\''));
 }
 
