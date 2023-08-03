@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 21:03:01 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 01:14:01 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,27 @@ void	execute(t_minishell *g_minishell)
 		}
 		if (g_minishell->list_exec->next)
 			create_pipe(fd, &var.stdrout, &var.old_stdrin);
-		create_fork(g_minishell, &var, fd);
+		if (create_fork(g_minishell, &var, fd))
+			break;
 		g_minishell->list_exec = g_minishell->list_exec->next;
 	}
 	close_fd(&var.old, &var.old_out);
 	g_minishell->runned = 1;
 }
 
-void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
+int	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 {
 	pid_t	pid;
 
 	pid = fork();
+	g_minishell->pid=pid;
 	if (pid < 0)
 	{
 		perror("forkerror :");
-		do_clean_exit(NULL, 2, 1, 1);
+		close(fd[0]);
+		close(fd[1]);
+		close(var->stdrin);
+		return (1);
 	}
 	if (pid == 0)
 	{
@@ -67,6 +72,7 @@ void	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 	}
 	else
 		setup_parent_process(g_minishell, fd, &var->stdrin, &var->old_stdrin);
+	return (0);
 }
 
 void	close_fd(int *old, int *old_out)

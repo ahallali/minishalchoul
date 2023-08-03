@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 19:22:25 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:20:19 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_node	*movetodirectory(char *str, t_node *head)
 	char	*t;
 	char	*oldpwd;
 
+	t = NULL;
 	new = head;
 	oldpwd = getcwd(NULL, 0);
 	if (oldpwd)

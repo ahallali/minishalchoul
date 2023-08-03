@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/31 17:14:22 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:20:32 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_str(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '.' || str[i] == '.' && str[i + 1] == '.')
+	if (str[i] == '.' || (str[i] == '.' && str[i + 1] == '.'))
 		return (1);
 	return (0);
 }

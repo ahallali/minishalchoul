@@ -6,18 +6,18 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/31 17:14:17 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:52:31 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <errno.h>
 # include <unistd.h>
 # include <ctype.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <limits.h>
 # include <termios.h>
 # include <string.h>
@@ -127,6 +127,7 @@ typedef struct s_minishell
 	int						last_exitstatus;
 	char					*pwd_stored;
 	int						runned;
+	pid_t				pid;
 }	t_minishell;
 
 extern t_minishell						*g_minishell;
@@ -259,12 +260,12 @@ void							close_fd(int *old, int *old_out);
 void							exit_status(void);
 void							setup_parent_process(t_minishell *minishell, \
 									int *fd, int *stdrin, int *old_stdrin);
-void							wait_and_print_exit_status(void);
+void							wait_and_print_exit_status(pid_t pid);
 void							handle_builtin_redirection(t_minishell \
 									*minishell, int old, int old_out);
 void							setup_child_process(t_minishell *minishell, \
 									int *stdrin, int *stdrout, int *fd);
-void							create_fork(t_minishell *minishell, \
+int								create_fork(t_minishell *minishell, \
 									t_std *var, int *fd);
 void							init_var(t_std *var);
 int								is_valid_key(char *var);

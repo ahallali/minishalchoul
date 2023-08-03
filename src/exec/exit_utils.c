@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:09:20 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/30 19:14:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:10:24 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	is_path_directory(const char *path)
 
 	if (stat(path, &path_stat) != 0)
 		return (0);
+	else if (path[0] =='.')
+		return(do_clean_exit(join_cmd_err("minishell: command not found\n"), 2, 127, 1),0);
 	return (S_ISDIR(path_stat.st_mode));
 }
 
@@ -34,11 +36,8 @@ void	error_exec(char *path)
 		do_clean_exit(join_cmd_err("minishell: Permission denied\n"), 2, 126, 1);
 	else if (errno == EISDIR)
 		do_clean_exit(join_cmd_err("minishell:is a directory\n"), 2, 126, 1);
-	else if (errno == 14)
+	else 
 		do_clean_exit(join_cmd_err("minishell: command not found\n"), 2, 127, 1);
-	else
-		perror(join_cmd_err("minishell: ambiguous redirect"));
-	do_clean_exit("minishell", 2, 1, 1);
 }
 
 void	do_clean_exit(char *error_msg, int fd, int exit_status, int flag)

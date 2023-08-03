@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 19:30:09 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:44:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 t_minishell	*g_minishell;
 
-// void f()
-// {
-// 	system("leaks minishell");
-// }
+
 
 void	fill_export_minishell(t_minishell *g_minishell)
 {
@@ -58,7 +55,7 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	{
 		g_minishell->runned = 1;
 		execute(g_minishell);
-		wait_and_print_exit_status();
+		wait_and_print_exit_status(g_minishell->pid);
 	}
 	g_minishell->runned = 0;
 	return (0);

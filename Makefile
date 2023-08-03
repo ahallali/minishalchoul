@@ -1,6 +1,6 @@
 NAME = minishell
-CC = gcc
-CFLAGS = -I /Users/ahallali/goinfre/.brew/opt/readline/include  -g 
+CC = cc
+CFLAGS = -I/Users/ahallali/goinfre/.brew/opt/readline/include -Wall -Wextra -Werror 
 LDFLAGS = -lreadline
 SRCDIR = src
 OBJDIR = obj
@@ -18,7 +18,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUD)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS) $(LIB)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L /Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L/Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
 $(LIB):
 	make bonus -C libft

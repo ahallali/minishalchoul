@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/31 17:12:30 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:20:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 	int		i;
 
 	i = 0;
+	str = NULL;
 	args = ft_split(expand_dquotes(node->content), ' ');
 	if (args && *args)
 		str = args[i++];
@@ -49,6 +50,7 @@ int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 		ft_putstr_fd(str, fd);
 		if (args[i] || (node->next && node->next->content))
 			ft_putstr_fd(" ", fd);
+
 		str = args[i++];
 	}
 	return (0);

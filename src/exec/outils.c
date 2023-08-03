@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/31 17:12:04 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:20:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_unset(t_node **head, char *var)
 	t_node	*t;
 	t_node	*tmp;
 
+	tmp = NULL;
 	t = *head;
 	if (!head || !var)
 		return ;

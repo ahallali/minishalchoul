@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/31 17:40:57 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:21:15 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_quote_escaped(char *str, int i, char *flag)
 {
-	return (str[i] == '\\' && str[i + 1] == *flag
+	return ((str[i] == '\\' && str[i + 1] == *flag)
 		|| (str[i] == '\\' && str[i + 1] == '$'
 			&& *flag != '\''));
 }
