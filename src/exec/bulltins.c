@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bulltins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/03 00:20:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:22:30 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,12 @@ int	check_n_arg(char *str)
 int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 {
 	char	*str;
-	char	**args;
 	int		i;
 
 	i = 0;
 	str = NULL;
-	args = ft_split(expand_dquotes(node->content), ' ');
-	if (args && *args)
-		str = args[i++];
-	while (str)
+	str = expand_dquotes(node->content);
+	if (str)
 	{
 		if (*str == '-' && ft_strlen(str) > 1
 			&& (ft_check_n(str) == 0) && *count != -1 && *flag == 0)
@@ -48,10 +45,8 @@ int	print_echo_arg(t_list *node, int *count, int *flag, int fd)
 		else 
 			*flag = 1;
 		ft_putstr_fd(str, fd);
-		if (args[i] || (node->next && node->next->content))
+		if ((node->next && node->next->content))
 			ft_putstr_fd(" ", fd);
-
-		str = args[i++];
 	}
 	return (0);
 }
@@ -69,6 +64,7 @@ void	check_echo_arg(t_list *node, int fd)
 	tmp = node;
 	while (tmp)
 	{
+		// printf("\nreceived arg %s\n", ((char *)tmp->content));
 		print_echo_arg(tmp, &count, &flag, fd);
 		tmp = tmp->next;
 	}
