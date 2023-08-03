@@ -20,7 +20,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUD)
 $(NAME): $(OBJECTS) $(LIB)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L/Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
-$(LIB):
+$(LIB): libft/libft.h
 	make bonus -C libft
 
 clean:
