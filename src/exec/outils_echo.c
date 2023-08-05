@@ -61,7 +61,7 @@ int	check_cmd_num(char *cmd)
 	{
 		if (cmd[0] == '-' || cmd[0] == '+' || ft_isdigit(cmd[0]))
 		{
-			if (!check_numbers(&cmd[0]))
+			if (!check_numbers(cmd))
 				return (0);
 		}
 		else

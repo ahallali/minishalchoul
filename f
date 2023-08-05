@@ -1,5 +1,5 @@
 ls | exit 3
-seg fault " ' lstiter
+seg fault " ' lstiter   print_error
 echo $PATH$$PATH
 export a= add to env
-pwd old pwd error 
+pwd old pwd error   fixed

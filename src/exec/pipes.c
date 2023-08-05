@@ -68,6 +68,7 @@ int	is_inside_range(char *str)
 		return (1);
 	else if (ft_strlen(str) == ft_strlen(llmax))
 	{
+		puts("here");
 		if (ft_strncmp(str, llmax, ft_strlen(str)) > 0)
 			return (1);
 	}
@@ -90,8 +91,9 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		return ;
 	if (!cmd[0] || !*cmd[0])
 		exit(0);
-	if (check_cmd_num(cmd[0]) && !cmd[1])
+	if ((!check_cmd_num(cmd[0]) && !cmd[1]) || !is_inside_range(cmd[0]))
 	{
+		printf("%s\n", cmd[0]);
 		print_msg(cmd);
 		do_clean_exit(NULL, 2, 255, 1);
 	}
@@ -107,5 +109,5 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		g_minishell->last_exitstatus = 1;
 	}
 	else
-		do_clean_exit(NULL, 1, custom_atoi(cmd[0]) % 256, 0);
+		do_clean_exit(NULL, 1, custom_atoi(cmd[0]) % 256, 1);
 }
