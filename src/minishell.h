@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/03 00:52:31 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:55:24 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ typedef struct s_minishell
 	int						last_exitstatus;
 	char					*pwd_stored;
 	int						runned;
-	pid_t				pid;
+	pid_t					pid;
 }	t_minishell;
 
-extern t_minishell						*g_minishell;
+extern t_minishell				*g_minishell;
 t_exec_utils					*init_exec_utils(void);
 void							close_last_fd(int fd);
 char							*get_new_line(char *prompt,
@@ -254,7 +254,7 @@ void							fill_export_env(t_node **head);
 char							*get_home(t_minishell *minishell);
 void							parent_builtin_red(t_minishell *minishell, \
 										int old, int old_out);
-void							create_pipe(int *fd, int *stdrout, \
+int								create_pipe(int *fd, int *stdrout, \
 										int *old_stdrin);
 void							close_fd(int *old, int *old_out);
 void							exit_status(void);
@@ -292,6 +292,7 @@ void							builtin_next(t_minishell *g_minishell);
 t_node							*update_env(t_node *head, char *var, \
 								char *data);
 int								check_str(char *str);
+int								is_quote_escaped(char *str, int i, char *flag);
 int								flag_setter_quotes(char *flag, \
 								char *str, int *i);
 char							*join_cmd_err(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:21 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/03 01:14:01 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:57:53 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	execute(t_minishell *g_minishell)
 		g_minishell->list = (t_exec_utils *)g_minishell->list_exec->content;
 		if (!g_minishell->list->cmd)
 			break ;
-		if (size == 1 && \
-			is_builtin(g_minishell))
+		if (size == 1 && is_builtin(g_minishell))
 		{
 			parent_builtin_red(g_minishell, var.old, var.old_out);
 			break ;
@@ -43,7 +42,7 @@ void	execute(t_minishell *g_minishell)
 		if (g_minishell->list_exec->next)
 			create_pipe(fd, &var.stdrout, &var.old_stdrin);
 		if (create_fork(g_minishell, &var, fd))
-			break;
+			break ;
 		g_minishell->list_exec = g_minishell->list_exec->next;
 	}
 	close_fd(&var.old, &var.old_out);
@@ -55,7 +54,7 @@ int	create_fork(t_minishell *g_minishell, t_std *var, int *fd)
 	pid_t	pid;
 
 	pid = fork();
-	g_minishell->pid=pid;
+	g_minishell->pid = pid;
 	if (pid < 0)
 	{
 		perror("forkerror :");

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/03 00:20:32 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:06:35 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	get_pwd(char *pwd)
 		g_minishell->pwd_stored = ft_strdup(pwd);
 		ft_putstr_fd(pwd, 1);
 		ft_putstr_fd("\n", 1);
-		insert_node(&g_minishell->env, pwd, "PWD");
-		insert_node(&g_minishell->export, pwd, "PWD");
+		insert_node(&g_minishell->env, ft_strdup(pwd), "PWD");
+		insert_node(&g_minishell->export, ft_strdup(pwd), "PWD");
 		ft_free(pwd);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/03 00:20:19 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:07:50 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_node	*update_env(t_node *head, char *var, char *data)
 	while (t->next)
 	{
 		if (!ft_strcmp(t->variable, var))
-			t->value = data;
+			t->value = ft_strdup(data);
 		t = t->next;
 	}
 	return (head);
@@ -78,7 +78,11 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		if (path_finder(head->env, "HOME"))
 			tmp = path_finder(head->env, "HOME");
 		else
+		{
 			tmp = g_minishell->home;
+			ft_putstr_fd("minishell : cd :HOME not set\n", 2);
+			g_minishell->last_exitstatus = 1;
+		}
 		if (chdir(tmp) == 0)
 		{
 			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
@@ -97,7 +101,7 @@ void	tilda_and_movetodirectory(char **t, t_minishell *head,
 	oldpwd = NULL;
 	if (t[0][0] == '~')
 	{
-		oldpwd = path_finder(head->env, "OLDPWD");
+		oldpwd = path_finder(head->env, "PWD");
 		if (path_finder(head->env, "HOME"))
 			tmp = path_finder(head->env, "HOME");
 		else

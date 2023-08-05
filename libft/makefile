@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 17:55:18 by ahallali          #+#    #+#              #
-#    Updated: 2023/07/31 17:55:57 by ahallali         ###   ########.fr        #
+#    Updated: 2023/08/05 16:12:07 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJECTS = $(SOURCES:.c=.o)
 BOBJECTS = $(BSOURCES:.c=.o)
 
 CC = cc
-CFLAGS += -Wall -Wextra -Werror 
+CFLAGS += -Wall -Wextra -Werror  -g -fsanitize=address
 
 all: $(NAME)
 

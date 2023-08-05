@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:10:06 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/03 00:20:55 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:52:38 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	wait_and_print_exit_status(pid_t pid)
 {
 	int	status;
 
-	while (waitpid(pid,&status,0)!=-1)
+	while (waitpid(pid, &status, 0) != -1)
 	{
 		if (WIFSIGNALED(status))
 			check_signal(status);
 		else if (WIFEXITED(status))
 			g_minishell->last_exitstatus = WEXITSTATUS(status);
 	}
-	while (waitpid(-1,&status,0)!= -1);
-
+	while (waitpid(-1, &status, 0) != -1)
+		;
 }

@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/26 16:41:46 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 23:13:59 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	validate_quote(char *str)
 			}
 			else if (!quote)
 			{
+				ft_putstr_fd("QUOTES ERROR\n",2);
 				quote = str[i];
+				break;
+				return (256);
 			}
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:38:45 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/04 00:22:38 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/08/04 00:59:15 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	check_echo_arg(t_list *node, int fd)
 	tmp = node;
 	while (tmp)
 	{
-		// printf("\nreceived arg %s\n", ((char *)tmp->content));
 		print_echo_arg(tmp, &count, &flag, fd);
 		tmp = tmp->next;
 	}

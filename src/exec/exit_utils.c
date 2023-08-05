@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:09:20 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/08/03 00:10:24 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:59:54 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	is_path_directory(const char *path)
 
 	if (stat(path, &path_stat) != 0)
 		return (0);
-	else if (path[0] =='.')
-		return(do_clean_exit(join_cmd_err("minishell: command not found\n"), 2, 127, 1),0);
+	else if (path[0] == '.')
+		return (do_clean_exit(join_cmd_err("minishell: command not found\n"), 
+				2, 127, 1), 0);
 	return (S_ISDIR(path_stat.st_mode));
 }
 

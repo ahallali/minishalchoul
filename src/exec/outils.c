@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:20:13 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/04 00:24:50 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 01:00:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	del(char *str)
 	if (str)
 		free(str);
 }
-
-// t_node	*init_variable(t_node **head, char *var)
-// {
-// 	return (t);
-// }
 
 void	ft_unset_norm(t_node **head, t_node *t, t_node *tmp, char *var)
 {
@@ -82,7 +77,7 @@ void	ft_unset_args(t_list *l_args)
 	{
 		if (!is_valid_key(args[i]))
 		{
-			ft_putstr_fd("Not a valid identifier",2);
+			ft_putstr_fd("Not a valid identifier", 2);
 			g_minishell->last_exitstatus = 1;
 			return ;
 		}

@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/02 23:44:53 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:52:58 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_minishell	*g_minishell;
-
-
 
 void	fill_export_minishell(t_minishell *g_minishell)
 {
@@ -60,7 +58,6 @@ int	prompt_and_exec(t_parse_utils *p_prompt, char *line)
 	g_minishell->runned = 0;
 	return (0);
 }
-// atexit(f);
 
 int	main(int ac, char **av, char **env)
 {

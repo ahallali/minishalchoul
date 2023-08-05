@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   execution_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 04:08:11 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/30 19:27:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:58:07 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	create_pipe(int *fd, int *stdrout, int *old_stdrin)
+int	create_pipe(int *fd, int *stdrout, int *old_stdrin)
 {
 	if (pipe(fd) < 0)
 	{
 		perror("pipe:");
 		do_clean_exit(NULL, 2, 1, 1);
+		return (0);
 	}
 	else
 	{
 		*stdrout = fd[1];
 		*old_stdrin = fd[0];
+		return (1);
 	}
 }
 

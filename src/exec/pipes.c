@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/07/31 17:11:00 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/04 23:42:42 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,15 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		return ;
 	if (!cmd[0] || !*cmd[0])
 		exit(0);
-	if (check_cmd_num(cmd[0]) && !cmd[1])
-	{
-		print_msg(cmd);
-		exit(255);
-	}
-	else if (is_inside_range(cmd[0]))
+	if (check_cmd_num(cmd[0]) && !cmd[1] && is_inside_range(cmd[0]))
 	{
 		print_msg(cmd);
 		do_clean_exit(NULL, 2, 255, 1);
+	}
+	else if (!is_inside_range(cmd[0]))
+	{
+		print_msg(cmd);
+		exit(255);
 	}
 	else if (cmd[0] && cmd[1])
 	{
