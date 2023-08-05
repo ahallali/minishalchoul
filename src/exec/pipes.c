@@ -90,7 +90,7 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		return ;
 	if (!cmd[0] || !*cmd[0])
 		exit(0);
-	if (check_cmd_num(cmd[0]) && !cmd[1] && is_inside_range(cmd[0]))
+	if (check_cmd_num(cmd[0]) && !cmd[1])
 	{
 		print_msg(cmd);
 		do_clean_exit(NULL, 2, 255, 1);

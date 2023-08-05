@@ -71,8 +71,6 @@ void	print_list(t_node *head)
 	tmp = head;
 	while (tmp != NULL)
 	{
-		if (!tmp->value)
-			return;
 		if (tmp->value)
 			printf("%s=%s\n", tmp->variable, tmp->value);
 		tmp = tmp->next;

@@ -6,11 +6,7 @@
 #    By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 17:55:18 by ahallali          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/08/05 16:12:07 by ahallali         ###   ########.fr        #
-=======
 #    Updated: 2023/08/04 00:36:19 by ichaiq           ###   ########.fr        #
->>>>>>> fec7d3da6a948abd4f702a890927f7385281545f
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +29,7 @@ OBJECTS = $(SOURCES:.c=.o)
 BOBJECTS = $(BSOURCES:.c=.o)
 
 CC = cc
-CFLAGS += -Wall -Wextra -Werror  -g -fsanitize=address
+CFLAGS += -Wall -Wextra -Werror 
 
 all: $(NAME)
 
