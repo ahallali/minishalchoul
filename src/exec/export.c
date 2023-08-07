@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 23:47:03 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/30 19:27:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:51:38 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	parse_key_value(char *arg, char *op, int append)
 
 	key = ft_substr(arg, 0, op - arg - append);
 	value = ft_substr(arg, op - arg + 1, ft_strlen(arg));
-	update_node(key, expand_export(value), append);
+	if (value && *value)
+		update_node(key, expand_export(value), append);
+	else
+		update_node(key, ft_strdup(""), append);
 }
 
 void	add_value(char *arg, t_minishell *g_minishell)
