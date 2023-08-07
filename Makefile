@@ -6,13 +6,13 @@
 #    By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 00:42:34 by ichaiq            #+#    #+#              #
-#    Updated: 2023/08/07 23:13:54 by ahallali         ###   ########.fr        #
+#    Updated: 2023/08/08 00:18:34 by ahallali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -I/Users/ahallali/goinfre/.brew/opt/readline/include -Wall -Wextra -Werror 
+CFLAGS = -I/Users/ahallali/goinfre/.brew/opt/readline/include -Wall -Wextra -Werror
 SRCDIR = src
 LDFLAGS = -lreadline
 OBJDIR = obj
@@ -32,7 +32,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUD)
 $(NAME): $(OBJECTS) $(LIB)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME) -L/Users/ahallali/goinfre/.brew/opt/readline/lib $(LDFLAGS)
 
-$(LIB): libft/libft.h
+$(LIB): libft/*.c libft/*.h
 	make bonus -C libft
 
 clean:

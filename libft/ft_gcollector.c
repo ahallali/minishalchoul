@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gcollector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:06:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/08/07 22:40:36 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/08/07 23:51:10 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	add_gcol(void *ptr)
 void	free_node(t_list *node)
 {
 	free(node->content);
+	free(node);
 }
 
 void	ft_free(void *ptr)

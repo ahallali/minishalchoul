@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:11:50 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/07 23:13:08 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:22:17 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	go_to_oldpwd(char *oldpwd, char *pwd)
 	else
 	{
 		pwd = getcwd(NULL, 0);
+		add_gcol(pwd);
 		if (pwd)
 		{
 			if (chdir(oldpwd) == 0)
 			{
-				update_env(g_minishell->env, "OLDPWD", pwd);
-				update_env(g_minishell->env, "PWD", oldpwd);
+				set_env("OLDPWD", pwd);
+				set_env("PWD", oldpwd);
 				printf("%s\n", oldpwd);
 			}
 		}

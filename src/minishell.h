@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/07 23:14:59 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:08:45 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,4 +298,5 @@ int								flag_setter_quotes(char *flag, \
 char							*join_cmd_err(char *str);
 char							*expand_export(char *str);
 void							go_to_oldpwd(char *oldpwd, char *pwd);
+int								set_env(char *var, char *value);
 #endif

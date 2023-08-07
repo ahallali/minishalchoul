@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/05 16:07:50 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:06:14 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,20 @@ t_node	*update_env(t_node *head, char *var, char *data)
 	t = head;
 	if (!data)
 		return (head);
-	while (t->next)
+	while (t && t->next)
 	{
 		if (!ft_strcmp(t->variable, var))
 			t->value = ft_strdup(data);
 		t = t->next;
 	}
 	return (head);
+}
+
+int	set_env(char *var, char *value)
+{
+	insert_node(&g_minishell->env, value, var);
+	insert_node(&g_minishell->export, value, var);
+	return (1);
 }
 
 char	*path_finder(t_node *head, char *var)
@@ -85,8 +92,8 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		}
 		if (chdir(tmp) == 0)
 		{
-			update_env(head->env, "OLDPWD", path_finder(head->env, "PWD"));
-			insert_node(&g_minishell->env, tmp, "PWD");
+			set_env("OLDPWD", path_finder(head->env, "PWD"));
+			set_env("PWD", tmp);
 			g_minishell->pwd_stored = tmp;
 		}
 	}
@@ -110,8 +117,8 @@ void	tilda_and_movetodirectory(char **t, t_minishell *head,
 			tmp = g_minishell->home;
 		if (chdir(tmp) == 0)
 		{
-			insert_node(&g_minishell->env, oldpwd, "OLDPWD");
-			insert_node(&g_minishell->env, tmp, "PWD");
+			set_env("OLDPWD", oldpwd);
+			set_env("PWD", tmp);
 			g_minishell->pwd_stored = tmp;
 		}
 		return ;

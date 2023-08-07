@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/05 16:06:35 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:12:27 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ void	update_directory(char *str, char *oldpwd, char *t)
 {
 	if (chdir(str) == 0)
 	{
-		update_env(g_minishell->env, "OLDPWD", oldpwd);
+		set_env("OLDPWD", oldpwd);
 		t = getcwd(NULL, 0);
 		if (t)
 		{
-			update_env(g_minishell->env, "PWD", t);
+			set_env("PWD", t);
 			g_minishell->pwd_stored = ft_strdup(t);
 			ft_free(t);
-			ft_free(oldpwd);
 		}
 		else
 		{
@@ -45,7 +44,7 @@ void	update_directory(char *str, char *oldpwd, char *t)
 			if (check_str(str))
 			{
 				t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
-				insert_node(&g_minishell->env, t, "PWD");
+				set_env("PWD", t);
 				g_minishell->pwd_stored = ft_strdup(t);
 			}
 		}
