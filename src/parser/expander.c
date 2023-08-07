@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:32:14 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/08/04 00:59:07 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/08/07 22:19:20 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*expand_dquotes(char *str)
 	{
 		flag_quote(res[i], &g_minishell->quote_flag);
 		if (res[i] == '$'
-			&& !ft_strchr(" \t$\"\0", res[i + 1]) && res[i + 1] != '\0'
+			&& !ft_strchr(" \t\"\0", res[i + 1]) && res[i + 1] != '\0'
 			&& (g_minishell->quote_flag != '\''
 				&& (!(i && res[i - 1] == '\\'))))
 		{

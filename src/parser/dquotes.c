@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dquotes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:45:46 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/08/04 23:13:59 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:08:27 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	validate_quote(char *str)
 			{
 				ft_putstr_fd("QUOTES ERROR\n",2);
 				quote = str[i];
-				break;
-				return (256);
+				// break;
+				// return (256);
 			}
 		}
 		i++;

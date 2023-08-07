@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:59:44 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/04 23:42:42 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:40:21 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	is_inside_range(char *str)
 		return (1);
 	else if (ft_strlen(str) == ft_strlen(llmax))
 	{
-		puts("here");
 		if (ft_strncmp(str, llmax, ft_strlen(str)) > 0)
 			return (1);
 	}
@@ -91,16 +90,15 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		return ;
 	if (!cmd[0] || !*cmd[0])
 		exit(0);
-	if ((!check_cmd_num(cmd[0]) && !cmd[1]) || !is_inside_range(cmd[0]))
+	if (is_inside_range(cmd[0]))
 	{
-		printf("%s\n", cmd[0]);
 		print_msg(cmd);
 		do_clean_exit(NULL, 2, 255, 1);
 	}
-	else if (!is_inside_range(cmd[0]))
+	else if ((!check_cmd_num(cmd[0]) && !cmd[1]))
 	{
-		print_msg(cmd);
-		exit(255);
+		
+		do_clean_exit(NULL, 2, custom_atoi(cmd[0]) % 256, 1);
 	}
 	else if (cmd[0] && cmd[1])
 	{

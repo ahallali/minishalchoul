@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:33:45 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/08/04 23:15:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:19:46 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ char	*get_new_line(char *prompt, t_parse_utils *utils, char delimiter)
 	rl_getc_function = getc;
 	g_minishell->heredoc_flag = 1;
 	tmp = readline(prompt);
-	if (!tmp)
-		signal(SIGINT, SIG_ERR);
 	g_minishell->heredoc_flag = 0;
 	rl_catch_signals = 0;
 	return (tmp);

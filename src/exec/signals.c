@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:28:25 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/05 16:11:43 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:19:33 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	handler(int sig)
 {
 	char	cr;
 
-	(void)sig;
 	cr = 13;
 	if (g_minishell->heredoc_flag && sig == SIGINT)
 	{
