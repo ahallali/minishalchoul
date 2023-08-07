@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 16:16:31 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/04 00:55:24 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/08/07 23:14:59 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,4 +297,5 @@ int								flag_setter_quotes(char *flag, \
 								char *str, int *i);
 char							*join_cmd_err(char *str);
 char							*expand_export(char *str);
+void							go_to_oldpwd(char *oldpwd, char *pwd);
 #endif
