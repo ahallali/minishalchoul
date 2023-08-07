@@ -27,7 +27,11 @@ int	allocation_and_env(char **env)
 	if (!g_minishell)
 		return (0);
 	if (*env)
+	{
 		g_minishell->env = ft_env(env, g_minishell);
+		if (path_finder(g_minishell->env, "OLDPWD"))
+			update_env(g_minishell->env, "OLDPWD", "");
+	}
 	else
 		g_minishell->env = ft_empty();
 	return (1);

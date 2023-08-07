@@ -99,6 +99,7 @@ void	tilda_and_movetodirectory(char **t, t_minishell *head,
 	char	*oldpwd;
 	char	*pwd;
 
+	pwd = NULL;
 	oldpwd = NULL;
 	if (t[0][0] == '~')
 	{
@@ -116,27 +117,7 @@ void	tilda_and_movetodirectory(char **t, t_minishell *head,
 		return ;
 	}
 	else if (t[0][0] == '-')
-	{
-		oldpwd = path_finder(g_minishell->env, "OLDPWD");
-		if (!oldpwd)
-		{
-			ft_putstr_fd("minishell :cd : OLDPWD not set\n", 2);
-			g_minishell->last_exitstatus = 1;
-		}
-		else
-		{
-			pwd = getcwd(NULL, 0);
-			if (pwd)
-			{
-				if (chdir(oldpwd) == 0)
-				{
-					update_env(g_minishell->env, "OLDPWD", pwd);
-					update_env(g_minishell->env, "PWD", oldpwd);
-					printf("%s\n", pwd);
-				}
-			}
-		}
-	}
+		go_to_oldpwd(oldpwd, pwd);
 	else
 		new = movetodirectory(t[0], head->env);
 }

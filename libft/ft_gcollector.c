@@ -55,7 +55,6 @@ void	add_gcol(void *ptr)
 void	free_node(t_list *node)
 {
 	free(node->content);
-	// free(node);
 }
 
 void	ft_free(void *ptr)

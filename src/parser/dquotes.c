@@ -29,12 +29,7 @@ int	validate_quote(char *str)
 				quote = 0;
 			}
 			else if (!quote)
-			{
-				ft_putstr_fd("QUOTES ERROR\n",2);
 				quote = str[i];
-				// break;
-				// return (256);
-			}
 		}
 		i++;
 	}

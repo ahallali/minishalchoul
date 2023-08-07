@@ -96,10 +96,7 @@ void	ft_exit(t_minishell *g_minishell, char **cmd)
 		do_clean_exit(NULL, 2, 255, 1);
 	}
 	else if ((!check_cmd_num(cmd[0]) && !cmd[1]))
-	{
-		
 		do_clean_exit(NULL, 2, custom_atoi(cmd[0]) % 256, 1);
-	}
 	else if (cmd[0] && cmd[1])
 	{
 		ft_putstr_fd("exit\n", 2);
