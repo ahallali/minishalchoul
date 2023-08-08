@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/07/30 19:09:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 01:24:37 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_token_info	*token_delim(char *str, int *i, t_token_info *info)
 	info->word = ft_substr(str, 0, *i);
 	if (ft_strnchr(DELIMS_PARSE, str[*i], 2)
 		&& ft_strnchr(DELIMS_PARSE, str[*i + 1], 1))
-		return (perror("Syntax error : unexpected token found2"), \
+		return (g_minishell->sigint_flag = 1,
+			perror("Syntax error : unexpected token found"), \
 		g_minishell->last_exitstatus = 258, NULL);
 	info->limiter = &str[*i];
 	info->next_start = &str[*i + 1];
