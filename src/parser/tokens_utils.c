@@ -6,7 +6,7 @@
 /*   By: ichaiq <ichaiq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:09:42 by ichaiq            #+#    #+#             */
-/*   Updated: 2023/08/08 01:24:37 by ichaiq           ###   ########.fr       */
+/*   Updated: 2023/08/08 01:37:13 by ichaiq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ t_token_info	*token_io(char *str, int *i, t_token_info *info)
 	if ((ft_strnchr(IO_PARSE, str[*i + 1], 1)
 			&& ft_strnchr(IO_PARSE, str[*i + 2], 1))
 		|| (str[*i] == IO_PARSE[1] && str[*i + 1] == IO_PARSE[0]))
-		return (perror("minishell: syntax error near unexpected token"),
+		return (ft_putstr_fd("minishell: syntax error\n",
+			STDERR_FILENO),
 			g_minishell->last_exitstatus = 258, NULL);
 	while (str[*i + 1] == *c && !ft_strchr("<>", *c))
 		(*i)++;
@@ -69,7 +70,8 @@ t_token_info	*token_delim(char *str, int *i, t_token_info *info)
 	if (ft_strnchr(DELIMS_PARSE, str[*i], 2)
 		&& ft_strnchr(DELIMS_PARSE, str[*i + 1], 1))
 		return (g_minishell->sigint_flag = 1,
-			perror("Syntax error : unexpected token found"), \
+			ft_putstr_fd("minishell: syntax error\n",
+			STDERR_FILENO), \
 		g_minishell->last_exitstatus = 258, NULL);
 	info->limiter = &str[*i];
 	info->next_start = &str[*i + 1];
