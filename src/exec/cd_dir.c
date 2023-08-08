@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:46:28 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/08 00:12:27 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:47:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	update_directory(char *str, char *oldpwd, char *t)
 {
 	if (chdir(str) == 0)
 	{
-		set_env("OLDPWD", oldpwd);
+		set_env("OLDPWD", oldpwd, 0);
 		t = getcwd(NULL, 0);
 		if (t)
 		{
-			set_env("PWD", t);
+			set_env("PWD", t, 0);
 			g_minishell->pwd_stored = ft_strdup(t);
 			ft_free(t);
 		}
@@ -44,7 +44,7 @@ void	update_directory(char *str, char *oldpwd, char *t)
 			if (check_str(str))
 			{
 				t = ft_strjoin(g_minishell->pwd_stored, ft_strjoin("/", str));
-				set_env("PWD", t);
+				set_env("PWD", t, 0);
 				g_minishell->pwd_stored = ft_strdup(t);
 			}
 		}
@@ -74,7 +74,7 @@ int	check_str(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '.' || (str[i] == '.' && str[i + 1] == '.'))
+	if (str[i] == '.' || str[i] == '~' || (str[i] == '.' && str[i + 1] == '.'))
 		return (1);
 	return (0);
 }
@@ -86,15 +86,13 @@ void	get_pwd(char *pwd)
 		g_minishell->pwd_stored = ft_strdup(pwd);
 		ft_putstr_fd(pwd, 1);
 		ft_putstr_fd("\n", 1);
-		insert_node(&g_minishell->env, ft_strdup(pwd), "PWD");
-		insert_node(&g_minishell->export, ft_strdup(pwd), "PWD");
+		set_env("PWD", ft_strdup(pwd), 0);
 		ft_free(pwd);
 	}
 	else
 	{
 		ft_putstr_fd(g_minishell->pwd_stored, 1);
 		ft_putstr_fd("\n", 1);
-		insert_node(&g_minishell->env, g_minishell->pwd_stored, "PWD");
-		insert_node(&g_minishell->export, g_minishell->pwd_stored, "PWD");
+		set_env("PWD", ft_strdup(g_minishell->pwd_stored), 0);
 	}
 }

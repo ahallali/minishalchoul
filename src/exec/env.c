@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 01:35:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/08 00:11:10 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:31:11 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	insert_node(t_node **head, char *value, char *variable)
 	if (!variable)
 		return ;
 	new = create_node(value, variable);
+	if (value)
+		value = ft_strdup(value);
 	if (*head == NULL)
 		*head = new;
 	else
@@ -46,7 +48,7 @@ void	insert_node(t_node **head, char *value, char *variable)
 		{
 			if (ft_strequals(current->variable, variable))
 			{
-				current->value = ft_strdup(value);
+				current->value = value;
 				return ;
 			}
 			current = current->next;

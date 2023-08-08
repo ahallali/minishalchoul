@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 04:52:03 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/08 00:06:14 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:58:50 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,16 @@ t_node	*update_env(t_node *head, char *var, char *data)
 	return (head);
 }
 
-int	set_env(char *var, char *value)
+int	set_env(char *var, char *value, int insert_new)
 {
-	insert_node(&g_minishell->env, value, var);
-	insert_node(&g_minishell->export, value, var);
+	if (insert_new && get_node(g_minishell->env, var))
+		insert_node(&g_minishell->env, value, var);
+	else
+		update_env(g_minishell->env, var, value);
+	if (insert_new && get_node(g_minishell->export, var))
+		insert_node(&g_minishell->export, value, var);
+	else
+		update_env(g_minishell->export, var, value);
 	return (1);
 }
 
@@ -92,39 +98,10 @@ t_node	*ft_cd(t_minishell *head, char **t)
 		}
 		if (chdir(tmp) == 0)
 		{
-			set_env("OLDPWD", path_finder(head->env, "PWD"));
-			set_env("PWD", tmp);
+			set_env("OLDPWD", path_finder(head->env, "PWD"), 0);
+			set_env("PWD", tmp, 0);
 			g_minishell->pwd_stored = tmp;
 		}
 	}
 	return (new);
-}
-
-void	tilda_and_movetodirectory(char **t, t_minishell *head,
-				char *tmp, t_node *new)
-{
-	char	*oldpwd;
-	char	*pwd;
-
-	pwd = NULL;
-	oldpwd = NULL;
-	if (t[0][0] == '~')
-	{
-		oldpwd = path_finder(head->env, "PWD");
-		if (path_finder(head->env, "HOME"))
-			tmp = path_finder(head->env, "HOME");
-		else
-			tmp = g_minishell->home;
-		if (chdir(tmp) == 0)
-		{
-			set_env("OLDPWD", oldpwd);
-			set_env("PWD", tmp);
-			g_minishell->pwd_stored = tmp;
-		}
-		return ;
-	}
-	else if (t[0][0] == '-')
-		go_to_oldpwd(oldpwd, pwd);
-	else
-		new = movetodirectory(t[0], head->env);
 }

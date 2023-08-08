@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:56:47 by ahallali          #+#    #+#             */
-/*   Updated: 2023/08/08 00:20:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2023/08/08 00:40:14 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	allocation_and_env(char **env)
 	if (*env)
 	{
 		g_minishell->env = ft_env(env, g_minishell);
-		set_env("OLDPWD", "");
+		set_env("OLDPWD", NULL, 0);
 	}
 	else
 		g_minishell->env = ft_empty();
